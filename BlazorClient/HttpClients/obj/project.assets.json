@@ -1,11 +1,30 @@
 {
   "version": 3,
   "targets": {
-    "net7.0": {}
+    "net7.0": {
+      "Domain/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v7.0",
+        "compile": {
+          "bin/placeholder/Domain.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/Domain.dll": {}
+        }
+      }
+    }
   },
-  "libraries": {},
+  "libraries": {
+    "Domain/1.0.0": {
+      "type": "project",
+      "path": "../Domain/Domain.csproj",
+      "msbuildProject": "../Domain/Domain.csproj"
+    }
+  },
   "projectFileDependencyGroups": {
-    "net7.0": []
+    "net7.0": [
+      "Domain >= 1.0.0"
+    ]
   },
   "packageFolders": {
     "C:\\Users\\krist\\.nuget\\packages\\": {}
@@ -13,11 +32,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\krist\\RiderProjects\\BlazorClient\\HttpClients\\HttpClients.csproj",
+      "projectUniqueName": "C:\\Users\\krist\\RiderProjects\\BlazorClientAzure\\BlazorClient\\HttpClients\\HttpClients.csproj",
       "projectName": "HttpClients",
-      "projectPath": "C:\\Users\\krist\\RiderProjects\\BlazorClient\\HttpClients\\HttpClients.csproj",
+      "projectPath": "C:\\Users\\krist\\RiderProjects\\BlazorClientAzure\\BlazorClient\\HttpClients\\HttpClients.csproj",
       "packagesPath": "C:\\Users\\krist\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\krist\\RiderProjects\\BlazorClient\\HttpClients\\obj\\",
+      "outputPath": "C:\\Users\\krist\\RiderProjects\\BlazorClientAzure\\BlazorClient\\HttpClients\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\krist\\AppData\\Roaming\\NuGet\\NuGet.Config"
@@ -31,7 +50,11 @@
       "frameworks": {
         "net7.0": {
           "targetAlias": "net7.0",
-          "projectReferences": {}
+          "projectReferences": {
+            "C:\\Users\\krist\\RiderProjects\\BlazorClientAzure\\BlazorClient\\Domain\\Domain.csproj": {
+              "projectPath": "C:\\Users\\krist\\RiderProjects\\BlazorClientAzure\\BlazorClient\\Domain\\Domain.csproj"
+            }
+          }
         }
       },
       "warningProperties": {

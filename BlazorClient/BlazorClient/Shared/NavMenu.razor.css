@@ -1,5 +1,5 @@
 .navbar-toggler {
-    background-color: rgba(255, 255, 255, 0.1);
+    background-color: #2b2c52;
 }
 
 .top-row {
@@ -32,7 +32,8 @@
     }
 
     .nav-item ::deep a {
-        color: #d7d7d7;
+        /*color: #d7d7d7;*/
+        color: #f4f2f2;
         border-radius: 4px;
         height: 3rem;
         display: flex;
