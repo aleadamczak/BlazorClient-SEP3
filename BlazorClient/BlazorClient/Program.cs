@@ -1,13 +1,17 @@
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Web;
-using BlazorClient.Data;
+using HttpClients.Implementations;
+using HttpClients.Interfaces;
+using MudBlazor.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddRazorPages();
 builder.Services.AddServerSideBlazor();
-builder.Services.AddSingleton<WeatherForecastService>();
+builder.Services.AddMudServices();
+builder.Services.AddScoped<IUserService, UserHttpClient>();
+builder.Services.AddScoped<IFileService, FileHttpClient>();  
 
 var app = builder.Build();
 

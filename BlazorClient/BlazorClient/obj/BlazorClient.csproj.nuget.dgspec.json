@@ -1,17 +1,83 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\krist\\RiderProjects\\BlazorClient\\BlazorClient\\BlazorClient.csproj": {}
+    "C:\\Users\\krist\\RiderProjects\\BlazorClientAzure\\BlazorClient\\BlazorClient\\BlazorClient.csproj": {}
   },
   "projects": {
-    "C:\\Users\\krist\\RiderProjects\\BlazorClient\\BlazorClient\\BlazorClient.csproj": {
+    "C:\\Users\\krist\\RiderProjects\\BlazorClientAzure\\BlazorClient\\BlazorClient\\BlazorClient.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\krist\\RiderProjects\\BlazorClient\\BlazorClient\\BlazorClient.csproj",
+        "projectUniqueName": "C:\\Users\\krist\\RiderProjects\\BlazorClientAzure\\BlazorClient\\BlazorClient\\BlazorClient.csproj",
         "projectName": "BlazorClient",
-        "projectPath": "C:\\Users\\krist\\RiderProjects\\BlazorClient\\BlazorClient\\BlazorClient.csproj",
+        "projectPath": "C:\\Users\\krist\\RiderProjects\\BlazorClientAzure\\BlazorClient\\BlazorClient\\BlazorClient.csproj",
         "packagesPath": "C:\\Users\\krist\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\krist\\RiderProjects\\BlazorClient\\BlazorClient\\obj\\",
+        "outputPath": "C:\\Users\\krist\\RiderProjects\\BlazorClientAzure\\BlazorClient\\BlazorClient\\obj\\",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "C:\\Users\\krist\\AppData\\Roaming\\NuGet\\NuGet.Config"
+        ],
+        "originalTargetFrameworks": [
+          "net7.0"
+        ],
+        "sources": {
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net7.0": {
+            "targetAlias": "net7.0",
+            "projectReferences": {
+              "C:\\Users\\krist\\RiderProjects\\BlazorClientAzure\\BlazorClient\\HttpClients\\HttpClients.csproj": {
+                "projectPath": "C:\\Users\\krist\\RiderProjects\\BlazorClientAzure\\BlazorClient\\HttpClients\\HttpClients.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "net7.0": {
+          "targetAlias": "net7.0",
+          "dependencies": {
+            "MudBlazor": {
+              "target": "Package",
+              "version": "[6.2.2, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.AspNetCore.App": {
+              "privateAssets": "none"
+            },
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.102\\RuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "C:\\Users\\krist\\RiderProjects\\BlazorClientAzure\\BlazorClient\\Domain\\Domain.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "C:\\Users\\krist\\RiderProjects\\BlazorClientAzure\\BlazorClient\\Domain\\Domain.csproj",
+        "projectName": "Domain",
+        "projectPath": "C:\\Users\\krist\\RiderProjects\\BlazorClientAzure\\BlazorClient\\Domain\\Domain.csproj",
+        "packagesPath": "C:\\Users\\krist\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\krist\\RiderProjects\\BlazorClientAzure\\BlazorClient\\Domain\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\krist\\AppData\\Roaming\\NuGet\\NuGet.Config"
@@ -49,9 +115,63 @@
           "assetTargetFallback": true,
           "warn": true,
           "frameworkReferences": {
-            "Microsoft.AspNetCore.App": {
-              "privateAssets": "none"
-            },
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.102\\RuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "C:\\Users\\krist\\RiderProjects\\BlazorClientAzure\\BlazorClient\\HttpClients\\HttpClients.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "C:\\Users\\krist\\RiderProjects\\BlazorClientAzure\\BlazorClient\\HttpClients\\HttpClients.csproj",
+        "projectName": "HttpClients",
+        "projectPath": "C:\\Users\\krist\\RiderProjects\\BlazorClientAzure\\BlazorClient\\HttpClients\\HttpClients.csproj",
+        "packagesPath": "C:\\Users\\krist\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\krist\\RiderProjects\\BlazorClientAzure\\BlazorClient\\HttpClients\\obj\\",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "C:\\Users\\krist\\AppData\\Roaming\\NuGet\\NuGet.Config"
+        ],
+        "originalTargetFrameworks": [
+          "net7.0"
+        ],
+        "sources": {
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net7.0": {
+            "targetAlias": "net7.0",
+            "projectReferences": {
+              "C:\\Users\\krist\\RiderProjects\\BlazorClientAzure\\BlazorClient\\Domain\\Domain.csproj": {
+                "projectPath": "C:\\Users\\krist\\RiderProjects\\BlazorClientAzure\\BlazorClient\\Domain\\Domain.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "net7.0": {
+          "targetAlias": "net7.0",
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
             "Microsoft.NETCore.App": {
               "privateAssets": "all"
             }
