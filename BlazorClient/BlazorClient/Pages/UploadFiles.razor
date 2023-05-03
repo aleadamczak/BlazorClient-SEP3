@@ -1,12 +1,71 @@
 ﻿@page "/UploadFiles"
+@using HttpClients.Interfaces
+@inject IFileService FileService
+@inject IUserService UserService
 <h3>UploadFiles</h3>
 
 
+
+<MudTextField @bind-Value="Title" Label="Title" Variant="Variant.Text"></MudTextField>
+<MudTextField @bind-Value="Description" Label="File Description" Variant="Variant.Text"></MudTextField>
+<MudTextField @bind-Value="Username" Label="Username" Variant="Variant.Text"></MudTextField>
 <InputFile OnChange="@LoadFiles" />
+<MudButton OnClick="@CreateAsync" Variant="Variant.Filled" Color="Color.Primary"> Submit File </MudButton>
+
+@if (!string.IsNullOrEmpty(message))
+{
+    <div>
+        <span>@message</span>
+    </div>
+}
 
 @code {
+
+    private IBrowserFile? file;
+    private string Title { get; set; } = "";
+    private string Description { get; set; } = "";
+    private string Username { get; set; } = "";
+    private string message = ""; 
+
     private void LoadFiles(InputFileChangeEventArgs e)
     {
-       
+        file = e.GetMultipleFiles().FirstOrDefault();
     }
+
+    private async void CreateAsync()
+    {
+       
+        if (file != null)
+
+        {
+            byte[] bytes = new byte[file.Size]; 
+            using (var ms = new MemoryStream())
+            {
+                await file.OpenReadStream().CopyToAsync(ms);
+                bytes = ms.ToArray();
+            }
+
+            try
+            {
+                var newFile = new Domain.Models.File
+                {
+                    Title = Title,
+                    Description = Description,
+                    Bytes = bytes,
+                    UploadedByUser = await UserService.GetByUsernameAsync(Username),
+                };
+
+                await FileService.CreateAsync(newFile);
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                message = e.Message;
+            }
+
+
+            Console.WriteLine("File sent to the service");
+        }
+    }
+
 }
