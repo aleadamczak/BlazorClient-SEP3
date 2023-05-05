@@ -28,4 +28,17 @@ public class FileHttpClient : IFileService
         })!;
         return newFile;
     }
+
+    public async Task<File> GetAsync(int id)
+    {
+        var response = await client.GetAsync("http://localhost:8080/downloadFile/{id}");
+        var result = await response.Content.ReadAsStringAsync();
+        if (!response.IsSuccessStatusCode) throw new Exception(result);
+
+        var newFile= JsonSerializer.Deserialize<File>(result, new JsonSerializerOptions
+        {
+            PropertyNameCaseInsensitive = true
+        })!;
+        return newFile;
+    }
 }
