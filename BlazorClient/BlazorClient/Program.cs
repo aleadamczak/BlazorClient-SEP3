@@ -12,7 +12,8 @@ builder.Services.AddServerSideBlazor();
 builder.Services.AddMudServices();
 builder.Services.AddHttpClient();
 builder.Services.AddScoped<IUserService, UserHttpClient>();
-builder.Services.AddScoped<IFileService, FileHttpClient>();  
+builder.Services.AddScoped<IFileService, FileHttpClient>();
+builder.Services.AddScoped<ICategoryService, CategoryHttpClient>();
 
 var app = builder.Build();
 
