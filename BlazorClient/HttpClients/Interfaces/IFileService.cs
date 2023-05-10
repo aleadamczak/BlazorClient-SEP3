@@ -11,4 +11,6 @@ public interface IFileService
 
     Task<File> GetAsync(int id);
 
+    Task<IEnumerable<File>> GetAllAsync();
+
 }

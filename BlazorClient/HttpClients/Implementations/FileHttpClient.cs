@@ -1,6 +1,8 @@
 ﻿using System.Net.Http.Json;
 using System.Text.Json;
 using Domain.DTOs;
+using System.Text.Json.Serialization;
+using Domain.Models;
 using HttpClients.Interfaces;
 using File = Domain.Models.File;
 
@@ -42,4 +44,27 @@ public class FileHttpClient : IFileService
         })!;
         return newFile;
     }
+
+
+
+public async Task<IEnumerable<File>> GetAllAsync()
+{
+    Console.WriteLine("Accessing Java Server to get all files");
+    var response = await client.GetAsync("http://localhost:8080/getAllFiles");
+
+    if (!response.IsSuccessStatusCode) throw new Exception(response.ReasonPhrase);
+
+    var options = new JsonSerializerOptions
+    {
+        PropertyNameCaseInsensitive = true,
+        Converters =
+        {
+            new JsonStringEnumConverter()
+        }
+    };
+
+    var files = await response.Content.ReadFromJsonAsync<List<File>>(options);
+
+    return files;
+}
 }
