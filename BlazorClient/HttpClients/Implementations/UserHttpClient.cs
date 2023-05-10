@@ -16,7 +16,7 @@ public class UserHttpClient : IUserService
     }
     public async Task<User> GetByUsernameAsync(string username)
     {
-        var response = await client.GetAsync("http://localhost:8080/getUser");
+        var response = await client.GetAsync("http://localhost:8080/getUser/" + username );
        
         var result = await response.Content.ReadAsStringAsync();
 

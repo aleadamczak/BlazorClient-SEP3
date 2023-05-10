@@ -1,5 +1,6 @@
 ﻿using System.Net.Http.Json;
 using System.Text.Json;
+using Domain.DTOs;
 using System.Text.Json.Serialization;
 using Domain.Models;
 using HttpClients.Interfaces;
@@ -10,7 +11,6 @@ namespace HttpClients.Implementations;
 public class FileHttpClient : IFileService
 {
     private readonly HttpClient client;
-    
     public FileHttpClient(HttpClient client)
     {
         this.client = client;
@@ -23,6 +23,19 @@ public class FileHttpClient : IFileService
        
         var result = await response.Content.ReadAsStringAsync();
 
+        if (!response.IsSuccessStatusCode) throw new Exception(result);
+
+        var newFile= JsonSerializer.Deserialize<File>(result, new JsonSerializerOptions
+        {
+            PropertyNameCaseInsensitive = true
+        })!;
+        return newFile;
+    }
+
+    public async Task<File> GetAsync(int id)
+    {
+        var response = await client.GetAsync("http://localhost:8080/downloadFile/{id}");
+        var result = await response.Content.ReadAsStringAsync();
         if (!response.IsSuccessStatusCode) throw new Exception(result);
 
         var newFile= JsonSerializer.Deserialize<File>(result, new JsonSerializerOptions
