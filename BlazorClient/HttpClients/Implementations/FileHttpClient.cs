@@ -16,7 +16,7 @@ public class FileHttpClient : IFileService
         this.client = client;
     }
     
-    public async Task<File> CreateAsync(File file)
+    public async Task<File> CreateAsync(FileCreationDto file)
     {
         Console.WriteLine("file sent to the java server");
         var response = await client.PostAsJsonAsync("http://localhost:8080/uploadFile", file);
