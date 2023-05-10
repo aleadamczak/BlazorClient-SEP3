@@ -561,19 +561,19 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\krist\\.nuget\\packages\\": {}
+    "C:\\Users\\domog\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\krist\\RiderProjects\\BlazorClientAzure\\BlazorClient\\HttpClients\\HttpClients.csproj",
+      "projectUniqueName": "C:\\Users\\domog\\RiderProjects\\BlazorClientSEP3\\BlazorClient\\HttpClients\\HttpClients.csproj",
       "projectName": "HttpClients",
-      "projectPath": "C:\\Users\\krist\\RiderProjects\\BlazorClientAzure\\BlazorClient\\HttpClients\\HttpClients.csproj",
-      "packagesPath": "C:\\Users\\krist\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\krist\\RiderProjects\\BlazorClientAzure\\BlazorClient\\HttpClients\\obj\\",
+      "projectPath": "C:\\Users\\domog\\RiderProjects\\BlazorClientSEP3\\BlazorClient\\HttpClients\\HttpClients.csproj",
+      "packagesPath": "C:\\Users\\domog\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\domog\\RiderProjects\\BlazorClientSEP3\\BlazorClient\\HttpClients\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\krist\\AppData\\Roaming\\NuGet\\NuGet.Config"
+        "C:\\Users\\domog\\AppData\\Roaming\\NuGet\\NuGet.Config"
       ],
       "originalTargetFrameworks": [
         "net7.0"
@@ -585,8 +585,8 @@
         "net7.0": {
           "targetAlias": "net7.0",
           "projectReferences": {
-            "C:\\Users\\krist\\RiderProjects\\BlazorClientAzure\\BlazorClient\\Domain\\Domain.csproj": {
-              "projectPath": "C:\\Users\\krist\\RiderProjects\\BlazorClientAzure\\BlazorClient\\Domain\\Domain.csproj"
+            "C:\\Users\\domog\\RiderProjects\\BlazorClientSEP3\\BlazorClient\\Domain\\Domain.csproj": {
+              "projectPath": "C:\\Users\\domog\\RiderProjects\\BlazorClientSEP3\\BlazorClient\\Domain\\Domain.csproj"
             }
           }
         }
@@ -616,7 +616,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.102\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.200\\RuntimeIdentifierGraph.json"
       }
     }
   }

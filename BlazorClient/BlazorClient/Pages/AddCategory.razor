@@ -1,0 +1,43 @@
+﻿
+@inject ICategoryService CategoryService
+@page "/addCategory"
+@using HttpClients.Interfaces
+
+<h3>AddCategory</h3>
+
+<MudTextField @bind-Value="TextValue" Label="Outlined" Variant="Variant.Outlined"></MudTextField>
+<MudButton  OnClick="@CreateAsync" Variant="Variant.Filled" Color="Color.Primary">Primary</MudButton>
+
+@code
+{
+    public string? TextValue { get; set; }
+    private string message = "";
+
+
+    private async void CreateAsync()
+    {
+        
+        if (TextValue != null)
+        {
+
+            try
+            {
+                var newCategory = new Domain.Models.Category
+                {
+                    name = TextValue
+                };
+
+                await CategoryService.CreateAsync(newCategory);
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                message = e.Message;
+            }
+
+
+            Console.WriteLine("File sent to the service");
+        }
+
+    }
+}
