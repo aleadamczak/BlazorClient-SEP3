@@ -9,4 +9,6 @@ public interface IFileService
 
     Task<File> CreateAsync(File file);
 
+    Task<File> GetAsync(int id);
+
 }
