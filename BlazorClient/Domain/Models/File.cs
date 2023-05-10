@@ -4,7 +4,7 @@ namespace Domain.Models;
 
 public class File
 {
-    public User UploadedByUser { get; set; }
+    public User UploadedBy { get; set; }
     public string Title { get; set; }
     public string Description { get; set; }
 

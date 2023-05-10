@@ -1,5 +1,7 @@
 ﻿@page "/UploadFiles"
 @using HttpClients.Interfaces
+@using Domain.DTOs
+@using Domain.Models
 @inject IFileService FileService
 @inject IUserService UserService
 <h3>UploadFiles</h3>
@@ -47,14 +49,15 @@
 
             try
             {
-                var newFile = new Domain.Models.File
+
+                var newFile = new FileCreationDto()
                 {
                     Title = Title,
                     Description = Description,
                     Bytes = bytes,
-                    UploadedByUser = await UserService.GetByUsernameAsync(Username),
+                    UploadedBy = await UserService.GetByUsernameAsync(Username)
                 };
-
+                
                 await FileService.CreateAsync(newFile);
             }
             catch (Exception e)
