@@ -7,6 +7,10 @@ namespace HttpClients.Interfaces;
 public interface IFileService
 {
 
-    Task<File> CreateAsync(File file);
+    Task<File> CreateAsync(FileCreationDto file);
+
+    Task<File> GetAsync(int id);
+
+    Task<IEnumerable<File>> GetAllAsync();
 
 }

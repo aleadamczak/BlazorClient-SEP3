@@ -1,0 +1,122 @@
+@page "/ViewFiles"
+@using Domain.Models
+@using HttpClients.Implementations
+@using HttpClients.Interfaces
+@using MudBlazor.Extensions
+
+@inject IFileService FileService
+
+<style>
+    .selected {
+        background-color: #1E88E5 !important;
+    }
+
+        .selected > td {
+            color: black !important;
+        }
+
+            .selected > td .mud-input {
+                color: black !important;
+            }
+</style>
+
+<h1>All Files</h1>
+
+<MudTable Items="@files" Hover="true" Breakpoint="Breakpoint.Sm" @ref="mudTable" RowClassFunc="@SelectedRowClassFunc" Filter="new Func<File,bool>(FilterFunc1)" @bind-SelectedItem="selectedFile">
+     <ToolBarContent>
+         @* <MudText Typo="Typo.h6">File List</MudText> *@
+         <MudButton Variant="Variant.Filled" EndIcon="@Icons.Material.Filled.ArrowRight" Style="background-color: #1E88E5; color: black; width: 200px; height: 60px;">
+             Open Selected
+         </MudButton>
+         <MudSpacer />
+         <MudTextField @bind-Value="searchString1" Placeholder="Search" Adornment="Adornment.Start" AdornmentIcon="@Icons.Material.Filled.Search" IconSize="Size.Medium" Class="mt-0"></MudTextField>
+     </ToolBarContent>
+     <HeaderContent>
+         <MudTh>Title</MudTh>
+         <MudTh>Category</MudTh>
+         <MudTh>Description</MudTh>
+         <MudTh>Uploaded By</MudTh>
+         <MudTh>File Type</MudTh>
+     </HeaderContent>
+     <RowTemplate>
+         <MudTd DataLabel="Title">@context.Title</MudTd>
+         <MudTd DataLabel="Category">@context.Category</MudTd>
+         <MudTd DataLabel="Description">@context.Description</MudTd>
+         <MudTd DataLabel="Uploaded By">@context.UploadedByUser</MudTd>
+         <MudTd DataLabel="File Type">@context.UploadedByUser</MudTd>
+     </RowTemplate>
+     <PagerContent>
+         <MudTablePager />
+     </PagerContent>
+ </MudTable>
+ 
+ <div class="d-flex flex-wrap mt-4">
+     <div style="min-width:200px;">
+         <MudText Inline="true" Class="align-self-center">Selected: @selectedFile?.Title</MudText>
+     </div>
+ </div>
+
+@code {
+    
+    private IEnumerable<File>? files { get; set; }
+    
+    private int selectedRowNumber = -1;
+    private MudTable<File> mudTable;
+    
+    private string searchString1 = "";
+    private File selectedFile = null;
+    private HashSet<File> selectedFiles = new HashSet<File>();
+    
+    private bool FilterFunc1(File file) => FilterFunc(file, searchString1);
+ 
+    private bool FilterFunc(File file, string searchString)
+    {
+        if (string.IsNullOrWhiteSpace(searchString))
+            return true;
+        if (file.Title.Contains(searchString, StringComparison.OrdinalIgnoreCase))
+            return true;
+        return false;
+    }
+ 
+    
+    private string SelectedRowClassFunc(File element, int rowNumber)
+    {
+        if (selectedRowNumber == rowNumber)
+        {
+            selectedRowNumber = -1;
+            return string.Empty;
+
+        }
+        if (mudTable.SelectedItem != null && mudTable.SelectedItem.Equals(element))
+        {
+            selectedRowNumber = rowNumber;
+            return "selected";
+
+        }
+        
+        return string.Empty;
+    }
+
+    protected override async Task OnInitializedAsync()
+    {
+
+        try
+        {
+            files = await FileService.GetAllAsync();
+            
+            //Old test
+            
+            // foreach (var file in files)
+            // {
+            //     Console.WriteLine(file.Title);
+            // }
+           
+        }
+        catch (Exception)
+        {
+            Console.WriteLine("Exception occured when fetching file data");
+        }
+
+    }
+    
+}
