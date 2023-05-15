@@ -9,5 +9,6 @@ public class FileCreationDto
     public string Description { get; set; }
     public string Category { get; set; }
     public byte[] Bytes { get; set; }
-    
+    public string ContentType { get; set; }
+
 }

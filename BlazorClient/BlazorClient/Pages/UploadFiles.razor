@@ -1,9 +1,9 @@
 ﻿@page "/UploadFiles"
-@using HttpClients.Interfaces
-@using Domain.DTOs
-@using Domain.Models
-@inject IFileService FileService
-@inject IUserService UserService
+@using Google.Protobuf
+@using BlazorClient.gRPCClients.Interfaces
+
+@inject IUserService UsergRpcClient
+@inject IFileService FilegRpcClient;
 <h3>UploadFiles</h3>
 
 
@@ -27,11 +27,13 @@
     private string Title { get; set; } = "";
     private string Description { get; set; } = "";
     private string Username { get; set; } = "";
-    private string message = ""; 
+    private string message = "";
+    private string contentType { get; set; } = "";
 
     private void LoadFiles(InputFileChangeEventArgs e)
     {
         file = e.GetMultipleFiles().FirstOrDefault();
+        contentType = file.ContentType;
     }
 
     private async void CreateAsync()
@@ -49,16 +51,21 @@
 
             try
             {
-
+                // User? existing = UserService.GetByUsernameAsync(Username);
                 var newFile = new FileCreationDto()
                 {
                     Title = Title,
                     Description = Description,
-                    Bytes = bytes,
-                    UploadedBy = await UserService.GetByUsernameAsync(Username)
+                    Bytes = ByteString.CopyFrom(bytes),
+                    UploadedBy = await UsergRpcClient.GetByUsernameAsync(Username),
+                    ContentType = contentType,
+                    Category = new Category()
+                    {
+                        Name = "opsa"
+                    }
                 };
                 
-                await FileService.CreateAsync(newFile);
+                await FilegRpcClient.CreateAsync(newFile);
             }
             catch (Exception e)
             {
