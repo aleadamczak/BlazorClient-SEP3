@@ -7,15 +7,34 @@
     </PropertyGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\HttpClients\HttpClients.csproj" />
+      <ProjectReference Include="..\gRPCClients\gRPCClients.csproj" />
     </ItemGroup>
 
     <ItemGroup>
+      <PackageReference Include="Google.Protobuf" Version="3.23.0" />
+      <PackageReference Include="Google.Protobuf.Tools" Version="3.23.0" />
+      <PackageReference Include="Grpc.Core" Version="2.46.6" />
+      <PackageReference Include="Grpc.Net.Client" Version="2.53.0" />
+      <PackageReference Include="Grpc.Net.Client.Web" Version="2.53.0" />
+      <PackageReference Include="Grpc.Net.ClientFactory" Version="2.53.0" />
+      <PackageReference Include="Grpc.Tools" Version="2.54.0">
+        <PrivateAssets>all</PrivateAssets>
+        <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+      </PackageReference>
       <PackageReference Include="MudBlazor" Version="6.2.2" />
     </ItemGroup>
 
     <ItemGroup>
       <Folder Include="Data" />
+      <Folder Include="Generated" />
+      <Folder Include="Generated\proto" />
     </ItemGroup>
+
+    <ItemGroup>
+        <Protobuf Include="proto\logicserver.proto" GrpcServices="Client" OutputDir="Generated" />
+    </ItemGroup>
+
+
+
 
 </Project>

@@ -1,20 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\domog\\RiderProjects\\BlazorClientSEP3\\BlazorClient\\BlazorClient\\BlazorClient.csproj": {}
+    "C:\\Users\\krist\\RiderProjects\\BlazorClientAzure\\BlazorClient\\BlazorClient\\BlazorClient.csproj": {}
   },
   "projects": {
-    "C:\\Users\\domog\\RiderProjects\\BlazorClientSEP3\\BlazorClient\\BlazorClient\\BlazorClient.csproj": {
+    "C:\\Users\\krist\\RiderProjects\\BlazorClientAzure\\BlazorClient\\BlazorClient\\BlazorClient.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\domog\\RiderProjects\\BlazorClientSEP3\\BlazorClient\\BlazorClient\\BlazorClient.csproj",
+        "projectUniqueName": "C:\\Users\\krist\\RiderProjects\\BlazorClientAzure\\BlazorClient\\BlazorClient\\BlazorClient.csproj",
         "projectName": "BlazorClient",
-        "projectPath": "C:\\Users\\domog\\RiderProjects\\BlazorClientSEP3\\BlazorClient\\BlazorClient\\BlazorClient.csproj",
-        "packagesPath": "C:\\Users\\domog\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\domog\\RiderProjects\\BlazorClientSEP3\\BlazorClient\\BlazorClient\\obj\\",
+        "projectPath": "C:\\Users\\krist\\RiderProjects\\BlazorClientAzure\\BlazorClient\\BlazorClient\\BlazorClient.csproj",
+        "packagesPath": "C:\\Users\\krist\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\krist\\RiderProjects\\BlazorClientAzure\\BlazorClient\\BlazorClient\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\domog\\AppData\\Roaming\\NuGet\\NuGet.Config"
+          "C:\\Users\\krist\\AppData\\Roaming\\NuGet\\NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "net7.0"
@@ -26,8 +26,8 @@
           "net7.0": {
             "targetAlias": "net7.0",
             "projectReferences": {
-              "C:\\Users\\domog\\RiderProjects\\BlazorClientSEP3\\BlazorClient\\HttpClients\\HttpClients.csproj": {
-                "projectPath": "C:\\Users\\domog\\RiderProjects\\BlazorClientSEP3\\BlazorClient\\HttpClients\\HttpClients.csproj"
+              "C:\\Users\\krist\\RiderProjects\\BlazorClientAzure\\BlazorClient\\gRPCClients\\gRPCClients.csproj": {
+                "projectPath": "C:\\Users\\krist\\RiderProjects\\BlazorClientAzure\\BlazorClient\\gRPCClients\\gRPCClients.csproj"
               }
             }
           }
@@ -42,6 +42,36 @@
         "net7.0": {
           "targetAlias": "net7.0",
           "dependencies": {
+            "Google.Protobuf": {
+              "target": "Package",
+              "version": "[3.23.0, )"
+            },
+            "Google.Protobuf.Tools": {
+              "target": "Package",
+              "version": "[3.23.0, )"
+            },
+            "Grpc.Core": {
+              "target": "Package",
+              "version": "[2.46.6, )"
+            },
+            "Grpc.Net.Client": {
+              "target": "Package",
+              "version": "[2.53.0, )"
+            },
+            "Grpc.Net.Client.Web": {
+              "target": "Package",
+              "version": "[2.53.0, )"
+            },
+            "Grpc.Net.ClientFactory": {
+              "target": "Package",
+              "version": "[2.53.0, )"
+            },
+            "Grpc.Tools": {
+              "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[2.54.0, )"
+            },
             "MudBlazor": {
               "target": "Package",
               "version": "[6.2.2, )"
@@ -66,21 +96,21 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.200\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.102\\RuntimeIdentifierGraph.json"
         }
       }
     },
-    "C:\\Users\\domog\\RiderProjects\\BlazorClientSEP3\\BlazorClient\\Domain\\Domain.csproj": {
+    "C:\\Users\\krist\\RiderProjects\\BlazorClientAzure\\BlazorClient\\Domain\\Domain.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\domog\\RiderProjects\\BlazorClientSEP3\\BlazorClient\\Domain\\Domain.csproj",
+        "projectUniqueName": "C:\\Users\\krist\\RiderProjects\\BlazorClientAzure\\BlazorClient\\Domain\\Domain.csproj",
         "projectName": "Domain",
-        "projectPath": "C:\\Users\\domog\\RiderProjects\\BlazorClientSEP3\\BlazorClient\\Domain\\Domain.csproj",
-        "packagesPath": "C:\\Users\\domog\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\domog\\RiderProjects\\BlazorClientSEP3\\BlazorClient\\Domain\\obj\\",
+        "projectPath": "C:\\Users\\krist\\RiderProjects\\BlazorClientAzure\\BlazorClient\\Domain\\Domain.csproj",
+        "packagesPath": "C:\\Users\\krist\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\krist\\RiderProjects\\BlazorClientAzure\\BlazorClient\\Domain\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\domog\\AppData\\Roaming\\NuGet\\NuGet.Config"
+          "C:\\Users\\krist\\AppData\\Roaming\\NuGet\\NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "net7.0"
@@ -125,21 +155,21 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.200\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.102\\RuntimeIdentifierGraph.json"
         }
       }
     },
-    "C:\\Users\\domog\\RiderProjects\\BlazorClientSEP3\\BlazorClient\\HttpClients\\HttpClients.csproj": {
+    "C:\\Users\\krist\\RiderProjects\\BlazorClientAzure\\BlazorClient\\gRPCClients\\gRPCClients.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\domog\\RiderProjects\\BlazorClientSEP3\\BlazorClient\\HttpClients\\HttpClients.csproj",
-        "projectName": "HttpClients",
-        "projectPath": "C:\\Users\\domog\\RiderProjects\\BlazorClientSEP3\\BlazorClient\\HttpClients\\HttpClients.csproj",
-        "packagesPath": "C:\\Users\\domog\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\domog\\RiderProjects\\BlazorClientSEP3\\BlazorClient\\HttpClients\\obj\\",
+        "projectUniqueName": "C:\\Users\\krist\\RiderProjects\\BlazorClientAzure\\BlazorClient\\gRPCClients\\gRPCClients.csproj",
+        "projectName": "gRPCClients",
+        "projectPath": "C:\\Users\\krist\\RiderProjects\\BlazorClientAzure\\BlazorClient\\gRPCClients\\gRPCClients.csproj",
+        "packagesPath": "C:\\Users\\krist\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\krist\\RiderProjects\\BlazorClientAzure\\BlazorClient\\gRPCClients\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\domog\\AppData\\Roaming\\NuGet\\NuGet.Config"
+          "C:\\Users\\krist\\AppData\\Roaming\\NuGet\\NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "net7.0"
@@ -151,8 +181,8 @@
           "net7.0": {
             "targetAlias": "net7.0",
             "projectReferences": {
-              "C:\\Users\\domog\\RiderProjects\\BlazorClientSEP3\\BlazorClient\\Domain\\Domain.csproj": {
-                "projectPath": "C:\\Users\\domog\\RiderProjects\\BlazorClientSEP3\\BlazorClient\\Domain\\Domain.csproj"
+              "C:\\Users\\krist\\RiderProjects\\BlazorClientAzure\\BlazorClient\\Domain\\Domain.csproj": {
+                "projectPath": "C:\\Users\\krist\\RiderProjects\\BlazorClientAzure\\BlazorClient\\Domain\\Domain.csproj"
               }
             }
           }
@@ -166,6 +196,30 @@
       "frameworks": {
         "net7.0": {
           "targetAlias": "net7.0",
+          "dependencies": {
+            "Google.Protobuf": {
+              "target": "Package",
+              "version": "[3.23.0, )"
+            },
+            "Google.Protobuf.Tools": {
+              "target": "Package",
+              "version": "[3.23.0, )"
+            },
+            "Grpc.Core": {
+              "target": "Package",
+              "version": "[2.46.6, )"
+            },
+            "Grpc.Net.Client": {
+              "target": "Package",
+              "version": "[2.53.0, )"
+            },
+            "Grpc.Tools": {
+              "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[2.54.0, )"
+            }
+          },
           "imports": [
             "net461",
             "net462",
@@ -182,7 +236,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.200\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.102\\RuntimeIdentifierGraph.json"
         }
       }
     }

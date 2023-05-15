@@ -2,7 +2,7 @@
 Microsoft Visual Studio Solution File, Format Version 12.00
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BlazorClient", "BlazorClient\BlazorClient.csproj", "{FFB440A2-5C0A-4FA4-9606-EA83DA991892}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HttpClients", "HttpClients\HttpClients.csproj", "{1C9D9934-5853-4B11-AC31-6295E06FF23E}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "gRPCClients", "gRPCClients\gRPCClients.csproj", "{1C9D9934-5853-4B11-AC31-6295E06FF23E}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Domain", "Domain\Domain.csproj", "{89791EE3-4908-4E08-B3EA-8D47D1A4C612}"
 EndProject
