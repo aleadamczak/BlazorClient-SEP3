@@ -4,6 +4,7 @@
 @using HttpClients.Interfaces
 @using MudBlazor.Extensions
 
+
 @inject IFileService FileService
 
 <style>
@@ -23,34 +24,40 @@
 <h1>All Files</h1>
 
 <MudTable Items="@files" Hover="true" Breakpoint="Breakpoint.Sm" @ref="mudTable" RowClassFunc="@SelectedRowClassFunc" Filter="new Func<File,bool>(FilterFunc1)" @bind-SelectedItem="selectedFile">
-     <ToolBarContent>
-         @* <MudText Typo="Typo.h6">File List</MudText> *@
-         <MudButton Variant="Variant.Filled" EndIcon="@Icons.Material.Filled.ArrowRight" Style="background-color: #1E88E5; color: black; width: 200px; height: 60px;">
-             Open Selected
-         </MudButton>
-         <MudSpacer />
-         <MudTextField @bind-Value="searchString1" Placeholder="Search" Adornment="Adornment.Start" AdornmentIcon="@Icons.Material.Filled.Search" IconSize="Size.Medium" Class="mt-0"></MudTextField>
-     </ToolBarContent>
-     <HeaderContent>
-         <MudTh>Title</MudTh>
-         <MudTh>Category</MudTh>
-         <MudTh>Description</MudTh>
-         <MudTh>Uploaded By</MudTh>
-         <MudTh>File Type</MudTh>
-     </HeaderContent>
-     <RowTemplate>
-         <MudTd DataLabel="Title">@context.Title</MudTd>
-         <MudTd DataLabel="Category">@context.Category</MudTd>
-         <MudTd DataLabel="Description">@context.Description</MudTd>
-         <MudTd DataLabel="Uploaded By">@context.UploadedByUser</MudTd>
-         <MudTd DataLabel="File Type">@context.UploadedByUser</MudTd>
-     </RowTemplate>
-     <PagerContent>
-         <MudTablePager />
-     </PagerContent>
- </MudTable>
+    <ToolBarContent>
+        @* <MudText Typo="Typo.h6">File List</MudText> *@
+        <MudButton Variant="Variant.Filled" EndIcon="@Icons.Material.Filled.ArrowRight" Style="background-color: #1E88E5; color: black; width: 200px; height: 60px;">
+            Open Selected
+        </MudButton>
+        <MudSpacer />
+        <MudTextField @bind-Value="searchString1" Placeholder="Search" Adornment="Adornment.Start" AdornmentIcon="@Icons.Material.Filled.Search" IconSize="Size.Medium" Class="mt-0"></MudTextField>
+    </ToolBarContent>
+    <HeaderContent>
+        <MudTh>Title</MudTh>
+        <MudTh>Category</MudTh>
+        <MudTh>Description</MudTh>
+        <MudTh>Uploaded By</MudTh>
+        <MudTh>File Type</MudTh>
+        <MudTh>Download file</MudTh>
+
+    </HeaderContent>
+    <RowTemplate>
+        <MudTd DataLabel="Title">@context.Title</MudTd>
+        <MudTd DataLabel="Category">@context.Category</MudTd>
+        <MudTd DataLabel="Description">@context.Description</MudTd>
+        <MudTd DataLabel="Uploaded By">@context.UploadedByUser</MudTd>
+        <MudTd DataLabel="File Type">@context.UploadedByUser</MudTd>
+        <MudTd DataLabel="Download"><MudButton Variant="Variant.Filled" @onclick="() => DownloadFile(context.Id)">Download</MudButton></MudTd>
+
+    </RowTemplate>
+    <PagerContent>
+        <MudTablePager />
+    </PagerContent>
+</MudTable>
+
+
  
- <div class="d-flex flex-wrap mt-4">
+<div class="d-flex flex-wrap mt-4">
      <div style="min-width:200px;">
          <MudText Inline="true" Class="align-self-center">Selected: @selectedFile?.Title</MudText>
      </div>
@@ -93,7 +100,6 @@
             return "selected";
 
         }
-        
         return string.Empty;
     }
 
@@ -118,5 +124,20 @@
         }
 
     }
-    
+
+    private void DownloadFile(int id)
+    {
+        byte[] byteData;
+        using (FileStream fileStream = new FileStream("upload/Ordrebekræftelse.pdf",FileMode.Open,FileAccess.Read))
+        {
+            using (MemoryStream memoryStream = new MemoryStream())
+            {
+                fileStream.CopyTo(memoryStream);
+                byteData = memoryStream.ToArray();
+            }
+        }
+        
+        System.IO.File.WriteAllBytes("download/Newfile.pdf",byteData);
+    }
+
 }
