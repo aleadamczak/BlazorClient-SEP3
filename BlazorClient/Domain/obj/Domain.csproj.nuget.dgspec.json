@@ -1,20 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\domog\\RiderProjects\\BlazorClientSEP3\\BlazorClient\\Domain\\Domain.csproj": {}
+    "C:\\Users\\krist\\RiderProjects\\BlazorClientAzure\\BlazorClient\\Domain\\Domain.csproj": {}
   },
   "projects": {
-    "C:\\Users\\domog\\RiderProjects\\BlazorClientSEP3\\BlazorClient\\Domain\\Domain.csproj": {
+    "C:\\Users\\krist\\RiderProjects\\BlazorClientAzure\\BlazorClient\\Domain\\Domain.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\domog\\RiderProjects\\BlazorClientSEP3\\BlazorClient\\Domain\\Domain.csproj",
+        "projectUniqueName": "C:\\Users\\krist\\RiderProjects\\BlazorClientAzure\\BlazorClient\\Domain\\Domain.csproj",
         "projectName": "Domain",
-        "projectPath": "C:\\Users\\domog\\RiderProjects\\BlazorClientSEP3\\BlazorClient\\Domain\\Domain.csproj",
-        "packagesPath": "C:\\Users\\domog\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\domog\\RiderProjects\\BlazorClientSEP3\\BlazorClient\\Domain\\obj\\",
+        "projectPath": "C:\\Users\\krist\\RiderProjects\\BlazorClientAzure\\BlazorClient\\Domain\\Domain.csproj",
+        "packagesPath": "C:\\Users\\krist\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\krist\\RiderProjects\\BlazorClientAzure\\BlazorClient\\Domain\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\domog\\AppData\\Roaming\\NuGet\\NuGet.Config"
+          "C:\\Users\\krist\\AppData\\Roaming\\NuGet\\NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "net7.0"
@@ -59,7 +59,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.200\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.102\\RuntimeIdentifierGraph.json"
         }
       }
     }

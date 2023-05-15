@@ -10,6 +10,7 @@ public class File
     public string Description { get; set; }
 
     public string Category { get; set; }
+    public string ContentType { get; set; }
 
     // public IBrowserFile UploadedFile { get; set; }
     public byte[] Bytes { get; set; }
