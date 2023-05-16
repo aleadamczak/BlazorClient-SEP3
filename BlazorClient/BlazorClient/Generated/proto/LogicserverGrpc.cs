@@ -249,6 +249,8 @@ public static partial class FileController
   [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
   static readonly grpc::Marshaller<global::Id> __Marshaller_Id = grpc::Marshallers.Create(__Helper_SerializeMessage, context => __Helper_DeserializeMessage(context, global::Id.Parser));
   [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
+  static readonly grpc::Marshaller<global::FileDownloadDto> __Marshaller_FileDownloadDto = grpc::Marshallers.Create(__Helper_SerializeMessage, context => __Helper_DeserializeMessage(context, global::FileDownloadDto.Parser));
+  [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
   static readonly grpc::Marshaller<global::Empty> __Marshaller_Empty = grpc::Marshallers.Create(__Helper_SerializeMessage, context => __Helper_DeserializeMessage(context, global::Empty.Parser));
   [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
   static readonly grpc::Marshaller<global::FileDisplayList> __Marshaller_FileDisplayList = grpc::Marshallers.Create(__Helper_SerializeMessage, context => __Helper_DeserializeMessage(context, global::FileDisplayList.Parser));
@@ -268,12 +270,12 @@ public static partial class FileController
       __Marshaller_File);
 
   [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
-  static readonly grpc::Method<global::Id, global::File> __Method_download = new grpc::Method<global::Id, global::File>(
+  static readonly grpc::Method<global::Id, global::FileDownloadDto> __Method_download = new grpc::Method<global::Id, global::FileDownloadDto>(
       grpc::MethodType.Unary,
       __ServiceName,
       "download",
       __Marshaller_Id,
-      __Marshaller_File);
+      __Marshaller_FileDownloadDto);
 
   [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
   static readonly grpc::Method<global::Empty, global::FileDisplayList> __Method_getAll = new grpc::Method<global::Empty, global::FileDisplayList>(
@@ -377,22 +379,22 @@ public static partial class FileController
       return CallInvoker.AsyncUnaryCall(__Method_upload, null, options, request);
     }
     [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
-    public virtual global::File download(global::Id request, grpc::Metadata headers = null, global::System.DateTime? deadline = null, global::System.Threading.CancellationToken cancellationToken = default(global::System.Threading.CancellationToken))
+    public virtual global::FileDownloadDto download(global::Id request, grpc::Metadata headers = null, global::System.DateTime? deadline = null, global::System.Threading.CancellationToken cancellationToken = default(global::System.Threading.CancellationToken))
     {
       return download(request, new grpc::CallOptions(headers, deadline, cancellationToken));
     }
     [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
-    public virtual global::File download(global::Id request, grpc::CallOptions options)
+    public virtual global::FileDownloadDto download(global::Id request, grpc::CallOptions options)
     {
       return CallInvoker.BlockingUnaryCall(__Method_download, null, options, request);
     }
     [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
-    public virtual grpc::AsyncUnaryCall<global::File> downloadAsync(global::Id request, grpc::Metadata headers = null, global::System.DateTime? deadline = null, global::System.Threading.CancellationToken cancellationToken = default(global::System.Threading.CancellationToken))
+    public virtual grpc::AsyncUnaryCall<global::FileDownloadDto> downloadAsync(global::Id request, grpc::Metadata headers = null, global::System.DateTime? deadline = null, global::System.Threading.CancellationToken cancellationToken = default(global::System.Threading.CancellationToken))
     {
       return downloadAsync(request, new grpc::CallOptions(headers, deadline, cancellationToken));
     }
     [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
-    public virtual grpc::AsyncUnaryCall<global::File> downloadAsync(global::Id request, grpc::CallOptions options)
+    public virtual grpc::AsyncUnaryCall<global::FileDownloadDto> downloadAsync(global::Id request, grpc::CallOptions options)
     {
       return CallInvoker.AsyncUnaryCall(__Method_download, null, options, request);
     }
