@@ -1,4 +1,5 @@
 ﻿using BlazorClient.gRPCClients.Interfaces;
+using Domain.DTOs;
 using Grpc.Net.Client;
 using Google.Protobuf.WellKnownTypes;
 using Grpc.Core;
@@ -28,9 +29,25 @@ public class FilegRpcClient : IFileService {
 
     }
 
-    public Task<File> GetAsync(Id id)
+    public async Task<FileDownloadDto> GetAsync(Id id)
     {
-        return Task.FromResult(_client.getById(id));
+        try
+        {
+            return await Task.FromResult(_client.download(id));
+        }
+        catch (RpcException e)
+        {
+            if (e.Status.StatusCode == StatusCode.Internal)
+            {
+                NullException exception = e.Trailers
+                                .OfType<NullException>()
+                                .FirstOrDefault();
+                throw new Exception(exception.Message);
+            }
+
+            throw new Exception(e.Message);
+
+        }
     }
 
     public Task<IEnumerable<File>> GetAllAsync()

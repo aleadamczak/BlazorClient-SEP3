@@ -1,11 +1,12 @@
 @page "/ViewFiles"
-@using Domain.Models
-@using HttpClients.Implementations
-@using HttpClients.Interfaces
-@using MudBlazor.Extensions
 
 
-@inject IFileService FileService
+@using BlazorClient.gRPCClients.Interfaces
+@using Google.Protobuf
+@using Grpc.Core
+
+@inject IUserService UsergRpcClient
+@inject IFileService FilegRpcClient;
 
 <style>
     .selected {
@@ -22,13 +23,14 @@
 </style>
 
 <h1>All Files</h1>
+ <MudButton Variant="Variant.Filled" EndIcon="@Icons.Material.Filled.ArrowRight" Style="background-color: #1E88E5; color: black; width: 200px; height: 60px;" @onclick="() => DownloadFile(3)">
+            Open Selected
+        </MudButton>
 
 <MudTable Items="@files" Hover="true" Breakpoint="Breakpoint.Sm" @ref="mudTable" RowClassFunc="@SelectedRowClassFunc" Filter="new Func<File,bool>(FilterFunc1)" @bind-SelectedItem="selectedFile">
     <ToolBarContent>
         @* <MudText Typo="Typo.h6">File List</MudText> *@
-        <MudButton Variant="Variant.Filled" EndIcon="@Icons.Material.Filled.ArrowRight" Style="background-color: #1E88E5; color: black; width: 200px; height: 60px;">
-            Open Selected
-        </MudButton>
+       
         <MudSpacer />
         <MudTextField @bind-Value="searchString1" Placeholder="Search" Adornment="Adornment.Start" AdornmentIcon="@Icons.Material.Filled.Search" IconSize="Size.Medium" Class="mt-0"></MudTextField>
     </ToolBarContent>
@@ -45,9 +47,9 @@
         <MudTd DataLabel="Title">@context.Title</MudTd>
         <MudTd DataLabel="Category">@context.Category</MudTd>
         <MudTd DataLabel="Description">@context.Description</MudTd>
-        <MudTd DataLabel="Uploaded By">@context.UploadedByUser</MudTd>
+ @*       <MudTd DataLabel="Uploaded By">@context.UploadedByUser</MudTd>
         <MudTd DataLabel="File Type">@context.UploadedByUser</MudTd>
-        <MudTd DataLabel="Download"><MudButton Variant="Variant.Filled" @onclick="() => DownloadFile(context.Id)">Download</MudButton></MudTd>
+    *@    <MudTd DataLabel="Download"><MudButton Variant="Variant.Filled" @onclick="() => DownloadFile(context.Id)">Download</MudButton></MudTd>
 
     </RowTemplate>
     <PagerContent>
@@ -108,7 +110,7 @@
 
         try
         {
-            files = await FileService.GetAllAsync();
+            //files = await FileService.GetAllAsync();
             
             //Old test
             
@@ -125,19 +127,31 @@
 
     }
 
-    private void DownloadFile(int id)
+    private async void DownloadFile(int number)
     {
-        byte[] byteData;
-        using (FileStream fileStream = new FileStream("upload/Ordrebekræftelse.pdf",FileMode.Open,FileAccess.Read))
-        {
-            using (MemoryStream memoryStream = new MemoryStream())
-            {
-                fileStream.CopyTo(memoryStream);
-                byteData = memoryStream.ToArray();
-            }
-        }
         
-        System.IO.File.WriteAllBytes("download/Newfile.pdf",byteData);
-    }
+            Id num = new Id()
+            {
+                Id_ = number
+            };
+
+            FileDownloadDto downloadFile = await FilegRpcClient.GetAsync(num);
+            byte[] bytes = downloadFile.ToByteArray();
+            string title = downloadFile.Title;
+
+    // byte[] byteData;
+    // using (FileStream fileStream = new FileStream("upload/Ordrebekræftelse.pdf",FileMode.Open,FileAccess.Read))
+    // {
+    //     using (MemoryStream memoryStream = new MemoryStream())
+    //     {
+    //         fileStream.CopyTo(memoryStream);
+    //         byteData = memoryStream.ToArray();
+    //     }
+    // }
+
+            System.IO.File.WriteAllBytes("download/" + title + ".pdf", bytes);
+
+
+        }
 
 }
