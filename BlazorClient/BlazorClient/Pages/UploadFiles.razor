@@ -1,23 +1,33 @@
 ﻿@page "/UploadFiles"
 @using Google.Protobuf
 @using BlazorClient.gRPCClients.Interfaces
+@using BlazorClient.gRPCClients.Implementations
 
 @inject IUserService UsergRpcClient
 @inject IFileService FilegRpcClient;
-<h3>UploadFiles</h3>
+@inject ICategoryService CategoryGRpcClient;
+<h3>Upload Files here bro </h3>
 
 
 
 <MudTextField @bind-Value="Title" Label="Title" Variant="Variant.Text"></MudTextField>
 <MudTextField @bind-Value="Description" Label="File Description" Variant="Variant.Text"></MudTextField>
 <MudTextField @bind-Value="Username" Label="Username" Variant="Variant.Text"></MudTextField>
+<MudSelect  Margin="Margin.Dense" T="Category" Label="Choose Category" @bind-Value="@SelectedCategory" Variant="Variant.Filled">
+    
+    @foreach(Category category in AllCategories.Categories)
+    {
+        <MudSelectItem Value="@(category)">@category.Name</MudSelectItem>
+    }
+    
+</MudSelect>
 <InputFile OnChange="@LoadFiles" />
 <MudButton OnClick="@CreateAsync" Variant="Variant.Filled" Color="Color.Primary"> Submit File </MudButton>
 
-@if (!string.IsNullOrEmpty(message))
+@if (!string.IsNullOrEmpty(Message))
 {
     <div>
-        <span>@message</span>
+        <span>@Message</span>
     </div>
 }
 
@@ -27,17 +37,28 @@
     private string Title { get; set; } = "";
     private string Description { get; set; } = "";
     private string Username { get; set; } = "";
-    private string message = "";
+    private string Message = "";
     private string contentType { get; set; } = "";
+    private CategoryList AllCategories { get; set; }
+    private Category SelectedCategory { get; set; }
+
+
+    protected override void OnInitialized()
+    {
+        AllCategories = CategoryGRpcClient.GetAllAsync(new Empty()).Result;
+    }
 
     private void LoadFiles(InputFileChangeEventArgs e)
     {
         file = e.GetMultipleFiles().FirstOrDefault();
-        contentType = file.ContentType;
+        
+        if (file != null) contentType = file.ContentType;
+        Console.WriteLine(contentType);
     }
 
     private async void CreateAsync()
     {
+        
        
         if (file != null)
 
@@ -51,26 +72,24 @@
 
             try
             {
-                // User? existing = UserService.GetByUsernameAsync(Username);
+
                 var newFile = new FileCreationDto()
                 {
                     Title = Title,
                     Description = Description,
                     Bytes = ByteString.CopyFrom(bytes),
                     UploadedBy = await UsergRpcClient.GetByUsernameAsync(Username),
-                    ContentType = contentType,
-                    Category = new Category()
-                    {
-                        Name = "opsa"
-                    }
+                    ContentType = contentType, 
+                    Category = SelectedCategory
                 };
-                
                 await FilegRpcClient.CreateAsync(newFile);
+                
             }
+            
             catch (Exception e)
             {
                 Console.WriteLine(e);
-                message = e.Message;
+                Message = e.Message;
             }
 
 
