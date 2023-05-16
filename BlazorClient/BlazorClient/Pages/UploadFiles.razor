@@ -1,8 +1,7 @@
 ﻿@page "/UploadFiles"
 @using Google.Protobuf
 @using BlazorClient.gRPCClients.Interfaces
-@using BlazorClient.gRPCClients.Implementations
-
+@using UIComponents
 @inject IUserService UsergRpcClient
 @inject IFileService FilegRpcClient;
 @inject ICategoryService CategoryGRpcClient;
@@ -31,6 +30,13 @@
     </div>
 }
 
+<PopUp ShowPopUp="showPopUp">
+    <div>
+        <span>@Message</span>
+        <MudButton @onclick="Proceed"> OK</MudButton>
+    </div>
+</PopUp>
+
 @code {
 
     private IBrowserFile? file;
@@ -41,11 +47,13 @@
     private string contentType { get; set; } = "";
     private CategoryList AllCategories { get; set; }
     private Category SelectedCategory { get; set; }
+    private bool showPopUp;
 
 
     protected override void OnInitialized()
     {
         AllCategories = CategoryGRpcClient.GetAllAsync(new Empty()).Result;
+        showPopUp = false;
     }
 
     private void LoadFiles(InputFileChangeEventArgs e)
@@ -59,7 +67,6 @@
     private async void CreateAsync()
     {
         
-       
         if (file != null)
 
         {
@@ -83,18 +90,24 @@
                     Category = SelectedCategory
                 };
                 await FilegRpcClient.CreateAsync(newFile);
-                
+                Message = "File + " + newFile.Title +" successfully uploaded";
             }
-            
             catch (Exception e)
             {
                 Console.WriteLine(e);
                 Message = e.Message;
             }
-
+            showPopUp = true;
+            StateHasChanged();
 
             Console.WriteLine("File sent to the service");
         }
+    }
+    
+    
+    private void Proceed()
+    {
+        showPopUp = false;
     }
 
 }
