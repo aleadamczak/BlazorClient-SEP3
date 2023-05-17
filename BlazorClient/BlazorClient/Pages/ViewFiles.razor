@@ -3,9 +3,8 @@
 
 @using BlazorClient.gRPCClients.Interfaces
 @using Google.Protobuf
-@using Grpc.Core
 
-@inject IUserService UsergRpcClient
+@inject IUserService UsergRpcClient;
 @inject IFileService FilegRpcClient;
 
 <style>
@@ -23,7 +22,7 @@
 </style>
 
 <h1>All Files</h1>
- <MudButton Variant="Variant.Filled" EndIcon="@Icons.Material.Filled.ArrowRight" Style="background-color: #1E88E5; color: black; width: 200px; height: 60px;" @onclick="() => DownloadFile(3)">
+ <MudButton Variant="Variant.Filled" EndIcon="@Icons.Material.Filled.ArrowRight" Style="background-color: #1E88E5; color: black; width: 200px; height: 60px;" >
             Open Selected
         </MudButton>
 
@@ -107,7 +106,6 @@
 
     protected override async Task OnInitializedAsync()
     {
-
         try
         {
             files = await FilegRpcClient.GetAllDtosAsync();
@@ -117,34 +115,21 @@
         {
             Console.WriteLine("Exception occured when fetching file data");
         }
-
     }
 
     private async void DownloadFile(int number)
     {
-        
-            Id num = new Id()
+        Id num = new Id()
             {
                 Id_ = number
             };
 
-            FileDownloadDto downloadFile = await FilegRpcClient.GetAsync(num);
-            byte[] bytes = downloadFile.ToByteArray();
-            string title = downloadFile.Title;
-
-    // byte[] byteData;
-    // using (FileStream fileStream = new FileStream("upload/Ordrebekræftelse.pdf",FileMode.Open,FileAccess.Read))
-    // {
-    //     using (MemoryStream memoryStream = new MemoryStream())
-    //     {
-    //         fileStream.CopyTo(memoryStream);
-    //         byteData = memoryStream.ToArray();
-    //     }
-    // }
-
-            System.IO.File.WriteAllBytes("download/" + title + ".pdf", bytes);
-
-
-        }
-
+        FileDownloadDto downloadFile = await FilegRpcClient.GetAsync(num);
+        byte[] bytes = downloadFile.ToByteArray();
+        string downloadPath = Environment.GetFolderPath(Environment.SpecialFolder.Personal);
+        Console.WriteLine(downloadPath);
+        string title = downloadFile.Title;
+        string contentType = downloadFile.ContentType;
+        System.IO.File.WriteAllBytes(downloadPath + "/" + title + contentType, bytes);
+    }
 }

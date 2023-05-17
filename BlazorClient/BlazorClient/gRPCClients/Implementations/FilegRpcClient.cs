@@ -1,5 +1,4 @@
 ﻿using BlazorClient.gRPCClients.Interfaces;
-using Domain.DTOs;
 using Grpc.Net.Client;
 using Google.Protobuf.WellKnownTypes;
 using Grpc.Core;

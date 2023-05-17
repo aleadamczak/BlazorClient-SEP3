@@ -87,6 +87,7 @@ message FileDisplayDto {
 message FileDownloadDto {
     string title = 1;
     bytes bytes = 2;
+    string contentType = 3;
 }
 
 
