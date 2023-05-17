@@ -87,7 +87,6 @@ public class FilegRpcClient : IFileService {
                 Id = fileDisplay.Id,
                 UploadedBy = fileDisplay.UploadedBy,
                 ContentType = fileDisplay.ContentType
-                
             };
             dtoList.Add(dto);
         }
@@ -95,8 +94,17 @@ public class FilegRpcClient : IFileService {
         return dtoList;
     }
 
-    
-  
+    public void Delete(int id)
+    {
+        Id number = new Id()
+        {
+            Id_ = id
+        };
+        _client.remove(number);
+    }
 
-    
+
+
+
+
 }
