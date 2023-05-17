@@ -1,14 +1,13 @@
 ﻿@page "/UploadFiles"
 @using Google.Protobuf
 @using BlazorClient.gRPCClients.Interfaces
-@using BlazorClient.gRPCClients.Implementations
-
+@using UIComponents
+@using Microsoft.AspNetCore.Components
+@using System.ComponentModel.DataAnnotations
 @inject IUserService UsergRpcClient
 @inject IFileService FilegRpcClient;
 @inject ICategoryService CategoryGRpcClient;
 <h3>Upload Files here bro </h3>
-
-
 
 <MudTextField @bind-Value="Title" Label="Title" Variant="Variant.Text"></MudTextField>
 <MudTextField @bind-Value="Description" Label="File Description" Variant="Variant.Text"></MudTextField>
@@ -31,6 +30,14 @@
     </div>
 }
 
+<PopUp ShowPopUp="showPopUp" >
+    <div>
+        <span>@Message</span>
+        <img src="@GifPath" alt="GIF image" style="width: 100%; height: auto"/>
+        <MudButton @onclick="Proceed"> OK</MudButton>
+    </div>
+</PopUp>
+
 @code {
 
     private IBrowserFile? file;
@@ -41,11 +48,14 @@
     private string contentType { get; set; } = "";
     private CategoryList AllCategories { get; set; }
     private Category SelectedCategory { get; set; }
+    private bool showPopUp;
+    private string GifPath { get; set; }
 
 
     protected override void OnInitialized()
     {
         AllCategories = CategoryGRpcClient.GetAllAsync(new Empty()).Result;
+        showPopUp = false;
     }
 
     private void LoadFiles(InputFileChangeEventArgs e)
@@ -59,7 +69,6 @@
     private async void CreateAsync()
     {
         
-       
         if (file != null)
 
         {
@@ -83,18 +92,34 @@
                     Category = SelectedCategory
                 };
                 await FilegRpcClient.CreateAsync(newFile);
-                
+                Message = "File " + newFile.Title +" successfully uploaded";
+                GifPath = "pictures/done.gif";
             }
-            
             catch (Exception e)
             {
                 Console.WriteLine(e);
                 Message = e.Message;
+                GifPath = "pictures/fail.gif";
             }
-
+            showPopUp = true;
+            StateHasChanged();
 
             Console.WriteLine("File sent to the service");
         }
+        
+        else
+        {
+            Message = "No file uploaded";
+            GifPath = "pictures/fail.gif";
+            showPopUp = true;
+            StateHasChanged();
+        }
+    }
+    
+    
+    private void Proceed()
+    {
+        showPopUp = false;
     }
 
 }

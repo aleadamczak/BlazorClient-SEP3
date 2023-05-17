@@ -23,9 +23,19 @@
 </style>
 
 <h1>All Files</h1>
- <MudButton Variant="Variant.Filled" EndIcon="@Icons.Material.Filled.ArrowRight" Style="background-color: #1E88E5; color: black; width: 200px; height: 60px;" @onclick="() => DownloadFile(3)">
-            Open Selected
-        </MudButton>
+<MudButton Variant="Variant.Filled" EndIcon="@Icons.Material.Filled.ArrowRight" Style="background-color: #1E88E5; color: black; width: 200px; height: 60px;" @onclick="() => Delete(selectedFile.Id)">
+    Delete file
+</MudButton>
+
+@if (!string.IsNullOrEmpty(Message))
+{
+    <div>
+         <MudAlert Severity="Severity.Success">@Message</MudAlert>
+    </div>
+}
+   
+
+
 
 <MudTable Items="@files" Hover="true" Breakpoint="Breakpoint.Sm" @ref="mudTable" RowClassFunc="@SelectedRowClassFunc" Filter="new Func<FileDisplayDto,bool>(FilterFunc1)" @bind-SelectedItem="selectedFile">
     <ToolBarContent>
@@ -75,7 +85,8 @@
     private string searchString1 = "";
     private FileDisplayDto selectedFile = null;
     private HashSet<FileDisplayDto> selectedFiles = new HashSet<FileDisplayDto>();
-    
+    private string Message { get; set; } = "";
+
     private bool FilterFunc1(FileDisplayDto file) => FilterFunc(file, searchString1);
  
     private bool FilterFunc(FileDisplayDto file, string searchString)
@@ -146,5 +157,24 @@
 
 
         }
+
+
+    private void Delete(int id)
+    {
+        try
+        {
+            if (id != null)
+            {
+                FilegRpcClient.Delete(id);
+                Message = "File Deleted";
+            }
+            StateHasChanged();
+        }
+        catch (Exception e)
+        {
+            Message = e.Message;
+        }
+
+    }
 
 }
