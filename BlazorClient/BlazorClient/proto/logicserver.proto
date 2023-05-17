@@ -81,6 +81,7 @@ message FileDisplayDto {
   Category category = 3;
   int32 id = 4;
   User uploadedBy = 5;
+  string contentType = 6;
 }
 
 message FileDownloadDto {
