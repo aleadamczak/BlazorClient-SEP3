@@ -23,6 +23,10 @@
     min-width: 300px;
     border-radius: 25px;
     box-shadow: 0 5px 30px 15px #3f3f3f;
+    overflow: auto;
+}
+img[b-9yg1rdjpn6] {
+    
 }
 /* _content/BlazorClient/Shared/MainLayout.razor.rz.scp.css */
 .page[b-lor2elsqal] {
