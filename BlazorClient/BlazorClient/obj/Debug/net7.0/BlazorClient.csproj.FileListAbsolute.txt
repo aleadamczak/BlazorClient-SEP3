@@ -58,8 +58,6 @@ C:\Users\domog\RiderProjects\BlazorClientSEP3\BlazorClient\BlazorClient\bin\Debu
 C:\Users\domog\RiderProjects\BlazorClientSEP3\BlazorClient\BlazorClient\bin\Debug\net7.0\Microsoft.JSInterop.dll
 C:\Users\domog\RiderProjects\BlazorClientSEP3\BlazorClient\BlazorClient\bin\Debug\net7.0\MudBlazor.dll
 C:\Users\domog\RiderProjects\BlazorClientSEP3\BlazorClient\BlazorClient\bin\Debug\net7.0\Domain.dll
-C:\Users\domog\RiderProjects\BlazorClientSEP3\BlazorClient\BlazorClient\bin\Debug\net7.0\HttpClients.dll
-C:\Users\domog\RiderProjects\BlazorClientSEP3\BlazorClient\BlazorClient\bin\Debug\net7.0\HttpClients.pdb
 C:\Users\domog\RiderProjects\BlazorClientSEP3\BlazorClient\BlazorClient\bin\Debug\net7.0\Domain.pdb
 C:\Users\domog\RiderProjects\BlazorClientSEP3\BlazorClient\BlazorClient\obj\Debug\net7.0\BlazorClient.csproj.AssemblyReference.cache
 C:\Users\domog\RiderProjects\BlazorClientSEP3\BlazorClient\BlazorClient\obj\Debug\net7.0\BlazorClient.GeneratedMSBuildEditorConfig.editorconfig
@@ -100,3 +98,17 @@ C:\Users\krist\RiderProjects\BlazorClientAzure\BlazorClient\BlazorClient\bin\Deb
 C:\Users\krist\RiderProjects\BlazorClientAzure\BlazorClient\BlazorClient\bin\Debug\net7.0\gRPCClients.pdb
 C:\Users\krist\RiderProjects\BlazorClientAzure\BlazorClient\BlazorClient\bin\Debug\net7.0\Grpc.Net.Client.Web.dll
 C:\Users\krist\RiderProjects\BlazorClientAzure\BlazorClient\BlazorClient\bin\Debug\net7.0\Grpc.Net.ClientFactory.dll
+C:\Users\domog\RiderProjects\BlazorClientSEP3\BlazorClient\BlazorClient\bin\Debug\net7.0\Google.Protobuf.dll
+C:\Users\domog\RiderProjects\BlazorClientSEP3\BlazorClient\BlazorClient\bin\Debug\net7.0\Grpc.Core.dll
+C:\Users\domog\RiderProjects\BlazorClientSEP3\BlazorClient\BlazorClient\bin\Debug\net7.0\Grpc.Core.Api.dll
+C:\Users\domog\RiderProjects\BlazorClientSEP3\BlazorClient\BlazorClient\bin\Debug\net7.0\Grpc.Net.Client.dll
+C:\Users\domog\RiderProjects\BlazorClientSEP3\BlazorClient\BlazorClient\bin\Debug\net7.0\Grpc.Net.Client.Web.dll
+C:\Users\domog\RiderProjects\BlazorClientSEP3\BlazorClient\BlazorClient\bin\Debug\net7.0\Grpc.Net.ClientFactory.dll
+C:\Users\domog\RiderProjects\BlazorClientSEP3\BlazorClient\BlazorClient\bin\Debug\net7.0\Grpc.Net.Common.dll
+C:\Users\domog\RiderProjects\BlazorClientSEP3\BlazorClient\BlazorClient\bin\Debug\net7.0\runtimes\linux-arm64\native\libgrpc_csharp_ext.arm64.so
+C:\Users\domog\RiderProjects\BlazorClientSEP3\BlazorClient\BlazorClient\bin\Debug\net7.0\runtimes\linux-x64\native\libgrpc_csharp_ext.x64.so
+C:\Users\domog\RiderProjects\BlazorClientSEP3\BlazorClient\BlazorClient\bin\Debug\net7.0\runtimes\osx-x64\native\libgrpc_csharp_ext.x64.dylib
+C:\Users\domog\RiderProjects\BlazorClientSEP3\BlazorClient\BlazorClient\bin\Debug\net7.0\runtimes\win-x64\native\grpc_csharp_ext.x64.dll
+C:\Users\domog\RiderProjects\BlazorClientSEP3\BlazorClient\BlazorClient\bin\Debug\net7.0\runtimes\win-x86\native\grpc_csharp_ext.x86.dll
+C:\Users\domog\RiderProjects\BlazorClientSEP3\BlazorClient\BlazorClient\bin\Debug\net7.0\gRPCClients.dll
+C:\Users\domog\RiderProjects\BlazorClientSEP3\BlazorClient\BlazorClient\bin\Debug\net7.0\gRPCClients.pdb
