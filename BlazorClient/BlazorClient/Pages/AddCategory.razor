@@ -2,22 +2,95 @@
 @inject ICategoryService CategoryService
 @page "/addCategory"
 @using BlazorClient.gRPCClients.Interfaces
-
+@using UIComponents
 <h3>AddCategory</h3>
 
 <MudTextField @bind-Value="TextValue" Label="Outlined" Variant="Variant.Outlined"></MudTextField>
 <MudButton  OnClick="@CreateAsync" Variant="Variant.Filled" Color="Color.Primary">Primary</MudButton>
 
+<MudTable Items="@Categories.Categories" Hover="true" Breakpoint="Breakpoint.Sm" @ref="mudTable" RowClassFunc="@SelectedRowClassFunc" Filter="new Func<Category,bool>(FilterFunc1)" @bind-SelectedItem="selectedCategory">
+    <ToolBarContent>
+        @* <MudText Typo="Typo.h6">File List</MudText> *@
+       
+        <MudSpacer />
+        <MudTextField @bind-Value="searchString1" Placeholder="Search" Adornment="Adornment.Start" AdornmentIcon="@Icons.Material.Filled.Search" IconSize="Size.Medium" Class="mt-0"></MudTextField>
+    </ToolBarContent>
+    <HeaderContent>
+        
+        <MudTh>Category</MudTh>
+        <MudTh>Delete</MudTh>
+
+    </HeaderContent>
+    <RowTemplate>
+        <MudTd DataLabel="Category">@context.Name</MudTd>
+       
+        <MudTd DataLabel="Download"><MudButton Variant="Variant.Filled" @onclick="() => DeleteAsync()">Delete</MudButton></MudTd>
+
+    </RowTemplate>
+    <PagerContent>
+        <MudTablePager />
+    </PagerContent>
+</MudTable>
+
+<PopUp ShowPopUp="showPopUp" >
+    <div>
+        <span>@Message</span>
+        <img src="@GifPath" alt="GIF image" style="width: 100%; height: auto"/>
+        <MudButton @onclick="Proceed"> OK</MudButton>
+    </div>
+</PopUp>
+
 @code
 {
     public string? TextValue { get; set; }
     private string message = "";
+    private MudTable<Category> mudTable;
+    private CategoryList Categories { get; set; }
+    private Category selectedCategory { get; set; }
+    private int selectedRowNumber = -1;
+    private string searchString1 = "";
+    private string Message = "";
+    private bool showPopUp;
+    private string GifPath { get; set; }
+    
+    private bool FilterFunc1(Category file) => FilterFunc(file, searchString1);
+ 
+    private bool FilterFunc(Category category, string searchString)
+    {
+        if (string.IsNullOrWhiteSpace(searchString))
+            return true;
+        if (category.Name.Contains(searchString, StringComparison.OrdinalIgnoreCase))
+            return true;
+        return false;
+    }
+
+    protected override async Task OnInitializedAsync()
+    {
+        Categories = await CategoryService.GetAllAsync(new Empty());
+    }
+    
+     
+    private string SelectedRowClassFunc(Category element, int rowNumber)
+    {
+        if (selectedRowNumber == rowNumber)
+        {
+            selectedRowNumber = -1;
+            return string.Empty;
+
+        }
+        if (mudTable.SelectedItem != null && mudTable.SelectedItem.Equals(element))
+        {
+            selectedRowNumber = rowNumber;
+            return "selected";
+
+        }
+        return string.Empty;
+    }
 
 
     private async void CreateAsync()
     {
-        
-        if (TextValue != null)
+        if (!string.IsNullOrEmpty(TextValue))
         {
 
             try
@@ -28,43 +101,77 @@
                 };
 
                 await CategoryService.CreateAsync(newCategory);
+                Categories = CategoryService.GetAllAsync(new Empty()).Result;
+                Message = "Category " + newCategory.Name +" successfully uploaded";
+                GifPath = "pictures/done.gif";
+                showPopUp = true;
+                StateHasChanged();
             }
             catch (Exception e)
             {
                 Console.WriteLine(e);
-                message = e.Message;
+                Message = e.Message;
+                GifPath = "pictures/fail.gif";
             }
+            
 
 
-            Console.WriteLine("File sent to the service");
+            Console.WriteLine("Category sent to the service");
+        }
+        else
+        {
+            Message = "No category specified";
+            GifPath = "pictures/fail.gif";
+            showPopUp = true;
+            StateHasChanged();
+            
         }
         
+        
     }
+    
+    
     
     private async void DeleteAsync()
     {
         
-        if (TextValue != null)
+        if (mudTable.SelectedItem != null)
         {
 
             try
             {
-                var newCategory = new Category
-                {
-                    Name = TextValue
-                };
-
-                await CategoryService.DeleteAsync(newCategory);
+                await CategoryService.DeleteAsync(mudTable.SelectedItem);
+                Categories = CategoryService.GetAllAsync(new Empty()).Result;
+                Message = "Category " + mudTable.SelectedItem +" successfully deleted";
+                GifPath = "pictures/done.gif";
             }
             catch (Exception e)
             {
                 Console.WriteLine(e);
-                message = e.Message;
+                Message = e.Message;
+                GifPath = "pictures/fail.gif";
             }
+            showPopUp = true;
 
+            Console.WriteLine("Category deleted from database");
+        }
+        else
+        {
+            Message = "No category selected";
+            GifPath = "pictures/fail.gif";
+            showPopUp = true;
+            StateHasChanged();
 
-            Console.WriteLine("File sent to the service");
         }
         
     }
+    private void Proceed()
+    {
+        showPopUp = false;
+        Message = "";
+        GifPath = "";
+        mudTable.SelectedItem = null;
+
+    }
+
 }
