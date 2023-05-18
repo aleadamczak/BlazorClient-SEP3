@@ -33,37 +33,37 @@ public static partial class LogicserverReflection {
           "eRIZCgp1cGxvYWRlZEJ5GAUgASgLMgUuVXNlchITCgtjb250ZW50VHlwZRgG",
           "IAEoCSJcCg1GaWxlVXBkYXRlRHRvEg0KBXRpdGxlGAEgASgJEhMKC2Rlc2Ny",
           "aXB0aW9uGAIgASgJEhsKCGNhdGVnb3J5GAMgASgLMgkuQ2F0ZWdvcnkSCgoC",
-          "aWQYBCABKAUieAoORmlsZURpc3BsYXlEdG8SDQoFdGl0bGUYASABKAkSEwoL",
-          "ZGVzY3JpcHRpb24YAiABKAkSGwoIY2F0ZWdvcnkYAyABKAsyCS5DYXRlZ29y",
-          "eRIKCgJpZBgEIAEoBRIZCgp1cGxvYWRlZEJ5GAUgASgLMgUuVXNlciIvCg9G",
-          "aWxlRG93bmxvYWREdG8SDQoFdGl0bGUYASABKAkSDQoFYnl0ZXMYAiABKAwi",
-          "IAoIRmlsZUxpc3QSFAoFZmlsZXMYASADKAsyBS5GaWxlIjEKD0ZpbGVEaXNw",
-          "bGF5TGlzdBIeCgVmaWxlcxgBIAMoCzIPLkZpbGVEaXNwbGF5RHRvIlUKBFVz",
-          "ZXISEAoIdXNlcm5hbWUYASABKAkSEAoIcGFzc3dvcmQYAiABKAkSDAoEbmFt",
-          "ZRgDIAEoCRIPCgdpc0FkbWluGAQgASgIEgoKAmlkGAUgASgFIlQKD1VzZXJD",
-          "cmVhdGlvbkR0bxIQCgh1c2VybmFtZRgBIAEoCRIQCghwYXNzd29yZBgCIAEo",
-          "CRIMCgRuYW1lGAMgASgJEg8KB2lzQWRtaW4YBCABKAgiQQoNVXNlclVwZGF0",
-          "ZUR0bxIQCgh1c2VybmFtZRgBIAEoCRIQCghwYXNzd29yZBgCIAEoCRIMCgRu",
-          "YW1lGAMgASgJIjIKDFVzZXJMb2dJbkR0bxIQCgh1c2VybmFtZRgBIAEoCRIQ",
-          "CghwYXNzd29yZBgCIAEoCSIgCghVc2VyTGlzdBIUCgV1c2VycxgBIAMoCzIF",
-          "LlVzZXIiGAoIQ2F0ZWdvcnkSDAoEbmFtZRgCIAEoCSItCgxDYXRlZ29yeUxp",
-          "c3QSHQoKY2F0ZWdvcmllcxgBIAMoCzIJLkNhdGVnb3J5Mp8BChJDYXRlZ29y",
-          "eUNvbnRyb2xsZXISIwoLYWRkQ2F0ZWdvcnkSCS5DYXRlZ29yeRoJLkNhdGVn",
-          "b3J5EiMKDnJlbW92ZUNhdGVnb3J5EgkuQ2F0ZWdvcnkaBi5FbXB0eRIfCgZn",
-          "ZXRBbGwSBi5FbXB0eRoNLkNhdGVnb3J5TGlzdBIeCgZ1cGRhdGUSCS5DYXRl",
-          "Z29yeRoJLkNhdGVnb3J5MqACCg5GaWxlQ29udHJvbGxlchIhCgZ1cGxvYWQS",
-          "EC5GaWxlQ3JlYXRpb25EdG8aBS5GaWxlEiEKCGRvd25sb2FkEgMuSWQaEC5G",
-          "aWxlRG93bmxvYWREdG8SIgoGZ2V0QWxsEgYuRW1wdHkaEC5GaWxlRGlzcGxh",
-          "eUxpc3QSFQoHZ2V0QnlJZBIDLklkGgUuRmlsZRIsCg1nZXRCeUNhdGVnb3J5",
-          "EgkuQ2F0ZWdvcnkaEC5GaWxlRGlzcGxheUxpc3QSJwoKZ2V0QnlUaXRsZRIH",
-          "LlN0cmluZxoQLkZpbGVEaXNwbGF5TGlzdBIfCgZ1cGRhdGUSDi5GaWxlVXBk",
-          "YXRlRHRvGgUuRmlsZRIVCgZyZW1vdmUSAy5JZBoGLkVtcHR5Mt8BCg5Vc2Vy",
-          "Q29udHJvbGxlchIfCg1nZXRCeVVzZXJuYW1lEgcuU3RyaW5nGgUuVXNlchIV",
-          "CgdnZXRCeUlkEgMuSWQaBS5Vc2VyEhsKBmdldEFsbBIGLkVtcHR5GgkuVXNl",
-          "ckxpc3QSIQoGY3JlYXRlEhAuVXNlckNyZWF0aW9uRHRvGgUuVXNlchIdCgVs",
-          "b2dJbhINLlVzZXJMb2dJbkR0bxoFLlVzZXISHwoGdXBkYXRlEg4uVXNlclVw",
-          "ZGF0ZUR0bxoFLlVzZXISFQoGcmVtb3ZlEgMuSWQaBi5FbXB0eUITChFjb20u",
-          "c2RqMy5wcm90b2J1ZmIGcHJvdG8z"));
+          "aWQYBCABKAUijQEKDkZpbGVEaXNwbGF5RHRvEg0KBXRpdGxlGAEgASgJEhMK",
+          "C2Rlc2NyaXB0aW9uGAIgASgJEhsKCGNhdGVnb3J5GAMgASgLMgkuQ2F0ZWdv",
+          "cnkSCgoCaWQYBCABKAUSGQoKdXBsb2FkZWRCeRgFIAEoCzIFLlVzZXISEwoL",
+          "Y29udGVudFR5cGUYBiABKAkiLwoPRmlsZURvd25sb2FkRHRvEg0KBXRpdGxl",
+          "GAEgASgJEg0KBWJ5dGVzGAIgASgMIiAKCEZpbGVMaXN0EhQKBWZpbGVzGAEg",
+          "AygLMgUuRmlsZSIxCg9GaWxlRGlzcGxheUxpc3QSHgoFZmlsZXMYASADKAsy",
+          "Dy5GaWxlRGlzcGxheUR0byJVCgRVc2VyEhAKCHVzZXJuYW1lGAEgASgJEhAK",
+          "CHBhc3N3b3JkGAIgASgJEgwKBG5hbWUYAyABKAkSDwoHaXNBZG1pbhgEIAEo",
+          "CBIKCgJpZBgFIAEoBSJUCg9Vc2VyQ3JlYXRpb25EdG8SEAoIdXNlcm5hbWUY",
+          "ASABKAkSEAoIcGFzc3dvcmQYAiABKAkSDAoEbmFtZRgDIAEoCRIPCgdpc0Fk",
+          "bWluGAQgASgIIkEKDVVzZXJVcGRhdGVEdG8SEAoIdXNlcm5hbWUYASABKAkS",
+          "EAoIcGFzc3dvcmQYAiABKAkSDAoEbmFtZRgDIAEoCSIyCgxVc2VyTG9nSW5E",
+          "dG8SEAoIdXNlcm5hbWUYASABKAkSEAoIcGFzc3dvcmQYAiABKAkiIAoIVXNl",
+          "ckxpc3QSFAoFdXNlcnMYASADKAsyBS5Vc2VyIhgKCENhdGVnb3J5EgwKBG5h",
+          "bWUYAiABKAkiLQoMQ2F0ZWdvcnlMaXN0Eh0KCmNhdGVnb3JpZXMYASADKAsy",
+          "CS5DYXRlZ29yeTKfAQoSQ2F0ZWdvcnlDb250cm9sbGVyEiMKC2FkZENhdGVn",
+          "b3J5EgkuQ2F0ZWdvcnkaCS5DYXRlZ29yeRIjCg5yZW1vdmVDYXRlZ29yeRIJ",
+          "LkNhdGVnb3J5GgYuRW1wdHkSHwoGZ2V0QWxsEgYuRW1wdHkaDS5DYXRlZ29y",
+          "eUxpc3QSHgoGdXBkYXRlEgkuQ2F0ZWdvcnkaCS5DYXRlZ29yeTKgAgoORmls",
+          "ZUNvbnRyb2xsZXISIQoGdXBsb2FkEhAuRmlsZUNyZWF0aW9uRHRvGgUuRmls",
+          "ZRIhCghkb3dubG9hZBIDLklkGhAuRmlsZURvd25sb2FkRHRvEiIKBmdldEFs",
+          "bBIGLkVtcHR5GhAuRmlsZURpc3BsYXlMaXN0EhUKB2dldEJ5SWQSAy5JZBoF",
+          "LkZpbGUSLAoNZ2V0QnlDYXRlZ29yeRIJLkNhdGVnb3J5GhAuRmlsZURpc3Bs",
+          "YXlMaXN0EicKCmdldEJ5VGl0bGUSBy5TdHJpbmcaEC5GaWxlRGlzcGxheUxp",
+          "c3QSHwoGdXBkYXRlEg4uRmlsZVVwZGF0ZUR0bxoFLkZpbGUSFQoGcmVtb3Zl",
+          "EgMuSWQaBi5FbXB0eTLfAQoOVXNlckNvbnRyb2xsZXISHwoNZ2V0QnlVc2Vy",
+          "bmFtZRIHLlN0cmluZxoFLlVzZXISFQoHZ2V0QnlJZBIDLklkGgUuVXNlchIb",
+          "CgZnZXRBbGwSBi5FbXB0eRoJLlVzZXJMaXN0EiEKBmNyZWF0ZRIQLlVzZXJD",
+          "cmVhdGlvbkR0bxoFLlVzZXISHQoFbG9nSW4SDS5Vc2VyTG9nSW5EdG8aBS5V",
+          "c2VyEh8KBnVwZGF0ZRIOLlVzZXJVcGRhdGVEdG8aBS5Vc2VyEhUKBnJlbW92",
+          "ZRIDLklkGgYuRW1wdHlCEwoRY29tLnNkajMucHJvdG9idWZiBnByb3RvMw=="));
     descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
         new pbr::FileDescriptor[] { },
         new pbr::GeneratedClrTypeInfo(null, null, new pbr::GeneratedClrTypeInfo[] {
@@ -74,7 +74,7 @@ public static partial class LogicserverReflection {
           new pbr::GeneratedClrTypeInfo(typeof(global::File), global::File.Parser, new[]{ "Title", "Description", "Bytes", "Category", "UploadedBy", "ContentType", "Id" }, null, null, null, null),
           new pbr::GeneratedClrTypeInfo(typeof(global::FileCreationDto), global::FileCreationDto.Parser, new[]{ "Title", "Description", "Bytes", "Category", "UploadedBy", "ContentType" }, null, null, null, null),
           new pbr::GeneratedClrTypeInfo(typeof(global::FileUpdateDto), global::FileUpdateDto.Parser, new[]{ "Title", "Description", "Category", "Id" }, null, null, null, null),
-          new pbr::GeneratedClrTypeInfo(typeof(global::FileDisplayDto), global::FileDisplayDto.Parser, new[]{ "Title", "Description", "Category", "Id", "UploadedBy" }, null, null, null, null),
+          new pbr::GeneratedClrTypeInfo(typeof(global::FileDisplayDto), global::FileDisplayDto.Parser, new[]{ "Title", "Description", "Category", "Id", "UploadedBy", "ContentType" }, null, null, null, null),
           new pbr::GeneratedClrTypeInfo(typeof(global::FileDownloadDto), global::FileDownloadDto.Parser, new[]{ "Title", "Bytes" }, null, null, null, null),
           new pbr::GeneratedClrTypeInfo(typeof(global::FileList), global::FileList.Parser, new[]{ "Files" }, null, null, null, null),
           new pbr::GeneratedClrTypeInfo(typeof(global::FileDisplayList), global::FileDisplayList.Parser, new[]{ "Files" }, null, null, null, null),
@@ -1979,6 +1979,7 @@ public sealed partial class FileDisplayDto : pb::IMessage<FileDisplayDto>
     category_ = other.category_ != null ? other.category_.Clone() : null;
     id_ = other.id_;
     uploadedBy_ = other.uploadedBy_ != null ? other.uploadedBy_.Clone() : null;
+    contentType_ = other.contentType_;
     _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
   }
 
@@ -2048,6 +2049,18 @@ public sealed partial class FileDisplayDto : pb::IMessage<FileDisplayDto>
     }
   }
 
+  /// <summary>Field number for the "contentType" field.</summary>
+  public const int ContentTypeFieldNumber = 6;
+  private string contentType_ = "";
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+  public string ContentType {
+    get { return contentType_; }
+    set {
+      contentType_ = pb::ProtoPreconditions.CheckNotNull(value, "value");
+    }
+  }
+
   [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
   [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
   public override bool Equals(object other) {
@@ -2068,6 +2081,7 @@ public sealed partial class FileDisplayDto : pb::IMessage<FileDisplayDto>
     if (!object.Equals(Category, other.Category)) return false;
     if (Id != other.Id) return false;
     if (!object.Equals(UploadedBy, other.UploadedBy)) return false;
+    if (ContentType != other.ContentType) return false;
     return Equals(_unknownFields, other._unknownFields);
   }
 
@@ -2080,6 +2094,7 @@ public sealed partial class FileDisplayDto : pb::IMessage<FileDisplayDto>
     if (category_ != null) hash ^= Category.GetHashCode();
     if (Id != 0) hash ^= Id.GetHashCode();
     if (uploadedBy_ != null) hash ^= UploadedBy.GetHashCode();
+    if (ContentType.Length != 0) hash ^= ContentType.GetHashCode();
     if (_unknownFields != null) {
       hash ^= _unknownFields.GetHashCode();
     }
@@ -2118,6 +2133,10 @@ public sealed partial class FileDisplayDto : pb::IMessage<FileDisplayDto>
       output.WriteRawTag(42);
       output.WriteMessage(UploadedBy);
     }
+    if (ContentType.Length != 0) {
+      output.WriteRawTag(50);
+      output.WriteString(ContentType);
+    }
     if (_unknownFields != null) {
       _unknownFields.WriteTo(output);
     }
@@ -2148,6 +2167,10 @@ public sealed partial class FileDisplayDto : pb::IMessage<FileDisplayDto>
       output.WriteRawTag(42);
       output.WriteMessage(UploadedBy);
     }
+    if (ContentType.Length != 0) {
+      output.WriteRawTag(50);
+      output.WriteString(ContentType);
+    }
     if (_unknownFields != null) {
       _unknownFields.WriteTo(ref output);
     }
@@ -2172,6 +2195,9 @@ public sealed partial class FileDisplayDto : pb::IMessage<FileDisplayDto>
     }
     if (uploadedBy_ != null) {
       size += 1 + pb::CodedOutputStream.ComputeMessageSize(UploadedBy);
+    }
+    if (ContentType.Length != 0) {
+      size += 1 + pb::CodedOutputStream.ComputeStringSize(ContentType);
     }
     if (_unknownFields != null) {
       size += _unknownFields.CalculateSize();
@@ -2205,6 +2231,9 @@ public sealed partial class FileDisplayDto : pb::IMessage<FileDisplayDto>
         UploadedBy = new global::User();
       }
       UploadedBy.MergeFrom(other.UploadedBy);
+    }
+    if (other.ContentType.Length != 0) {
+      ContentType = other.ContentType;
     }
     _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
   }
@@ -2247,6 +2276,10 @@ public sealed partial class FileDisplayDto : pb::IMessage<FileDisplayDto>
           input.ReadMessage(UploadedBy);
           break;
         }
+        case 50: {
+          ContentType = input.ReadString();
+          break;
+        }
       }
     }
   #endif
@@ -2286,6 +2319,10 @@ public sealed partial class FileDisplayDto : pb::IMessage<FileDisplayDto>
             UploadedBy = new global::User();
           }
           input.ReadMessage(UploadedBy);
+          break;
+        }
+        case 50: {
+          ContentType = input.ReadString();
           break;
         }
       }
