@@ -1,0 +1,46 @@
+﻿@page "/Login"
+@inject NavigationManager NavigationManager
+@using Microsoft.AspNetCore.Components.Routing
+
+<MudCo ntainer Class="login-container">
+    <MudCard Class="login-card m-4">
+        <MudCardContent>
+            <MudTypography Variant="TypographyVariant.H4" Class="text-center">Login</MudTypography>
+            <MudForm @ref="loginForm" OnValidSubmit="HandleValidSubmit">
+                <MudTextField @bind-Value="loginModel.Username" Label="Username" Required="true" />
+                <MudTextField @bind-Value="loginModel.Password" Label="Password" Required="true" Type="InputType.Password" />
+                <div class="text-center mt-4">
+                    <MudButton Class="login-button" Variant="Variant.Filled" Color="Color.Primary" Type="ButtonType.Submit">Login</MudButton>
+                </div>
+            </MudForm>
+            <div class="text-center mt-4">
+                <span>Don't have an account?</span>
+                <MudLink Href="/Register">Register here</MudLink>
+            </div>
+        </MudCardContent>
+    </MudCard>
+</MudCo>
+
+@code {
+    private MudForm loginForm;
+    private LoginModel loginModel = new LoginModel();
+
+    private async Task HandleValidSubmit()
+    {
+        // TODO: Perform login authentication logic here
+        // if (/* authentication is successful */)
+        // {
+        //     NavigationManager.NavigateTo("/dashboard"); // Redirect to the dashboard page after successful login
+        // }
+        // else
+        // {
+        //     // Show error message or handle failed login
+        // }
+    }
+
+    public class LoginModel
+    {
+        public string Username { get; set; }
+        public string Password { get; set; }
+    }
+}

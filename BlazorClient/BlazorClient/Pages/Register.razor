@@ -1,0 +1,84 @@
+﻿@page "/Register"
+@using BlazorClient.gRPCClients.Interfaces
+@using Google.Protobuf
+@inject NavigationManager NavigationManager
+@inject IUserService UsergRpcClient
+
+<MudContainer Class="login-container">
+    <MudCard Class="login-card m-4">
+        <MudCardContent>
+            <MudTypography Variant="TypographyVariant.H4" Class="text-center">Register New Account</MudTypography>
+            <MudForm @ref="registerForm" OnValidSubmit="HandleValidSubmit">
+                <MudTextField @bind-Value="registerModel.Name" Label="Name" Required="true" />
+                <MudTextField @bind-Value="registerModel.Username" Label="Username" Required="true"/>
+                <MudTextField @bind-Value="registerModel.Password" Label="Password" Required="true" Type="InputType.Password"/>
+                <MudTextField @bind-Value="registerModel.RepeatedPassword" Label="Confirm Password" Required="true" Type="InputType.Password"/>
+                <div class="text-center mt-4">
+                    <MudButton Class="register-button" Variant="Variant.Filled" Color="Color.Primary" Type="ButtonType.Submit" @onclick="CreateAsync">Register</MudButton>
+                </div>
+            </MudForm>
+
+        </MudCardContent>
+    </MudCard>
+</MudContainer>
+
+@code {
+    private MudForm registerForm;
+    private RegisterModel registerModel = new RegisterModel();
+    private string Message = "";
+
+    private async Task HandleValidSubmit()
+    {
+    // TODO: Perform login authentication logic here
+    // if (/* authentication is successful */)
+    // {
+    //     NavigationManager.NavigateTo("/dashboard"); // Redirect to the dashboard page after successful login
+    // }
+    // else
+    // {
+    //     // Show error message or handle failed login
+    // }
+        
+    }
+
+    public class RegisterModel
+    {
+        public string Name { get; set; } = "";
+        public string Username { get; set; } = "";
+        public string Password { get; set; } = "";
+        public string RepeatedPassword { get; set; } = "";
+    }
+    
+    private async Task CreateAsync()
+    {
+        if (registerModel.Name != "" && registerModel.Username != "" && registerModel.Password != "" 
+            && registerModel.RepeatedPassword.Equals(registerModel.Password))
+        {
+            try
+            {
+                User existingUser = await UsergRpcClient.GetByUsernameAsync(registerModel.Username);
+                if (existingUser == null)
+                {
+                    var newUser = new UserCreationDto()
+                    {
+                        Name = registerModel.Name,
+                        Username = registerModel.Username,
+                        Password = registerModel.Password,
+                        IsAdmin = false
+                    };
+                    await UsergRpcClient.CreateAsync(newUser);
+                }
+                else
+                {
+                    Message = "Username already taken";
+                }
+            }
+            
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                Message = e.Message;
+            }
+        }
+    }
+}
