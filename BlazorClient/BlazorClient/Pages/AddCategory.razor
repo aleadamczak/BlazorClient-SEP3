@@ -22,9 +22,9 @@
 
             try
             {
-                var newCategory = new Domain.Models.Category
+                var newCategory = new Category
                 {
-                    name = TextValue
+                    Name = TextValue
                 };
 
                 await CategoryService.CreateAsync(newCategory);
@@ -38,6 +38,33 @@
 
             Console.WriteLine("File sent to the service");
         }
+        
+    }
+    
+    private async void DeleteAsync()
+    {
+        
+        if (TextValue != null)
+        {
 
+            try
+            {
+                var newCategory = new Category
+                {
+                    Name = TextValue
+                };
+
+                await CategoryService.DeleteAsync(newCategory);
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                message = e.Message;
+            }
+
+
+            Console.WriteLine("File sent to the service");
+        }
+        
     }
 }
