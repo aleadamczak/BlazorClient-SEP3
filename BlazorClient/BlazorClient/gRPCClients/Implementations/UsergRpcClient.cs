@@ -31,4 +31,9 @@ public class UsergRpcClient : IUserService
 
         return await Task.FromResult(_client.getByUsername(usernameProto));
     }
+    
+    public async Task<User> CreateAsync(UserCreationDto userCreationDto)
+    {
+        return await Task.FromResult(_client.create(userCreationDto));
+    }
 }
