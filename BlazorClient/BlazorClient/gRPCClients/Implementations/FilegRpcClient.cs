@@ -52,10 +52,60 @@ public class FilegRpcClient : IFileService {
 
     public Task<IEnumerable<File>> GetAllAsync()
     {
-        throw new NotImplementedException();
+        return null;
     }
     
-  
-
+    private IEnumerable<FileDisplayDto> ConvertToDtoList(FileDisplayList fileDisplayList)
+    {
+        List<FileDisplayDto> dtoList = new List<FileDisplayDto>();
+        foreach (var fileDisplay in fileDisplayList.Files)
+        {
+            FileDisplayDto dto = new FileDisplayDto
+            {
+                Title = fileDisplay.Title,
+                Description = fileDisplay.Description,
+                Category = fileDisplay.Category,
+                Id = fileDisplay.Id,
+                UploadedBy = fileDisplay.UploadedBy
+            };
+            dtoList.Add(dto);
+        }
+        return dtoList;
+    }
     
+    public async Task<IEnumerable<FileDisplayDto>> GetAllDtosAsync()
+    {
+        FileDisplayList fileDisplayList = await _client.getAllAsync(new Empty());
+        
+        List<FileDisplayDto> dtoList = new List<FileDisplayDto>();
+        foreach (var fileDisplay in fileDisplayList.Files)
+        {
+            FileDisplayDto dto = new FileDisplayDto
+            {
+                Title = fileDisplay.Title,
+                Description = fileDisplay.Description,
+                Category = fileDisplay.Category,
+                Id = fileDisplay.Id,
+                UploadedBy = fileDisplay.UploadedBy,
+                ContentType = fileDisplay.ContentType
+            };
+            dtoList.Add(dto);
+        }
+        
+        return dtoList;
+    }
+
+    public void Delete(int id)
+    {
+        Id number = new Id()
+        {
+            Id_ = id
+        };
+        _client.remove(number);
+    }
+
+
+
+
+
 }

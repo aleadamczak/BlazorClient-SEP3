@@ -23,11 +23,21 @@
 </style>
 
 <h1>All Files</h1>
- <MudButton Variant="Variant.Filled" EndIcon="@Icons.Material.Filled.ArrowRight" Style="background-color: #1E88E5; color: black; width: 200px; height: 60px;" @onclick="() => DownloadFile(3)">
-            Open Selected
-        </MudButton>
+<MudButton Variant="Variant.Filled" EndIcon="@Icons.Material.Filled.ArrowRight" Style="background-color: #1E88E5; color: black; width: 200px; height: 60px;" @onclick="() => Delete(selectedFile.Id)">
+    Delete file
+</MudButton>
 
-<MudTable Items="@files" Hover="true" Breakpoint="Breakpoint.Sm" @ref="mudTable" RowClassFunc="@SelectedRowClassFunc" Filter="new Func<File,bool>(FilterFunc1)" @bind-SelectedItem="selectedFile">
+@if (!string.IsNullOrEmpty(Message))
+{
+    <div>
+         <MudAlert Severity="Severity.Success">@Message</MudAlert>
+    </div>
+}
+   
+
+
+
+<MudTable Items="@files" Hover="true" Breakpoint="Breakpoint.Sm" @ref="mudTable" RowClassFunc="@SelectedRowClassFunc" Filter="new Func<FileDisplayDto,bool>(FilterFunc1)" @bind-SelectedItem="selectedFile">
     <ToolBarContent>
         @* <MudText Typo="Typo.h6">File List</MudText> *@
        
@@ -45,11 +55,11 @@
     </HeaderContent>
     <RowTemplate>
         <MudTd DataLabel="Title">@context.Title</MudTd>
-        <MudTd DataLabel="Category">@context.Category</MudTd>
+        <MudTd DataLabel="Category">@context.Category.Name</MudTd>
         <MudTd DataLabel="Description">@context.Description</MudTd>
- @*       <MudTd DataLabel="Uploaded By">@context.UploadedByUser</MudTd>
-        <MudTd DataLabel="File Type">@context.UploadedByUser</MudTd>
-    *@    <MudTd DataLabel="Download"><MudButton Variant="Variant.Filled" @onclick="() => DownloadFile(context.Id)">Download</MudButton></MudTd>
+        <MudTd DataLabel="Uploaded By">@context.UploadedBy.Username</MudTd>
+        <MudTd DataLabel="File Type">@context.ContentType</MudTd>
+        <MudTd DataLabel="Download"><MudButton Variant="Variant.Filled" @onclick="() => DownloadFile(context.Id)">Download</MudButton></MudTd>
 
     </RowTemplate>
     <PagerContent>
@@ -67,18 +77,19 @@
 
 @code {
     
-    private IEnumerable<File>? files { get; set; }
+    private IEnumerable<FileDisplayDto>? files { get; set; }
     
     private int selectedRowNumber = -1;
-    private MudTable<File> mudTable;
+    private MudTable<FileDisplayDto> mudTable;
     
     private string searchString1 = "";
-    private File selectedFile = null;
-    private HashSet<File> selectedFiles = new HashSet<File>();
-    
-    private bool FilterFunc1(File file) => FilterFunc(file, searchString1);
+    private FileDisplayDto selectedFile = null;
+    private HashSet<FileDisplayDto> selectedFiles = new HashSet<FileDisplayDto>();
+    private string Message { get; set; } = "";
+
+    private bool FilterFunc1(FileDisplayDto file) => FilterFunc(file, searchString1);
  
-    private bool FilterFunc(File file, string searchString)
+    private bool FilterFunc(FileDisplayDto file, string searchString)
     {
         if (string.IsNullOrWhiteSpace(searchString))
             return true;
@@ -88,7 +99,7 @@
     }
  
     
-    private string SelectedRowClassFunc(File element, int rowNumber)
+    private string SelectedRowClassFunc(FileDisplayDto element, int rowNumber)
     {
         if (selectedRowNumber == rowNumber)
         {
@@ -110,15 +121,8 @@
 
         try
         {
-            //files = await FileService.GetAllAsync();
-            
-            //Old test
-            
-            // foreach (var file in files)
-            // {
-            //     Console.WriteLine(file.Title);
-            // }
-           
+            files = await FilegRpcClient.GetAllDtosAsync();
+
         }
         catch (Exception)
         {
@@ -153,5 +157,24 @@
 
 
         }
+
+
+    private void Delete(int id)
+    {
+        try
+        {
+            if (id != null)
+            {
+                FilegRpcClient.Delete(id);
+                Message = "File Deleted";
+            }
+            StateHasChanged();
+        }
+        catch (Exception e)
+        {
+            Message = e.Message;
+        }
+
+    }
 
 }

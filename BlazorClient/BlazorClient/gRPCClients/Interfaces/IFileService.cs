@@ -1,5 +1,4 @@
 ﻿
-
 namespace BlazorClient.gRPCClients.Interfaces;
 
 public interface IFileService
@@ -10,5 +9,9 @@ public interface IFileService
     Task<FileDownloadDto> GetAsync(Id id);
 
     Task<IEnumerable<File>> GetAllAsync();
+    
+    Task<IEnumerable<FileDisplayDto>> GetAllDtosAsync();
+
+    void Delete(int id);
 
 }
