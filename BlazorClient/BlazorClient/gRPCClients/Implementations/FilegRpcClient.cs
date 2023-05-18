@@ -39,13 +39,11 @@ public class FilegRpcClient : IFileService {
             if (e.Status.StatusCode == StatusCode.Internal)
             {
                 NullException exception = e.Trailers
-                                .OfType<NullException>()
-                                .FirstOrDefault();
+                    .OfType<NullException>()
+                    .FirstOrDefault();
                 throw new Exception(exception.Message);
             }
-
             throw new Exception(e.Message);
-
         }
     }
 
