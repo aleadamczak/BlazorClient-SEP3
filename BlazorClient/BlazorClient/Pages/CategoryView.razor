@@ -1,0 +1,172 @@
+﻿@page "/CategoryView/{category}"
+@using Google.Protobuf
+@using BlazorClient.gRPCClients.Interfaces
+@using UIComponents
+@using Microsoft.AspNetCore.Components
+
+@inject IFileService FilegRpcClient
+
+<h3>@category</h3>
+
+    <MudTable Items="@AllFiles" Hover="true" Breakpoint="Breakpoint.Sm" @ref="mudTable" RowClassFunc="@SelectedRowClassFunc" Filter="new Func<FileDisplayDto,bool>(FilterFunc1)" @bind-SelectedItem="selectedFile">
+        <ToolBarContent>
+            <MudSpacer />
+            <MudTextField @bind-Value="searchString1" Placeholder="Search" Adornment="Adornment.Start" AdornmentIcon="@Icons.Material.Filled.Search" IconSize="Size.Medium" Class="mt-0"></MudTextField>
+        </ToolBarContent>
+        <HeaderContent>
+            <MudTh>Title</MudTh>
+            <MudTh>Category</MudTh>
+            <MudTh>Description</MudTh>
+            <MudTh>Uploaded By</MudTh>
+            <MudTh>File Type</MudTh>
+            <MudTh>Download file</MudTh>
+
+        </HeaderContent>
+        <RowTemplate>
+            <MudTd DataLabel="Title">@context.Title</MudTd>
+            <MudTd DataLabel="Category">@context.Category.Name</MudTd>
+            <MudTd DataLabel="Description">@context.Description</MudTd>
+            <MudTd DataLabel="Uploaded By">@context.UploadedBy.Username</MudTd>
+            <MudTd DataLabel="File Type">@context.ContentType</MudTd>
+            <MudTd DataLabel="Download"><MudButton Variant="Variant.Filled" @onclick="() => DownloadFile(context.Id)">Download</MudButton></MudTd>
+
+        </RowTemplate>
+        <PagerContent>
+            <MudTablePager />
+        </PagerContent>
+    </MudTable>
+
+
+<PopUp ShowPopUp="showPopUp" >
+    <div>
+        <span>@Message</span>
+        <img src="@GifPath" alt="GIF image" style="width: 100%; height: auto"/>
+        <MudButton @onclick="Proceed"> OK</MudButton>
+    </div>
+</PopUp>
+
+
+
+
+@code {
+    [Parameter]
+    
+    public string category { get; set; }
+    
+
+    private IEnumerable<FileDisplayDto>? AllFiles { get; set; }
+    private int selectedRowNumber = -1;
+    private MudTable<FileDisplayDto> mudTable;
+    private string searchString1 = "";
+    private FileDisplayDto selectedFile = null;
+    private HashSet<FileDisplayDto> selectedFiles = new HashSet<FileDisplayDto>();
+    private string Message { get; set; } = "";
+    private bool FilterFunc1(FileDisplayDto file) => FilterFunc(file, searchString1);
+    private bool showPopUp;
+    private string GifPath { get; set; }
+    
+
+    private bool FilterFunc(FileDisplayDto file, string searchString)
+    {
+        if (string.IsNullOrWhiteSpace(searchString))
+            return true;
+        if (file.Title.Contains(searchString, StringComparison.OrdinalIgnoreCase))
+            return true;
+        return false;
+    }
+
+    private string SelectedRowClassFunc(FileDisplayDto element, int rowNumber)
+    {
+        if (selectedRowNumber == rowNumber)
+        {
+            selectedRowNumber = -1;
+            return string.Empty;
+
+        }
+        if (mudTable.SelectedItem != null && mudTable.SelectedItem.Equals(element))
+        {
+            selectedRowNumber = rowNumber;
+            return "selected";
+
+        }
+        return string.Empty;
+    }
+    
+    
+    protected override async Task OnInitializedAsync()
+    {
+
+        try
+        {
+            AllFiles = await FilegRpcClient.GetAllDtosAsync();
+            AllFiles = AllFiles.Where(f => f.Category.Name.Equals(category));
+            showPopUp = false;
+
+        }
+        catch (Exception)
+        {
+            Console.WriteLine("Exception occured when fetching file data");
+        }
+
+    }
+
+    private async void DownloadFile(int number)
+    {
+        try
+        {
+            Id num = new Id()
+            {
+                Id_ = number
+            };
+
+            FileDownloadDto downloadFile = await FilegRpcClient.GetAsync(num);
+            byte[] bytes = downloadFile.ToByteArray();
+            string downloadPath = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
+            string title = downloadFile.Title;
+            string contentType = downloadFile.ContentType;
+            System.IO.File.WriteAllBytes(downloadPath + "/" + title + contentType, bytes);
+            GifPath = "pictures/downloadedSuccessfully.gif";
+            Message = "The file has been downloaded to your desktop";
+            showPopUp = true;
+            StateHasChanged();
+
+        }
+        catch (Exception e)
+        {
+            Message = "This file is no longer available";
+            GifPath = "pictures/failedDownload.gif";
+            showPopUp = true;
+            StateHasChanged();
+            AllFiles = await FilegRpcClient.GetAllDtosAsync();
+
+        }
+
+
+
+    }
+
+
+    private void Delete(int id)
+    {
+        try
+        {
+            if (id != null)
+            {
+                FilegRpcClient.Delete(id);
+                Message = "File Deleted";
+            }
+            StateHasChanged();
+        }
+        catch (Exception e)
+        {
+            Message = e.Message;
+        }
+
+    }
+
+    private void Proceed()
+    {
+        showPopUp = false;
+    }
+
+}

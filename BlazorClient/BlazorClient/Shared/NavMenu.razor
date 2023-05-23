@@ -1,4 +1,9 @@
-﻿<MudNavMenu>
+﻿@using BlazorClient.gRPCClients.Interfaces
+@inject ICategoryService CategoryGRpcClient;
+@inject NavigationManager navigationManager
+
+
+<MudNavMenu>
     <MudText Typo="Typo.body2" Class="px-4 mud-text-secondary mt-4 text-center">Semester Project 3</MudText>
      <MudDivider Class="my-2"/>
         <MudNavLink Href="">Home</MudNavLink>
@@ -7,13 +12,21 @@
 
      <MudNavGroup Title="Browse Files" Expanded="true">
          <MudNavLink Href="/ViewFiles">See all</MudNavLink>
-         <MudNavLink Href="/security">Categories</MudNavLink>
+         <MudNavGroup Title="Categories" Expanded="true">
+             @foreach (Category category in AllCategories.Categories)
+             {
+                 <MudNavLink Href="@($"/CategoryView/{category.Name}")">@category.Name</MudNavLink>
+             }
+         </MudNavGroup>
      </MudNavGroup>
      <MudNavLink Href="/addCategory">Add Category</MudNavLink>
 
  </MudNavMenu>
 
 @code {
+    
+    private CategoryList AllCategories { get; set; }
+    
     private bool collapseNavMenu = true;
 
     private string? NavMenuCssClass => collapseNavMenu ? "collapse" : null;
@@ -21,6 +34,17 @@
     private void ToggleNavMenu()
     {
         collapseNavMenu = !collapseNavMenu;
+    }
+    
+    protected override void OnInitialized()
+    {
+        AllCategories = CategoryGRpcClient.GetAllAsync(new Empty()).Result;
+    }
+
+    private void ButtonHandler(string categoryName)
+    {
+        
+        navigationManager.NavigateTo($"/CategoryView/{categoryName}");
     }
 
 }
