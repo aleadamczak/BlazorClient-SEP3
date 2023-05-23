@@ -1,6 +1,7 @@
 ﻿@page "/Register"
 @using BlazorClient.gRPCClients.Interfaces
 @using Google.Protobuf
+@using UIComponents
 @inject NavigationManager NavigationManager
 @inject IUserService UsergRpcClient
 
@@ -15,6 +16,7 @@
                 <MudTextField @bind-Value="registerModel.RepeatedPassword" Label="Confirm Password" Required="true" Type="InputType.Password"/>
                 <div class="text-center mt-4">
                     <MudButton Class="register-button" Variant="Variant.Filled" Color="Color.Primary" Type="ButtonType.Submit" @onclick="CreateAsync">Register</MudButton>
+                    <MudButton Class="register-button" Variant="Variant.Filled" Color="Color.Primary" Type="ButtonType.Submit" @onclick="NavigateToLogin">Back</MudButton>
                 </div>
             </MudForm>
 
@@ -22,10 +24,28 @@
     </MudCard>
 </MudContainer>
 
+<PopUp ShowPopUp="showPopUp" >
+    <div>
+        <span>@Message</span>
+        <MudButton @onclick="Proceed">OK</MudButton>
+    </div>
+</PopUp>
+
 @code {
     private MudForm registerForm;
     private RegisterModel registerModel = new RegisterModel();
     private string Message = "";
+    private bool showPopUp;
+    
+    protected override void OnInitialized()
+    {
+        showPopUp = false;
+    }
+    
+    private void NavigateToLogin()
+    {
+        NavigationManager.NavigateTo("/Login");
+    }
 
     private async Task HandleValidSubmit()
     {
@@ -56,10 +76,19 @@
         {
             try
             {
-                User existingUser = await UsergRpcClient.GetByUsernameAsync(registerModel.Username);
+                User existingUser;
+                try
+                {
+                    existingUser = await UsergRpcClient.GetByUsernameAsync(registerModel.Username);
+                }
+                catch (Exception e)
+                {
+                    existingUser = null;
+                }
+                
                 if (existingUser == null)
                 {
-                    var newUser = new UserCreationDto()
+                    var newUser = new UserCreationDto
                     {
                         Name = registerModel.Name,
                         Username = registerModel.Username,
@@ -67,18 +96,33 @@
                         IsAdmin = false
                     };
                     await UsergRpcClient.CreateAsync(newUser);
+                    Message = "New user created";
+                    showPopUp = true;
+                    StateHasChanged();
                 }
                 else
                 {
                     Message = "Username already taken";
+                    showPopUp = true;
+                    StateHasChanged();
                 }
             }
             
             catch (Exception e)
             {
-                Console.WriteLine(e);
                 Message = e.Message;
+                showPopUp = true;
             }
         }
+        else
+        {
+            Message = "Fields cannot be empty or passwords do not match";
+            showPopUp = true;
+        }
+    }
+    
+    private void Proceed()
+    {
+        showPopUp = false;
     }
 }

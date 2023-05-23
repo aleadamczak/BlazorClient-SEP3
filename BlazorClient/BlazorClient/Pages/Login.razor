@@ -1,8 +1,11 @@
 ﻿@page "/Login"
 @inject NavigationManager NavigationManager
 @using Microsoft.AspNetCore.Components.Routing
+@using BlazorClient.gRPCClients.Interfaces
+@inject IUserService UsergRpcClient
+@using UIComponents
 
-<MudCo ntainer Class="login-container">
+<MudContainer Class="login-container">
     <MudCard Class="login-card m-4">
         <MudCardContent>
             <MudTypography Variant="TypographyVariant.H4" Class="text-center">Login</MudTypography>
@@ -10,7 +13,7 @@
                 <MudTextField @bind-Value="loginModel.Username" Label="Username" Required="true" />
                 <MudTextField @bind-Value="loginModel.Password" Label="Password" Required="true" Type="InputType.Password" />
                 <div class="text-center mt-4">
-                    <MudButton Class="login-button" Variant="Variant.Filled" Color="Color.Primary" Type="ButtonType.Submit">Login</MudButton>
+                    <MudButton Class="login-button" Variant="Variant.Filled" Color="Color.Primary" Type="ButtonType.Submit" @onclick="LoginAsync">Login</MudButton>
                 </div>
             </MudForm>
             <div class="text-center mt-4">
@@ -19,11 +22,25 @@
             </div>
         </MudCardContent>
     </MudCard>
-</MudCo>
+</MudContainer>
+
+<PopUp ShowPopUp="showPopUp" >
+    <div>
+        <span>@Message</span>
+        <MudButton @onclick="Proceed">OK</MudButton>
+    </div>
+</PopUp>
 
 @code {
     private MudForm loginForm;
     private LoginModel loginModel = new LoginModel();
+    private string Message = "";
+    private bool showPopUp;
+    
+    protected override void OnInitialized()
+    {
+        showPopUp = false;
+    }
 
     private async Task HandleValidSubmit()
     {
@@ -43,4 +60,53 @@
         public string Username { get; set; }
         public string Password { get; set; }
     }
+    
+    private async Task LoginAsync()
+    {
+        if (!string.IsNullOrEmpty(loginModel.Username) && !string.IsNullOrEmpty(loginModel.Password))
+        {
+            try
+            {
+                User loggedInUser = await UsergRpcClient.LoginAsync(new UserLogInDto
+                {
+                    Username = loginModel.Username,
+                    Password = loginModel.Password
+                });
+
+    // Handle the logged-in user
+                if (loggedInUser != null)
+                {
+                    Message = "Login successful, welcome " + loggedInUser.Username + "!";
+                    showPopUp = true;
+                    StateHasChanged();
+                }
+                else
+                {
+    // Login failed
+                    Message = "Invalid username or password";
+                    showPopUp = true;
+                    StateHasChanged();
+                }
+            }
+            catch (Exception e)
+            {
+    // Handle any exceptions that occurred during the login process
+                Message = e.Message;
+                showPopUp = true;
+                StateHasChanged();
+            }
+        }
+        else
+        {
+            Message = "Username and password are required";
+            showPopUp = true;
+            StateHasChanged();
+        }
+    }
+    
+    private void Proceed()
+    {
+        showPopUp = false;
+    }
+
 }

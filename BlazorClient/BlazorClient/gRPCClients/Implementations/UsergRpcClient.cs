@@ -8,6 +8,7 @@ public class UsergRpcClient : IUserService
 {
     
     private UserController.UserControllerClient _client;
+    private User _loggedUser;
     
     public UsergRpcClient()
     {
@@ -19,6 +20,8 @@ public class UsergRpcClient : IUserService
     
         // Create the gRPC client
         _client = new UserController.UserControllerClient(channel);
+
+        _loggedUser = null;
     }
     
     
@@ -35,5 +38,20 @@ public class UsergRpcClient : IUserService
     public async Task<User> CreateAsync(UserCreationDto userCreationDto)
     {
         return await Task.FromResult(_client.create(userCreationDto));
+    }
+
+    public async Task<User> LoginAsync(UserLogInDto userLogInDto)
+    {
+        try
+        {
+            var newLoggedUser = await Task.FromResult(_client.logIn(userLogInDto));
+            _loggedUser = newLoggedUser;
+            return newLoggedUser;
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine(e);
+            return null;
+        }
     }
 }
