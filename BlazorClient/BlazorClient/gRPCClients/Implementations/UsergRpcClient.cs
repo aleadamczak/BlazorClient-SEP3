@@ -36,4 +36,9 @@ public class UsergRpcClient : IUserService
     {
         return await Task.FromResult(_client.create(userCreationDto));
     }
+
+    public async Task<UserDisplayDtoList> GetAllAsync(Empty empty)
+    {
+        return await Task.FromResult(_client.getAllDisplay(empty));
+    }
 }

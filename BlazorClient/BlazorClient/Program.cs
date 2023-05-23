@@ -14,7 +14,7 @@ builder.Services.AddHttpClient();
 builder.Services.AddScoped<IUserService, UsergRpcClient>();
 builder.Services.AddScoped<IFileService, FilegRpcClient>();
 builder.Services.AddScoped<ICategoryService, CategorygRpcClient>();
-
+builder.Services.AddScoped<IPrivateFileService, PrivateFilegRpcClient>();
 
 
  
