@@ -1,0 +1,149 @@
+﻿@page "/ViewPrivateFiles"
+@using BlazorClient.gRPCClients.Interfaces
+@using BlazorClient.gRPCClients.Implementations
+@inject IUserService UsergRpcClient
+@inject IPrivateFileService PrivateFilegRpcClient
+<h3>Files - Shared with me </h3>
+
+<MudTable Items="@files.PrivateFiles" Hover="true" Breakpoint="Breakpoint.Sm" @ref="mudTable" RowClassFunc="@SelectedRowClassFunc" Filter="new Func<PrivateFileDisplayDto,bool>(FilterFunc1)" @bind-SelectedItem="selectedFile">
+    <ToolBarContent>
+        @* <MudText Typo="Typo.h6">File List</MudText> *@
+       
+        <MudSpacer />
+        <MudTextField @bind-Value="searchString1" Placeholder="Search" Adornment="Adornment.Start" AdornmentIcon="@Icons.Material.Filled.Search" IconSize="Size.Medium" Class="mt-0"></MudTextField>
+    </ToolBarContent>
+    <HeaderContent>
+        <MudTh>Title</MudTh>
+        <MudTh>Uploaded By</MudTh>
+        <MudTh>File Type</MudTh>
+        <MudTh>Download file</MudTh>
+    </HeaderContent>
+    <RowTemplate>
+        <MudTd DataLabel="Title">@context.Title</MudTd>
+        <MudTd DataLabel="Shared with you by">@context.UploadedBy.Username</MudTd>
+        <MudTd DataLabel="File Type">@context.ContentType</MudTd>
+        <MudTd DataLabel="Download"><MudButton Variant="Variant.Filled" @onclick="() => DownloadFile(context.Id)">Download</MudButton></MudTd>
+
+    </RowTemplate>
+    <PagerContent>
+        <MudTablePager />
+    </PagerContent>
+</MudTable>
+
+@code {
+    
+    private PrivateFileDisplayDtoList files { get; set; }
+    private int selectedRowNumber = -1;
+    private MudTable<PrivateFileDisplayDto> mudTable;
+    private string searchString1 = "";
+    private PrivateFileDisplayDto selectedFile = null;
+    private HashSet<PrivateFileDisplayDto> selectedFiles = new HashSet<PrivateFileDisplayDto>();
+    private string Message { get; set; } = "";
+    private bool FilterFunc1(PrivateFileDisplayDto file) => FilterFunc(file, searchString1);
+    private bool showPopUp;
+    private string GifPath { get; set; }
+ 
+    private bool FilterFunc(PrivateFileDisplayDto file, string searchString)
+    {
+        if (string.IsNullOrWhiteSpace(searchString))
+            return true;
+        if (file.Title.Contains(searchString, StringComparison.OrdinalIgnoreCase))
+            return true;
+        return false;
+    }
+ 
+    
+    private string SelectedRowClassFunc(PrivateFileDisplayDto element, int rowNumber)
+    {
+        if (selectedRowNumber == rowNumber)
+        {
+            selectedRowNumber = -1;
+            return string.Empty;
+
+        }
+        if (mudTable.SelectedItem != null && mudTable.SelectedItem.Equals(element))
+        {
+            selectedRowNumber = rowNumber;
+            return "selected";
+
+        }
+        return string.Empty;
+    }
+
+    protected override async Task OnInitializedAsync()
+    {
+
+        try
+        {
+            files =  await PrivateFilegRpcClient.GetSharedWith(new User() {Username = "tina"});
+            showPopUp = false;
+
+        }
+        catch (Exception)
+        {
+            Console.WriteLine("Exception occured when fetching file data");
+        }
+
+    }
+
+    private async void DownloadFile(int number)
+    {
+        // try
+        // {
+        //     Id num = new Id()
+        //     {
+        //         Id_ = number
+        //     };
+        //
+        //     FileDownloadDto downloadFile = await FilegRpcClient.GetAsync(num);
+        //     byte[] bytes = downloadFile.ToByteArray();
+        //     string downloadPath = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
+        //     string title = downloadFile.Title;
+        //     string contentType = downloadFile.ContentType;
+        //     System.IO.File.WriteAllBytes(downloadPath + "/" + title + contentType, bytes);
+        //     GifPath = "pictures/downloadedSuccessfully.gif";
+        //     Message = "The file has been downloaded to your desktop";
+        //     showPopUp = true;
+        //     StateHasChanged();
+        //
+        // }
+        // catch (Exception e)
+        // {
+        //     Message = "This file is no longer available";
+        //     GifPath = "pictures/failedDownload.gif";
+        //     showPopUp = true;
+        //     StateHasChanged();
+        //     files = await FilegRpcClient.GetAllDtosAsync();
+        //
+        // }
+        
+        
+       
+    }
+
+
+    // private void Delete(int id)
+    // {
+    //     try
+    //     {
+    //         if (id != null)
+    //         {
+    //             FilegRpcClient.Delete(id);
+    //             Message = "File Deleted";
+    //         }
+    //         StateHasChanged();
+    //     }
+    //     catch (Exception e)
+    //     {
+    //         Message = e.Message;
+    //     }
+    //
+    // }
+    
+    private void Proceed()
+    {
+        showPopUp = false;
+    }
+
+    
+}

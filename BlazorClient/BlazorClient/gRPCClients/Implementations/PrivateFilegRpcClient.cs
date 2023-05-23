@@ -20,14 +20,19 @@ public class PrivateFilegRpcClient : IPrivateFileService
     }
 
 
-    public Task<PrivateFile> CreateAsync(PrivateFileCreationDto file)
+    public async Task<PrivateFile> CreateAsync(PrivateFileCreationDto file)
     {
-        return Task.FromResult(_client.upload(file));
+        return await Task.FromResult(_client.upload(file));
     }
 
     public Task<FileDownloadDto> GetAsync(Id id)
     {
         throw new NotImplementedException();
+    }
+
+    public async Task<PrivateFileDisplayDtoList> GetSharedWith(User user)
+    {
+        return await Task.FromResult(_client.getSharedWith(user));
     }
 
     public Task<IEnumerable<PrivateFile>> GetAllAsync()
