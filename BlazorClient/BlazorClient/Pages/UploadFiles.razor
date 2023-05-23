@@ -62,7 +62,7 @@
     {
         file = e.GetMultipleFiles().FirstOrDefault();
         
-        if (file != null) contentType = file.ContentType;
+        if (file != null) contentType = Path.GetExtension(file.Name);
         Console.WriteLine(contentType);
     }
 

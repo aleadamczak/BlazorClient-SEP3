@@ -11,4 +11,6 @@ public interface IUserService
 
     Task<User> LoginAsync(UserLogInDto userLogInDto);
 
+    Task<UserDisplayDtoList> GetAllAsync(Empty empty);
+
 }

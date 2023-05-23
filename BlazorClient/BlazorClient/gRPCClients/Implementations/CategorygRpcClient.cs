@@ -1,15 +1,17 @@
 ﻿using BlazorClient.gRPCClients.Interfaces;
+using Grpc.Core;
 using Grpc.Net.Client;
+using Microsoft.AspNetCore.Mvc.ModelBinding;
+
 
 namespace BlazorClient.gRPCClients.Implementations;
 
 public class CategorygRpcClient : ICategoryService
 {
-    
-    
+
     private CategoryController.CategoryControllerClient _client;
-    
     public CategorygRpcClient()
+
     {
         // // Set the URL of the Java gRPC server
         var grpcServerUrl = "http://localhost:9090";
@@ -21,9 +23,15 @@ public class CategorygRpcClient : ICategoryService
         _client = new CategoryController.CategoryControllerClient(channel);
         
     }
-    public Task<Domain.Models.Category> CreateAsync(Domain.Models.Category category)
+    public async Task<Category> CreateAsync(Category category)
     {
-        throw new NotImplementedException();
+        return await Task.FromResult(_client.addCategory(category));
+
+    }
+    public async Task<Empty> DeleteAsync(Category category)
+    {
+        return await Task.FromResult(_client.removeCategory(category));
+        
     }
 
     public Task<CategoryList> GetAllAsync(Empty empty)

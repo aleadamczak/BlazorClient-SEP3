@@ -1,6 +1,6 @@
 syntax = "proto3";
 
-option java_package = "com.sdj3.protobuf";
+option java_package = "com.example.sep3rest.protobuf";
 
 service CategoryController {
   rpc addCategory(Category) returns (Category);
@@ -28,6 +28,13 @@ service UserController {
   rpc logIn(UserLogInDto) returns (User);
   rpc update(UserUpdateDto) returns (User);
   rpc remove(Id) returns (Empty);
+  rpc getAllDisplay(Empty) returns (UserDisplayDtoList);
+}
+
+service PrivateFileController {
+  rpc upload(PrivateFileCreationDto) returns (PrivateFile);
+  rpc download(Id) returns (FileDownloadDto);
+  rpc getSharedWith(User) returns (PrivateFileDisplayDtoList);
 }
 
 
@@ -85,8 +92,9 @@ message FileDisplayDto {
 }
 
 message FileDownloadDto {
-    string title = 1;
-    bytes bytes = 2;
+  string title = 1;
+  bytes bytes = 2;
+  string contentType = 3;
 }
 
 
@@ -96,6 +104,36 @@ message FileList {
 }
 message FileDisplayList {
   repeated FileDisplayDto files = 1;
+}
+
+
+// proto for Private File
+
+message PrivateFile {
+  string title =1;
+  string contentType = 2;
+  User uploadedBy =3;
+  bytes bytes = 4;
+  UserList haveAccess = 5;
+  int32 id = 6;
+}
+message PrivateFileCreationDto {
+  string title = 1;
+  string contentType = 2;
+  User uploadedBy = 3;
+  bytes bytes = 4;
+  UserList haveAccess = 5;
+}
+message PrivateFileDisplayDto {
+  string title = 1;
+  string contentType = 2;
+  User uploadedBy = 3;
+  int32 id =4;
+}
+
+
+message PrivateFileDisplayDtoList {
+  repeated PrivateFileDisplayDto privateFiles =1;
 }
 
 
@@ -114,6 +152,12 @@ message UserCreationDto {
   bool isAdmin = 4;
 }
 
+message UserDisplayDto {
+  string username = 1;
+  string name = 2;
+  bool isAdmin = 3;
+}
+
 message UserUpdateDto {
   string username = 1;
   string password = 2;
@@ -129,13 +173,18 @@ message UserList {
   repeated User users = 1;
 }
 
+message UserDisplayDtoList {
+  repeated UserDisplayDto users = 1;
+}
 
 
 // proto for Categories
 message Category {
+  int32 id =1;
   string name = 2;
 }
 
 message CategoryList {
   repeated Category categories = 1;
 }
+
