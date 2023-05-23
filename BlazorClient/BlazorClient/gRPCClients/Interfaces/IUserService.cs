@@ -9,4 +9,6 @@ public interface IUserService
     
     Task<User> CreateAsync(UserCreationDto userCreationDto);
 
+    Task<UserDisplayDtoList> GetAllAsync(Empty empty);
+
 }

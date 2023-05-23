@@ -27,7 +27,6 @@
     <ItemGroup>
       <Folder Include="Data" />
       <Folder Include="Generated" />
-      <Folder Include="Generated\proto" />
     </ItemGroup>
 
     <ItemGroup>

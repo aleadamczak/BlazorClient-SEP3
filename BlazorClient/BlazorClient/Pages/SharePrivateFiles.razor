@@ -1,0 +1,206 @@
+﻿@page "/SharePrivateFiles"
+@using BlazorClient.gRPCClients.Interfaces
+@using Google.Protobuf
+@using BlazorClient.gRPCClients.Implementations
+@inject IUserService GRpcUserService
+@inject IPrivateFileService GRpcPrivateFileService
+<h3>Share Files With Other Users Privately</h3>
+@if (!string.IsNullOrEmpty(Message))
+{
+    <div>
+        <span>@Message</span>
+    </div>
+}
+
+
+<MudTextField @bind-Value="Title" Label="Title" Variant="Variant.Text"></MudTextField>
+<MudTextField @bind-Value="Username" Label="Username" Variant="Variant.Text"></MudTextField>
+<MudTextField @bind-Value="selectedUsersString" Label="Share File With" Variant="Variant.Filled" Disabled="true" />
+<InputFile OnChange="@LoadFiles" />
+<MudButton OnClick="@CreateAsync" Variant="Variant.Filled" Color="Color.Primary"> Submit File </MudButton>
+<MudTable Items="@AllUsers.Users" Dense="@dense" Hover="@hover"  Filter="new Func<UserDisplayDto,bool>(FilterFunc1)" @bind-SelectedItem="selectedUser">
+    <ToolBarContent>
+        <MudText Typo="Typo.h6">All Registered Users</MudText>
+        <MudSpacer />
+        <MudTextField @bind-Value="searchString1" Placeholder="Search" Adornment="Adornment.Start" AdornmentIcon="@Icons.Material.Filled.Search" IconSize="Size.Medium" Class="mt-0"></MudTextField>
+    </ToolBarContent>
+    <HeaderContent>
+        <MudTh>Username</MudTh>
+        <MudTh>Full Name</MudTh>
+        <MudTh>Role</MudTh>
+        <MudTh>Add User</MudTh>
+    </HeaderContent>
+    <RowTemplate>
+        <MudTd DataLabel="Username">@context.Username</MudTd>
+        <MudTd DataLabel="Full Name">@context.Name</MudTd>
+        <MudTd DataLabel="Role">
+            @if (context.IsAdmin)
+            {
+                <text>Admin</text>
+            }
+            else
+            {
+                <text>Regular User</text>
+            }
+        </MudTd>
+        <MudTd DataLabel="Button">
+            <MudButton @onclick="@(() => UpdateSelectedItems(context))">
+                
+                @if (selectedUsers.Contains(context))
+                {
+                    <text>Remove</text>
+                }
+                else
+                {
+                    <text>Add</text>
+                }
+            </MudButton>
+        </MudTd>
+    </RowTemplate>
+    <PagerContent>
+        <MudTablePager />
+    </PagerContent>
+</MudTable>
+
+<PopUp ShowPopUp="showPopUp" >
+    <div>
+        <span>@Message</span>
+        <img src="@GifPath" alt="GIF image" style="width: 100%; height: auto"/>
+        <MudButton @onclick="Proceed"> OK</MudButton>
+    </div>
+</PopUp>
+
+
+
+@code {
+    
+    private IBrowserFile? file;
+    private string Title { get; set; } = "";
+    private string Description { get; set; } = "";
+    private string Username { get; set; } = "";
+    private string Message = "";
+    private string contentType { get; set; } = "";
+    private UserDisplayDtoList AllUsers { get; set; }
+    private UserDisplayDto selectedUser { get; set; }
+    private HashSet<UserDisplayDto> selectedUsers = new HashSet<UserDisplayDto>();
+    private UserList toReceiveAccessUsersProto { get; set; }
+    private bool dense = true;
+    private bool hover = true;
+    private string searchString1 = "";
+    private string UserType { get; set; } = "";
+    private string GifPath { get; set; }
+    private bool showPopUp;
+    private string selectedUsersString = "";
+
+    protected override async Task OnInitializedAsync()
+    {
+        AllUsers = await GRpcUserService.GetAllAsync(new Empty());
+    }
+
+    private async void CreateAsync()
+    {
+
+        if (file != null)
+
+        {
+            byte[] bytes = new byte[file.Size];
+            using (var ms = new MemoryStream())
+            {
+                await file.OpenReadStream().CopyToAsync(ms);
+                bytes = ms.ToArray();
+            }
+
+            toReceiveAccessUsersProto = GetUsersFromTheServer(selectedUsers);
+
+            try
+            {
+
+                var newFile = new PrivateFileCreationDto()
+                {
+                    Title = Title,
+                    Bytes = ByteString.CopyFrom(bytes),
+                    UploadedBy = await GRpcUserService.GetByUsernameAsync(Username),
+                    ContentType = contentType,
+                    HaveAccess =  toReceiveAccessUsersProto
+                };
+                await GRpcPrivateFileService.CreateAsync(newFile);
+                Message = "File " + newFile.Title + " successfully uploaded";
+                GifPath = "pictures/done.gif";
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                Message = e.Message;
+                GifPath = "pictures/fail.gif";
+            }
+            showPopUp = true;
+            StateHasChanged();
+
+            Console.WriteLine("File sent to the service");
+        }
+    }
+
+    private bool FilterFunc1(UserDisplayDto element) => FilterFunc(element, searchString1);
+
+    private bool FilterFunc(UserDisplayDto element, string searchString)
+    {
+        if (string.IsNullOrWhiteSpace(searchString))
+            return true;
+        if (element.Username.Contains(searchString, StringComparison.OrdinalIgnoreCase))
+            return true;
+        if (element.Name.Contains(searchString, StringComparison.OrdinalIgnoreCase))
+            return true;
+        return false;
+    }
+    
+    private void UpdateSelectedItems(UserDisplayDto element)
+    {
+        if (!selectedUsers.Contains(element))
+        {
+            selectedUsers.Add(element);
+            UpdateSelectedUsersString();
+        }
+        else
+        {
+            selectedUsers.Remove(element);
+            UpdateSelectedUsersString();
+        }
+    }
+    
+    private void Proceed()
+    {
+        showPopUp = false;
+    }
+
+    private void UpdateSelectedUsersString()
+    {
+        selectedUsersString = "";
+        foreach (var user in selectedUsers)
+        {
+            selectedUsersString += user.Username + " ";
+        }
+    }
+
+
+    private UserList GetUsersFromTheServer(HashSet<UserDisplayDto> selectedUsers)
+    {
+        UserList userList = new UserList();
+        foreach (var user in selectedUsers)
+        {
+         userList.Users.Add(GRpcUserService.GetByUsernameAsync(user.Username).Result);   
+        }
+        return userList;
+    }
+    
+    
+    private void LoadFiles(InputFileChangeEventArgs e)
+    {
+        file = e.GetMultipleFiles().FirstOrDefault();
+        
+        if (file != null) contentType = Path.GetExtension(file.Name);
+        Console.WriteLine(contentType);
+    }
+
+
+
+}
