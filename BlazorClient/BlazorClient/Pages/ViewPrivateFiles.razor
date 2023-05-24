@@ -14,13 +14,11 @@
     </ToolBarContent>
     <HeaderContent>
         <MudTh>Title</MudTh>
-        <MudTh>Uploaded By</MudTh>
         <MudTh>File Type</MudTh>
         <MudTh>Download file</MudTh>
     </HeaderContent>
     <RowTemplate>
         <MudTd DataLabel="Title">@context.Title</MudTd>
-        <MudTd DataLabel="Shared with you by">@context.UploadedBy.Username</MudTd>
         <MudTd DataLabel="File Type">@context.ContentType</MudTd>
         <MudTd DataLabel="Download"><MudButton Variant="Variant.Filled" @onclick="() => DownloadFile(context.Id)">Download</MudButton></MudTd>
 
@@ -75,7 +73,7 @@
 
         try
         {
-            files =  await PrivateFilegRpcClient.GetSharedWith(new User() {Username = "tina"});
+            files =  await PrivateFilegRpcClient.GetSharedWith(new User() {Username = "papp"});
             showPopUp = false;
 
         }
