@@ -580,6 +580,8 @@ public static partial class UserController
   static readonly grpc::Marshaller<global::UserLogInDto> __Marshaller_UserLogInDto = grpc::Marshallers.Create(__Helper_SerializeMessage, context => __Helper_DeserializeMessage(context, global::UserLogInDto.Parser));
   [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
   static readonly grpc::Marshaller<global::UserUpdateDto> __Marshaller_UserUpdateDto = grpc::Marshallers.Create(__Helper_SerializeMessage, context => __Helper_DeserializeMessage(context, global::UserUpdateDto.Parser));
+  [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
+  static readonly grpc::Marshaller<global::UserDisplayDtoList> __Marshaller_UserDisplayDtoList = grpc::Marshallers.Create(__Helper_SerializeMessage, context => __Helper_DeserializeMessage(context, global::UserDisplayDtoList.Parser));
 
   [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
   static readonly grpc::Method<global::String, global::User> __Method_getByUsername = new grpc::Method<global::String, global::User>(
@@ -636,6 +638,14 @@ public static partial class UserController
       "remove",
       __Marshaller_Id,
       __Marshaller_Empty);
+
+  [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
+  static readonly grpc::Method<global::Empty, global::UserDisplayDtoList> __Method_getAllDisplay = new grpc::Method<global::Empty, global::UserDisplayDtoList>(
+      grpc::MethodType.Unary,
+      __ServiceName,
+      "getAllDisplay",
+      __Marshaller_Empty,
+      __Marshaller_UserDisplayDtoList);
 
   /// <summary>Service descriptor</summary>
   public static global::Google.Protobuf.Reflection.ServiceDescriptor Descriptor
@@ -810,11 +820,207 @@ public static partial class UserController
     {
       return CallInvoker.AsyncUnaryCall(__Method_remove, null, options, request);
     }
+    [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
+    public virtual global::UserDisplayDtoList getAllDisplay(global::Empty request, grpc::Metadata headers = null, global::System.DateTime? deadline = null, global::System.Threading.CancellationToken cancellationToken = default(global::System.Threading.CancellationToken))
+    {
+      return getAllDisplay(request, new grpc::CallOptions(headers, deadline, cancellationToken));
+    }
+    [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
+    public virtual global::UserDisplayDtoList getAllDisplay(global::Empty request, grpc::CallOptions options)
+    {
+      return CallInvoker.BlockingUnaryCall(__Method_getAllDisplay, null, options, request);
+    }
+    [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
+    public virtual grpc::AsyncUnaryCall<global::UserDisplayDtoList> getAllDisplayAsync(global::Empty request, grpc::Metadata headers = null, global::System.DateTime? deadline = null, global::System.Threading.CancellationToken cancellationToken = default(global::System.Threading.CancellationToken))
+    {
+      return getAllDisplayAsync(request, new grpc::CallOptions(headers, deadline, cancellationToken));
+    }
+    [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
+    public virtual grpc::AsyncUnaryCall<global::UserDisplayDtoList> getAllDisplayAsync(global::Empty request, grpc::CallOptions options)
+    {
+      return CallInvoker.AsyncUnaryCall(__Method_getAllDisplay, null, options, request);
+    }
     /// <summary>Creates a new instance of client from given <c>ClientBaseConfiguration</c>.</summary>
     [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
     protected override UserControllerClient NewInstance(ClientBaseConfiguration configuration)
     {
       return new UserControllerClient(configuration);
+    }
+  }
+
+}
+public static partial class PrivateFileController
+{
+  static readonly string __ServiceName = "PrivateFileController";
+
+  [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
+  static void __Helper_SerializeMessage(global::Google.Protobuf.IMessage message, grpc::SerializationContext context)
+  {
+    #if !GRPC_DISABLE_PROTOBUF_BUFFER_SERIALIZATION
+    if (message is global::Google.Protobuf.IBufferMessage)
+    {
+      context.SetPayloadLength(message.CalculateSize());
+      global::Google.Protobuf.MessageExtensions.WriteTo(message, context.GetBufferWriter());
+      context.Complete();
+      return;
+    }
+    #endif
+    context.Complete(global::Google.Protobuf.MessageExtensions.ToByteArray(message));
+  }
+
+  [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
+  static class __Helper_MessageCache<T>
+  {
+    public static readonly bool IsBufferMessage = global::System.Reflection.IntrospectionExtensions.GetTypeInfo(typeof(global::Google.Protobuf.IBufferMessage)).IsAssignableFrom(typeof(T));
+  }
+
+  [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
+  static T __Helper_DeserializeMessage<T>(grpc::DeserializationContext context, global::Google.Protobuf.MessageParser<T> parser) where T : global::Google.Protobuf.IMessage<T>
+  {
+    #if !GRPC_DISABLE_PROTOBUF_BUFFER_SERIALIZATION
+    if (__Helper_MessageCache<T>.IsBufferMessage)
+    {
+      return parser.ParseFrom(context.PayloadAsReadOnlySequence());
+    }
+    #endif
+    return parser.ParseFrom(context.PayloadAsNewBuffer());
+  }
+
+  [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
+  static readonly grpc::Marshaller<global::PrivateFileCreationDto> __Marshaller_PrivateFileCreationDto = grpc::Marshallers.Create(__Helper_SerializeMessage, context => __Helper_DeserializeMessage(context, global::PrivateFileCreationDto.Parser));
+  [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
+  static readonly grpc::Marshaller<global::PrivateFile> __Marshaller_PrivateFile = grpc::Marshallers.Create(__Helper_SerializeMessage, context => __Helper_DeserializeMessage(context, global::PrivateFile.Parser));
+  [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
+  static readonly grpc::Marshaller<global::Id> __Marshaller_Id = grpc::Marshallers.Create(__Helper_SerializeMessage, context => __Helper_DeserializeMessage(context, global::Id.Parser));
+  [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
+  static readonly grpc::Marshaller<global::FileDownloadDto> __Marshaller_FileDownloadDto = grpc::Marshallers.Create(__Helper_SerializeMessage, context => __Helper_DeserializeMessage(context, global::FileDownloadDto.Parser));
+  [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
+  static readonly grpc::Marshaller<global::User> __Marshaller_User = grpc::Marshallers.Create(__Helper_SerializeMessage, context => __Helper_DeserializeMessage(context, global::User.Parser));
+  [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
+  static readonly grpc::Marshaller<global::PrivateFileDisplayDtoList> __Marshaller_PrivateFileDisplayDtoList = grpc::Marshallers.Create(__Helper_SerializeMessage, context => __Helper_DeserializeMessage(context, global::PrivateFileDisplayDtoList.Parser));
+
+  [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
+  static readonly grpc::Method<global::PrivateFileCreationDto, global::PrivateFile> __Method_upload = new grpc::Method<global::PrivateFileCreationDto, global::PrivateFile>(
+      grpc::MethodType.Unary,
+      __ServiceName,
+      "upload",
+      __Marshaller_PrivateFileCreationDto,
+      __Marshaller_PrivateFile);
+
+  [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
+  static readonly grpc::Method<global::Id, global::FileDownloadDto> __Method_download = new grpc::Method<global::Id, global::FileDownloadDto>(
+      grpc::MethodType.Unary,
+      __ServiceName,
+      "download",
+      __Marshaller_Id,
+      __Marshaller_FileDownloadDto);
+
+  [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
+  static readonly grpc::Method<global::User, global::PrivateFileDisplayDtoList> __Method_getSharedWith = new grpc::Method<global::User, global::PrivateFileDisplayDtoList>(
+      grpc::MethodType.Unary,
+      __ServiceName,
+      "getSharedWith",
+      __Marshaller_User,
+      __Marshaller_PrivateFileDisplayDtoList);
+
+  /// <summary>Service descriptor</summary>
+  public static global::Google.Protobuf.Reflection.ServiceDescriptor Descriptor
+  {
+    get { return global::LogicserverReflection.Descriptor.Services[3]; }
+  }
+
+  /// <summary>Client for PrivateFileController</summary>
+  public partial class PrivateFileControllerClient : grpc::ClientBase<PrivateFileControllerClient>
+  {
+    /// <summary>Creates a new client for PrivateFileController</summary>
+    /// <param name="channel">The channel to use to make remote calls.</param>
+    [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
+    public PrivateFileControllerClient(grpc::ChannelBase channel) : base(channel)
+    {
+    }
+    /// <summary>Creates a new client for PrivateFileController that uses a custom <c>CallInvoker</c>.</summary>
+    /// <param name="callInvoker">The callInvoker to use to make remote calls.</param>
+    [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
+    public PrivateFileControllerClient(grpc::CallInvoker callInvoker) : base(callInvoker)
+    {
+    }
+    /// <summary>Protected parameterless constructor to allow creation of test doubles.</summary>
+    [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
+    protected PrivateFileControllerClient() : base()
+    {
+    }
+    /// <summary>Protected constructor to allow creation of configured clients.</summary>
+    /// <param name="configuration">The client configuration.</param>
+    [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
+    protected PrivateFileControllerClient(ClientBaseConfiguration configuration) : base(configuration)
+    {
+    }
+
+    [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
+    public virtual global::PrivateFile upload(global::PrivateFileCreationDto request, grpc::Metadata headers = null, global::System.DateTime? deadline = null, global::System.Threading.CancellationToken cancellationToken = default(global::System.Threading.CancellationToken))
+    {
+      return upload(request, new grpc::CallOptions(headers, deadline, cancellationToken));
+    }
+    [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
+    public virtual global::PrivateFile upload(global::PrivateFileCreationDto request, grpc::CallOptions options)
+    {
+      return CallInvoker.BlockingUnaryCall(__Method_upload, null, options, request);
+    }
+    [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
+    public virtual grpc::AsyncUnaryCall<global::PrivateFile> uploadAsync(global::PrivateFileCreationDto request, grpc::Metadata headers = null, global::System.DateTime? deadline = null, global::System.Threading.CancellationToken cancellationToken = default(global::System.Threading.CancellationToken))
+    {
+      return uploadAsync(request, new grpc::CallOptions(headers, deadline, cancellationToken));
+    }
+    [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
+    public virtual grpc::AsyncUnaryCall<global::PrivateFile> uploadAsync(global::PrivateFileCreationDto request, grpc::CallOptions options)
+    {
+      return CallInvoker.AsyncUnaryCall(__Method_upload, null, options, request);
+    }
+    [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
+    public virtual global::FileDownloadDto download(global::Id request, grpc::Metadata headers = null, global::System.DateTime? deadline = null, global::System.Threading.CancellationToken cancellationToken = default(global::System.Threading.CancellationToken))
+    {
+      return download(request, new grpc::CallOptions(headers, deadline, cancellationToken));
+    }
+    [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
+    public virtual global::FileDownloadDto download(global::Id request, grpc::CallOptions options)
+    {
+      return CallInvoker.BlockingUnaryCall(__Method_download, null, options, request);
+    }
+    [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
+    public virtual grpc::AsyncUnaryCall<global::FileDownloadDto> downloadAsync(global::Id request, grpc::Metadata headers = null, global::System.DateTime? deadline = null, global::System.Threading.CancellationToken cancellationToken = default(global::System.Threading.CancellationToken))
+    {
+      return downloadAsync(request, new grpc::CallOptions(headers, deadline, cancellationToken));
+    }
+    [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
+    public virtual grpc::AsyncUnaryCall<global::FileDownloadDto> downloadAsync(global::Id request, grpc::CallOptions options)
+    {
+      return CallInvoker.AsyncUnaryCall(__Method_download, null, options, request);
+    }
+    [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
+    public virtual global::PrivateFileDisplayDtoList getSharedWith(global::User request, grpc::Metadata headers = null, global::System.DateTime? deadline = null, global::System.Threading.CancellationToken cancellationToken = default(global::System.Threading.CancellationToken))
+    {
+      return getSharedWith(request, new grpc::CallOptions(headers, deadline, cancellationToken));
+    }
+    [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
+    public virtual global::PrivateFileDisplayDtoList getSharedWith(global::User request, grpc::CallOptions options)
+    {
+      return CallInvoker.BlockingUnaryCall(__Method_getSharedWith, null, options, request);
+    }
+    [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
+    public virtual grpc::AsyncUnaryCall<global::PrivateFileDisplayDtoList> getSharedWithAsync(global::User request, grpc::Metadata headers = null, global::System.DateTime? deadline = null, global::System.Threading.CancellationToken cancellationToken = default(global::System.Threading.CancellationToken))
+    {
+      return getSharedWithAsync(request, new grpc::CallOptions(headers, deadline, cancellationToken));
+    }
+    [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
+    public virtual grpc::AsyncUnaryCall<global::PrivateFileDisplayDtoList> getSharedWithAsync(global::User request, grpc::CallOptions options)
+    {
+      return CallInvoker.AsyncUnaryCall(__Method_getSharedWith, null, options, request);
+    }
+    /// <summary>Creates a new instance of client from given <c>ClientBaseConfiguration</c>.</summary>
+    [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
+    protected override PrivateFileControllerClient NewInstance(ClientBaseConfiguration configuration)
+    {
+      return new PrivateFileControllerClient(configuration);
     }
   }
 

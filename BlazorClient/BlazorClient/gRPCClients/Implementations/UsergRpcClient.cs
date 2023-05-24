@@ -1,7 +1,5 @@
 ﻿using BlazorClient.gRPCClients.Interfaces;
 using Grpc.Net.Client;
-
-
 namespace BlazorClient.gRPCClients.Implementations;
 
 public class UsergRpcClient : IUserService

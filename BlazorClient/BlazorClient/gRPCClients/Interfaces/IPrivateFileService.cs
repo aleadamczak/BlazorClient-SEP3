@@ -6,7 +6,7 @@ public interface IPrivateFileService
 
     Task<FileDownloadDto> GetAsync(Id id);
 
-    Task<IEnumerable<PrivateFile>> GetAllAsync();
+    Task<PrivateFileDisplayDtoList> GetSharedWith(User user);
     
     Task<IEnumerable<FileDisplayDto>> GetAllDtosAsync();
 }
