@@ -9,7 +9,11 @@
         <MudNavLink Href="">Home</MudNavLink>
         <MudNavLink Href="/UploadFiles">Share Public Files</MudNavLink>
      <MudNavLink Href="/SharePrivateFiles">Share Private Files</MudNavLink>
-     <MudNavLink Href="/ViewPrivateFiles" Disabled="false">View Share With Me</MudNavLink>
+     <MudNavGroup Title="View Files" Expanded="true">
+          <MudNavLink Href="/ViewPrivateFiles" Disabled="false">Shared With Me</MudNavLink>
+              <MudNavLink Href="/ViewUploadedByMe" Disabled="false">Shared By Me</MudNavLink>
+     </MudNavGroup>
+    
         <MudNavLink Href="/Login" Disabled="false">Personal Profile</MudNavLink>
 
      <MudNavGroup Title="Browse Files" Expanded="true">
