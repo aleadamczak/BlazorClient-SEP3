@@ -73,7 +73,7 @@
 
         try
         {
-            files =  await PrivateFilegRpcClient.GetSharedWith(new User() {Username = "papp"});
+            files =  await PrivateFilegRpcClient.GetSharedWith(new User() {Username = "papp"}); // to be changed so that it takes the logged in user 
             showPopUp = false;
 
         }
