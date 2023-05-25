@@ -1,7 +1,8 @@
 ﻿@page "/SharePrivateFiles"
 @using BlazorClient.gRPCClients.Interfaces
 @using Google.Protobuf
-@using BlazorClient.gRPCClients.Implementations
+@using UIComponents
+@using Microsoft.AspNetCore.Components
 @inject IUserService GRpcUserService
 @inject IPrivateFileService GRpcPrivateFileService
 <h3>Share Files With Other Users Privately</h3>
@@ -198,7 +199,6 @@
         file = e.GetMultipleFiles().FirstOrDefault();
         
         if (file != null) contentType = Path.GetExtension(file.Name);
-        Console.WriteLine(contentType);
     }
 
 

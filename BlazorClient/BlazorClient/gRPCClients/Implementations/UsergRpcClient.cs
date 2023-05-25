@@ -40,7 +40,7 @@ public class UsergRpcClient : IUserService
 
     public async Task<UserDisplayDtoList> GetAllAsync(Empty empty)
     {
-        return await Task.FromResult(_client.getAllDisplay(empty));
+       return await Task.FromResult(_client.getAllDisplay(empty));
     }
 
     public async Task<User> LoginAsync(UserLogInDto userLogInDto)

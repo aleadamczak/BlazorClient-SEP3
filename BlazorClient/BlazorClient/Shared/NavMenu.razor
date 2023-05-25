@@ -42,11 +42,6 @@
     {
         AllCategories = CategoryGRpcClient.GetAllAsync(new Empty()).Result;
     }
-
-    private void ButtonHandler(string categoryName)
-    {
-        
-        navigationManager.NavigateTo($"/CategoryView/{categoryName}");
-    }
+    
 
 }

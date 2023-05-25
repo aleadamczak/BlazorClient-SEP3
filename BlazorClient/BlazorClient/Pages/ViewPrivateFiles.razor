@@ -1,5 +1,8 @@
 ﻿@page "/ViewPrivateFiles"
 @using BlazorClient.gRPCClients.Interfaces
+@using Google.Protobuf
+@using UIComponents
+@using Microsoft.AspNetCore.Components
 @using BlazorClient.gRPCClients.Implementations
 @inject IUserService UsergRpcClient
 @inject IPrivateFileService PrivateFilegRpcClient
@@ -27,6 +30,14 @@
         <MudTablePager />
     </PagerContent>
 </MudTable>
+
+<PopUp ShowPopUp="showPopUp" >
+    <div>
+        <span>@Message</span>
+        <img src="@GifPath" alt="GIF image" style="width: 100%; height: auto"/>
+        <MudButton @onclick="Proceed"> OK</MudButton>
+    </div>
+</PopUp>
 
 @code {
     
@@ -73,7 +84,7 @@
 
         try
         {
-            files =  await PrivateFilegRpcClient.GetSharedWith(new User() {Username = "papp"});
+            files =  await PrivateFilegRpcClient.GetSharedWith(new User() {Username = "Aleksandra"});
             showPopUp = false;
 
         }
@@ -83,42 +94,7 @@
         }
 
     }
-
-    private async void DownloadFile(int number)
-    {
-        // try
-        // {
-        //     Id num = new Id()
-        //     {
-        //         Id_ = number
-        //     };
-        //
-        //     FileDownloadDto downloadFile = await FilegRpcClient.GetAsync(num);
-        //     byte[] bytes = downloadFile.ToByteArray();
-        //     string downloadPath = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
-        //     string title = downloadFile.Title;
-        //     string contentType = downloadFile.ContentType;
-        //     System.IO.File.WriteAllBytes(downloadPath + "/" + title + contentType, bytes);
-        //     GifPath = "pictures/downloadedSuccessfully.gif";
-        //     Message = "The file has been downloaded to your desktop";
-        //     showPopUp = true;
-        //     StateHasChanged();
-        //
-        // }
-        // catch (Exception e)
-        // {
-        //     Message = "This file is no longer available";
-        //     GifPath = "pictures/failedDownload.gif";
-        //     showPopUp = true;
-        //     StateHasChanged();
-        //     files = await FilegRpcClient.GetAllDtosAsync();
-        //
-        // }
-        
-        
-       
-    }
-
+    
 
     // private void Delete(int id)
     // {
@@ -137,6 +113,40 @@
     //     }
     //
     // }
+    
+    private async void DownloadFile(int number)
+    {
+        try
+        {
+            Id num = new Id()
+            {
+                Id_ = number
+            };
+
+            FileDownloadDto downloadFile = await PrivateFilegRpcClient.GetAsync(num);
+            byte[] bytes = downloadFile.ToByteArray();
+            string downloadPath = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
+            string title = downloadFile.Title;
+            string contentType = downloadFile.ContentType;
+            System.IO.File.WriteAllBytes(downloadPath + "/" + title + contentType, bytes);
+            GifPath = "pictures/downloadedSuccessfully.gif";
+            Message = "The file has been downloaded to your desktop";
+            showPopUp = true;
+            StateHasChanged();
+
+        }
+        catch (Exception e)
+        {
+            Message = "This file is no longer available";
+            GifPath = "pictures/failedDownload.gif";
+            showPopUp = true;
+            StateHasChanged();
+
+        }
+        
+        
+       
+    }
     
     private void Proceed()
     {

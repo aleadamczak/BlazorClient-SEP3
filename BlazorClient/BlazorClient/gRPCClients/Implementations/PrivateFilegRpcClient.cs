@@ -1,4 +1,5 @@
 ﻿using BlazorClient.gRPCClients.Interfaces;
+using Grpc.Core;
 using Grpc.Net.Client;
 
 namespace BlazorClient.gRPCClients.Implementations;
@@ -25,9 +26,23 @@ public class PrivateFilegRpcClient : IPrivateFileService
         return await Task.FromResult(_client.upload(file));
     }
 
-    public Task<FileDownloadDto> GetAsync(Id id)
+    public async Task<FileDownloadDto> GetAsync(Id id)
     {
-        throw new NotImplementedException();
+        try
+        {
+            return await Task.FromResult(_client.download(id));
+        }
+        catch (RpcException e)
+        {
+            if (e.Status.StatusCode == StatusCode.Internal)
+            {
+                NullException exception = e.Trailers
+                    .OfType<NullException>()
+                    .FirstOrDefault();
+                throw new Exception(exception.Message);
+            }
+            throw new Exception(e.Message);
+        }
     }
 
     public async Task<PrivateFileDisplayDtoList> GetSharedWith(User user)
