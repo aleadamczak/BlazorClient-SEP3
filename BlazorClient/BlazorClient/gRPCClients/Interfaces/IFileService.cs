@@ -13,5 +13,6 @@ public interface IFileService
     Task<IEnumerable<FileDisplayDto>> GetAllDtosAsync();
 
     void Delete(int id);
+    
 
 }

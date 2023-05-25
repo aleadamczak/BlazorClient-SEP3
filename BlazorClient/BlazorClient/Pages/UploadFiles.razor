@@ -43,7 +43,7 @@
     private IBrowserFile? file;
     private string Title { get; set; } = "";
     private string Description { get; set; } = "";
-    private string Username { get; set; } = "";
+    private string Username { get; set; } = ""; // must be from the logged in user 
     private string Message = "";
     private string contentType { get; set; } = "";
     private CategoryList AllCategories { get; set; }
@@ -87,7 +87,7 @@
                     Title = Title,
                     Description = Description,
                     Bytes = ByteString.CopyFrom(bytes),
-                    UploadedBy = await UsergRpcClient.GetByUsernameAsync(Username),
+                    UploadedBy = await UsergRpcClient.GetByUsernameAsync(Username), // to be changed so that Username is from the logged in user
                     ContentType = contentType, 
                     Category = SelectedCategory
                 };
