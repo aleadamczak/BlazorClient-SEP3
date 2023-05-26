@@ -3,8 +3,10 @@
 @page "/addCategory"
 @using BlazorClient.gRPCClients.Interfaces
 @using UIComponents
+<CascadingAuthenticationState>
 <h3>AddCategory</h3>
-
+<AuthorizeView Policy="MustBeAdmin">
+<Authorized>
 <MudTextField @bind-Value="TextValue" Label="Outlined" Variant="Variant.Outlined"></MudTextField>
 <MudButton  OnClick="@CreateAsync" Variant="Variant.Filled" Color="Color.Primary">Primary</MudButton>
 
@@ -21,8 +23,8 @@
         <MudTh>Delete</MudTh>
 
     </HeaderContent>
-    <RowTemplate>
-        <MudTd DataLabel="Category">@context.Name</MudTd>
+    <RowTemplate Context = "content">
+        <MudTd DataLabel="Category">@content.Name</MudTd>
        
         <MudTd DataLabel="Download"><MudButton Variant="Variant.Filled" @onclick="() => DeleteAsync()">Delete</MudButton></MudTd>
 
@@ -39,7 +41,12 @@
         <MudButton @onclick="Proceed"> OK</MudButton>
     </div>
 </PopUp>
-
+</Authorized>
+<NotAuthorized>
+    <h5>You must be an admin!</h5>
+</NotAuthorized>
+</AuthorizeView>
+</CascadingAuthenticationState>
 @code
 {
     public string? TextValue { get; set; }

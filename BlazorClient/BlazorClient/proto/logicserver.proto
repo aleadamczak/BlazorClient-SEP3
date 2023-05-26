@@ -25,7 +25,7 @@ service UserController {
   rpc getById(Id) returns (User);
   rpc getAll(Empty) returns (UserList);
   rpc create(UserCreationDto) returns (User);
-  rpc logIn(UserLogInDto) returns (User);
+  rpc logIn(UserLogInDto) returns (UserTokenDto);
   rpc update(UserUpdateDto) returns (User);
   rpc remove(Id) returns (Empty);
   rpc getAllDisplay(Empty) returns (UserDisplayDtoList);
@@ -167,6 +167,15 @@ message UserUpdateDto {
 message UserLogInDto {
   string username = 1;
   string password = 2;
+}
+
+message UserTokenDto {
+  string username = 1;
+  string password = 2;
+  string name = 3;
+  bool isAdmin = 4;
+  int32 id = 5;
+  string token = 6;
 }
 
 message UserList {

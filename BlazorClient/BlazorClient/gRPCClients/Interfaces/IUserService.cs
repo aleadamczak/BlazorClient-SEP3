@@ -9,7 +9,7 @@ public interface IUserService
     
     Task<User> CreateAsync(UserCreationDto userCreationDto);
 
-    Task<User> LoginAsync(UserLogInDto userLogInDto);
+    Task<UserTokenDto> LoginAsync(UserLogInDto userLogInDto);
 
     Task<UserDisplayDtoList> GetAllAsync(Empty empty);
 

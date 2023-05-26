@@ -4,6 +4,8 @@
 @using BlazorClient.gRPCClients.Interfaces
 @inject IUserService UsergRpcClient
 @using UIComponents
+@using BlazorClient.Auth
+@using System.Security.Claims
 
 <MudContainer Class="login-container">
     <MudCard Class="login-card m-4">
@@ -67,7 +69,7 @@
         {
             try
             {
-                User loggedInUser = await UsergRpcClient.LoginAsync(new UserLogInDto
+                UserTokenDto loggedInUser = await UsergRpcClient.LoginAsync(new UserLogInDto
                 {
                     Username = loginModel.Username,
                     Password = loginModel.Password
@@ -76,7 +78,15 @@
     // Handle the logged-in user
                 if (loggedInUser != null)
                 {
-                    Message = "Login successful, welcome " + loggedInUser.Username + "!";
+                    string token = loggedInUser.Token;
+                    JwtAuthService.Jwt = token;
+                    Console.WriteLine(JwtAuthService.Jwt);
+                    
+                    ClaimsPrincipal principal = JwtAuthService.CreateClaimsPrincipal();
+
+    // Invoke the auth state change event
+                    // JwtAuthService.OnAuthStateChanged.Invoke(principal);
+                    Message = "Login successful, welcome " + principal.FindFirst(c => c.Type =="username")?.Value + "!";
                     showPopUp = true;
                     StateHasChanged();
                 }
@@ -107,7 +117,7 @@
     private void Proceed()
     {
         showPopUp = false;
-        NavigationManager.NavigateTo("/ViewFiles");
+        NavigationManager.NavigateTo("/ViewFiles", forceLoad:true);
     }
 
 }

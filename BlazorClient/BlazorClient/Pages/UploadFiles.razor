@@ -7,43 +7,52 @@
 @inject IUserService UsergRpcClient
 @inject IFileService FilegRpcClient;
 @inject ICategoryService CategoryGRpcClient;
-<h3>Upload Files here bro </h3>
+@inject IAuthService AuthService
+<CascadingAuthenticationState>
+<h3>Upload Files</h3>
+    <AuthorizeView Policy="LoggedUsersOnly">
+        <Authorized>
+            <MudTextField @bind-Value="Title" Label="Title" Variant="Variant.Text"></MudTextField>
+            <MudTextField @bind-Value="Description" Label="File Description" Variant="Variant.Text"></MudTextField>
+            @* <MudTextField @bind-Value="Username" Label="Username" Variant="Variant.Text"></MudTextField> *@
+            <MudSelect Margin="Margin.Dense" T="Category" Label="Choose Category" @bind-Value="@SelectedCategory" Variant="Variant.Filled">
 
-<MudTextField @bind-Value="Title" Label="Title" Variant="Variant.Text"></MudTextField>
-<MudTextField @bind-Value="Description" Label="File Description" Variant="Variant.Text"></MudTextField>
-<MudTextField @bind-Value="Username" Label="Username" Variant="Variant.Text"></MudTextField>
-<MudSelect  Margin="Margin.Dense" T="Category" Label="Choose Category" @bind-Value="@SelectedCategory" Variant="Variant.Filled">
-    
-    @foreach(Category category in AllCategories.Categories)
-    {
-        <MudSelectItem Value="@(category)">@category.Name</MudSelectItem>
-    }
-    
-</MudSelect>
-<InputFile OnChange="@LoadFiles" />
-<MudButton OnClick="@CreateAsync" Variant="Variant.Filled" Color="Color.Primary"> Submit File </MudButton>
+                @foreach (Category category in AllCategories.Categories)
+                {
+                    <MudSelectItem Value="@(category)">@category.Name</MudSelectItem>
+                }
 
-@if (!string.IsNullOrEmpty(Message))
-{
-    <div>
-        <span>@Message</span>
-    </div>
-}
+            </MudSelect>
+            <InputFile OnChange="@LoadFiles"/>
+            <MudButton OnClick="@CreateAsync" Variant="Variant.Filled" Color="Color.Primary"> Submit File </MudButton>
 
-<PopUp ShowPopUp="showPopUp" >
-    <div>
-        <span>@Message</span>
-        <img src="@GifPath" alt="GIF image" style="width: 100%; height: auto"/>
-        <MudButton @onclick="Proceed"> OK</MudButton>
-    </div>
-</PopUp>
+            @if (!string.IsNullOrEmpty(Message))
+            {
+                <div>
+                    <span>@Message</span>
+                </div>
+            }
 
+            <PopUp ShowPopUp="showPopUp">
+                <div>
+                    <span>@Message</span>
+                    <img src="@GifPath" alt="GIF image" style="width: 100%; height: auto"/>
+                    <MudButton @onclick="Proceed"> OK</MudButton>
+                </div>
+            </PopUp>
+        </Authorized>
+        <NotAuthorized>
+            <h5>You must be logged in!</h5>
+        </NotAuthorized>
+
+    </AuthorizeView>
+</CascadingAuthenticationState>
 @code {
 
     private IBrowserFile? file;
     private string Title { get; set; } = "";
     private string Description { get; set; } = "";
-    private string Username { get; set; } = ""; // must be from the logged in user 
+    private string Username { get; set; } = "";
     private string Message = "";
     private string contentType { get; set; } = "";
     private CategoryList AllCategories { get; set; }
@@ -81,6 +90,7 @@
 
             try
             {
+                Username = await AuthService.getAuthenticatedUsername();
 
                 var newFile = new FileCreationDto()
                 {

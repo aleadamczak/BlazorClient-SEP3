@@ -1,33 +1,52 @@
 ﻿@inherits LayoutComponentBase
-
-<PageTitle>BlazorClient</PageTitle>
+@inject NavigationManager NavigationManager
+@using Microsoft.AspNetCore.Components
+@inject IAuthService AuthService
 
 <MudThemeProvider/>
 <MudDialogProvider/>
 <MudSnackbarProvider/>
+<CascadingAuthenticationState>
+                
+                <PageTitle>BlazorClient</PageTitle>
 
-<div class="page">
+                <div class="page">
 
-        <MudAppBar Elevation="1">
-            <MudIconButton Icon="@Icons.Material.Filled.Menu" Color="Color.Inherit" Edge="Edge.Start" OnClick="@((e) => DrawerToggle())" />
-            <MudText Typo="Typo.h5" Class="ml-3">Share Files with Us :)</MudText>
-            <MudSpacer />
-            <MudIconButton Icon="@Icons.Material.Filled.MoreVert" Color="Color.Inherit" Edge="Edge.End" />
-        </MudAppBar>
-        <MudLayout>
-            <MudDrawer @bind-Open="_drawerOpen" ClipMode="DrawerClipMode.Always" Elevation="2">
-                <div class="sidebar">
-                    <NavMenu/>
+                    <MudAppBar Elevation="1">
+                        <MudIconButton Icon="@Icons.Material.Filled.Menu" Color="Color.Inherit" Edge="Edge.Start" OnClick="@((e) => DrawerToggle())"/>
+                        <MudText Typo="Typo.h5" Class="ml-3">Share Files with Us :)</MudText>
+                        <MudSpacer/>
+                        
+                        <AuthorizeView Policy="LoggedUsersOnly">
+                            <Authorized>
+                                <MudIconButton Icon="@Icons.Material.Filled.Logout" Color="Color.Inherit" Edge="Edge.End" OnClick="@LogoutAsync" Class="icon-button"/>
+                                <MudText>logout</MudText>
+                            </Authorized>
+                            <NotAuthorized>
+                                <MudIconButton Icon="@Icons.Material.Filled.Login" Color="Color.Inherit" Edge="Edge.End" OnClick="@LoginAsync" Class="icon-button"/>
+                                <MudText>login</MudText>
+                            </NotAuthorized>
+                        </AuthorizeView>
+                        
+                    </MudAppBar>
+                    <MudLayout>
+                        <MudDrawer @bind-Open="_drawerOpen" ClipMode="DrawerClipMode.Always" Elevation="2">
+                            <div class="sidebar">
+                                <NavMenu/>
+                            </div>
+                        </MudDrawer>
+                        <MudMainContent>
+                            <article class="content px-4">
+                                @Body
+                            </article>
+                        </MudMainContent>
+                    </MudLayout>
+
                 </div>
-            </MudDrawer>
-            <MudMainContent>
-                <article class="content px-4">
-                    @Body
-                </article>
-            </MudMainContent>
-        </MudLayout>
+</CascadingAuthenticationState>
+            
+        
 
-</div>
 
 @code {
     bool _drawerOpen = true;
@@ -35,5 +54,17 @@
     void DrawerToggle()
     {
         _drawerOpen = !_drawerOpen;
+    }
+
+    private async Task LoginAsync()
+    {
+        NavigationManager.NavigateTo("/Login");
+        StateHasChanged();
+    }
+
+    private async Task LogoutAsync()
+    {
+        AuthService.LogoutAsync();
+        StateHasChanged();
     }
 }

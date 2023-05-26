@@ -11,7 +11,7 @@
      <MudNavLink Href="/SharePrivateFiles">Share Private Files</MudNavLink>
      <MudNavGroup Title="View Files" Expanded="true">
           <MudNavLink Href="/ViewPrivateFiles" Disabled="false">Shared With Me</MudNavLink>
-              <MudNavLink Href="/ViewUploadedByMe" Disabled="false">Shared By Me</MudNavLink>
+            <MudNavLink Href="/ViewUploadedByMe" Disabled="false">Shared By Me</MudNavLink>
      </MudNavGroup>
     
         <MudNavLink Href="/Login" Disabled="false">Personal Profile</MudNavLink>
@@ -19,7 +19,7 @@
      <MudNavGroup Title="Browse Files" Expanded="true">
          <MudNavLink Href="/ViewFiles">See all</MudNavLink>
          <MudNavGroup Title="Categories" Expanded="true">
-             @foreach (Category category in AllCategories.Categories)
+             @foreach (Category category in AllCategories?.Categories ?? Enumerable.Empty<Category>())
              {
                  <MudNavLink Href="@($"/CategoryView/{category.Name}")">@category.Name</MudNavLink>
              }
@@ -30,8 +30,8 @@
  </MudNavMenu>
 
 @code {
-    
-    private CategoryList AllCategories { get; set; }
+
+    private CategoryList AllCategories { get; set; } = new CategoryList();
     
     private bool collapseNavMenu = true;
 
@@ -44,7 +44,16 @@
     
     protected override void OnInitialized()
     {
-        AllCategories = CategoryGRpcClient.GetAllAsync(new Empty()).Result;
+        try
+        {
+            AllCategories = CategoryGRpcClient.GetAllAsync(new Empty()).Result;
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine("Exception when fetching categories");
+            AllCategories = null;
+        }
+        
     }
     
 

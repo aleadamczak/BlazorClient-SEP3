@@ -6,39 +6,47 @@
 @using BlazorClient.gRPCClients.Implementations
 @inject IUserService UsergRpcClient
 @inject IPrivateFileService PrivateFilegRpcClient
+@inject IAuthService AuthService;
+<CascadingAuthenticationState>
 <h3>Files - Shared with me </h3>
-
-<MudTable Items="@files.PrivateFiles" Hover="true" Breakpoint="Breakpoint.Sm" @ref="mudTable" RowClassFunc="@SelectedRowClassFunc" Filter="new Func<PrivateFileDisplayDto,bool>(FilterFunc1)" @bind-SelectedItem="selectedFile">
-    <ToolBarContent>
-        @* <MudText Typo="Typo.h6">File List</MudText> *@
+<AuthorizeView Policy="LoggedUsersOnly">
+<Authorized>
+    <MudTable Items="@files.PrivateFiles" Hover="true" Breakpoint="Breakpoint.Sm" @ref="mudTable" RowClassFunc="@SelectedRowClassFunc" Filter="new Func<PrivateFileDisplayDto,bool>(FilterFunc1)" @bind-SelectedItem="selectedFile">
+        <ToolBarContent>
+            @* <MudText Typo="Typo.h6">File List</MudText> *@
        
-        <MudSpacer />
-        <MudTextField @bind-Value="searchString1" Placeholder="Search" Adornment="Adornment.Start" AdornmentIcon="@Icons.Material.Filled.Search" IconSize="Size.Medium" Class="mt-0"></MudTextField>
-    </ToolBarContent>
-    <HeaderContent>
-        <MudTh>Title</MudTh>
-        <MudTh>File Type</MudTh>
-        <MudTh>Download file</MudTh>
-    </HeaderContent>
-    <RowTemplate>
-        <MudTd DataLabel="Title">@context.Title</MudTd>
-        <MudTd DataLabel="File Type">@context.ContentType</MudTd>
-        <MudTd DataLabel="Download"><MudButton Variant="Variant.Filled" @onclick="() => DownloadFile(context.Id)">Download</MudButton></MudTd>
+            <MudSpacer />
+            <MudTextField @bind-Value="searchString1" Placeholder="Search" Adornment="Adornment.Start" AdornmentIcon="@Icons.Material.Filled.Search" IconSize="Size.Medium" Class="mt-0"></MudTextField>
+        </ToolBarContent>
+        <HeaderContent>
+            <MudTh>Title</MudTh>
+            <MudTh>File Type</MudTh>
+            <MudTh>Download file</MudTh>
+        </HeaderContent>
+        <RowTemplate Context = "content">
+            <MudTd DataLabel="Title">@content.Title</MudTd>
+            <MudTd DataLabel="File Type">@content.ContentType</MudTd>
+            <MudTd DataLabel="Download"><MudButton Variant="Variant.Filled" @onclick="() => DownloadFile(content.Id)">Download</MudButton></MudTd>
 
-    </RowTemplate>
-    <PagerContent>
-        <MudTablePager />
-    </PagerContent>
-</MudTable>
+        </RowTemplate>
+        <PagerContent>
+            <MudTablePager />
+        </PagerContent>
+    </MudTable>
 
-<PopUp ShowPopUp="showPopUp" >
-    <div>
-        <span>@Message</span>
-        <img src="@GifPath" alt="GIF image" style="width: 100%; height: auto"/>
-        <MudButton @onclick="Proceed"> OK</MudButton>
-    </div>
-</PopUp>
-
+    <PopUp ShowPopUp="showPopUp" >
+        <div>
+            <span>@Message</span>
+            <img src="@GifPath" alt="GIF image" style="width: 100%; height: auto"/>
+            <MudButton @onclick="Proceed"> OK</MudButton>
+        </div>
+    </PopUp>
+</Authorized>
+<NotAuthorized>
+    <h5>You must be logged in!</h5>
+</NotAuthorized>
+</AuthorizeView>
+</CascadingAuthenticationState>
 @code {
     
     private PrivateFileDisplayDtoList files { get; set; }
@@ -84,7 +92,8 @@
 
         try
         {
-            files =  await PrivateFilegRpcClient.GetSharedWith(new User() {Username = "papp"});
+            User user = await AuthService.getAuthenticatedUserObject();
+            files =  await PrivateFilegRpcClient.GetSharedWith(user);
             showPopUp = false;
 
         }
