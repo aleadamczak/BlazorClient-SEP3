@@ -91,8 +91,6 @@ C:\Users\krist\RiderProjects\BlazorClientAzure\BlazorClient\BlazorClient\bin\Deb
 C:\Users\krist\RiderProjects\BlazorClientAzure\BlazorClient\BlazorClient\bin\Debug\net7.0\runtimes\osx-x64\native\libgrpc_csharp_ext.x64.dylib
 C:\Users\krist\RiderProjects\BlazorClientAzure\BlazorClient\BlazorClient\bin\Debug\net7.0\runtimes\win-x64\native\grpc_csharp_ext.x64.dll
 C:\Users\krist\RiderProjects\BlazorClientAzure\BlazorClient\BlazorClient\bin\Debug\net7.0\runtimes\win-x86\native\grpc_csharp_ext.x86.dll
-C:\Users\krist\RiderProjects\BlazorClientAzure\BlazorClient\BlazorClient\bin\Debug\net7.0\gRPCClients.dll
-C:\Users\krist\RiderProjects\BlazorClientAzure\BlazorClient\BlazorClient\bin\Debug\net7.0\gRPCClients.pdb
 C:\Users\krist\RiderProjects\BlazorClientAzure\BlazorClient\BlazorClient\bin\Debug\net7.0\Grpc.Net.Client.Web.dll
 C:\Users\krist\RiderProjects\BlazorClientAzure\BlazorClient\BlazorClient\bin\Debug\net7.0\Grpc.Net.ClientFactory.dll
 C:\Users\domog\RiderProjects\BlazorClientSEP3\BlazorClient\BlazorClient\bin\Debug\net7.0\Google.Protobuf.dll
@@ -110,3 +108,9 @@ C:\Users\domog\RiderProjects\BlazorClientSEP3\BlazorClient\BlazorClient\bin\Debu
 C:\Users\domog\RiderProjects\BlazorClientSEP3\BlazorClient\BlazorClient\bin\Debug\net7.0\gRPCClients.dll
 C:\Users\domog\RiderProjects\BlazorClientSEP3\BlazorClient\BlazorClient\bin\Debug\net7.0\gRPCClients.pdb
 C:\Users\krist\RiderProjects\BlazorClientAzure\BlazorClient\BlazorClient\obj\Debug\net7.0\scopedcss\Pages\UIComponents\PopUp.razor.rz.scp.css
+C:\Users\krist\RiderProjects\BlazorClientAzure\BlazorClient\BlazorClient\bin\Debug\net7.0\Microsoft.AspNetCore.Components.Authorization.dll
+C:\Users\krist\RiderProjects\BlazorClientAzure\BlazorClient\BlazorClient\bin\Debug\net7.0\Microsoft.AspNetCore.Components.WebAssembly.dll
+C:\Users\krist\RiderProjects\BlazorClientAzure\BlazorClient\BlazorClient\bin\Debug\net7.0\Microsoft.AspNetCore.Components.WebAssembly.Authentication.dll
+C:\Users\krist\RiderProjects\BlazorClientAzure\BlazorClient\BlazorClient\bin\Debug\net7.0\Microsoft.Extensions.Configuration.Binder.dll
+C:\Users\krist\RiderProjects\BlazorClientAzure\BlazorClient\BlazorClient\bin\Debug\net7.0\Microsoft.Extensions.Options.dll
+C:\Users\krist\RiderProjects\BlazorClientAzure\BlazorClient\BlazorClient\bin\Debug\net7.0\Microsoft.JSInterop.WebAssembly.dll

@@ -50,16 +50,12 @@
 
 @code {
     [Parameter]
-    
     public string category { get; set; }
-    
-
     private IEnumerable<FileDisplayDto>? AllFiles { get; set; }
     private int selectedRowNumber = -1;
     private MudTable<FileDisplayDto> mudTable;
     private string searchString1 = "";
     private FileDisplayDto selectedFile = null;
-    private HashSet<FileDisplayDto> selectedFiles = new HashSet<FileDisplayDto>();
     private string Message { get; set; } = "";
     private bool FilterFunc1(FileDisplayDto file) => FilterFunc(file, searchString1);
     private bool showPopUp;
@@ -140,30 +136,8 @@
             AllFiles = await FilegRpcClient.GetAllDtosAsync();
 
         }
-
-
-
     }
-
-
-    private void Delete(int id)
-    {
-        try
-        {
-            if (id != null)
-            {
-                FilegRpcClient.Delete(id);
-                
-                Message = "File Deleted";
-            }
-            StateHasChanged();
-        }
-        catch (Exception e)
-        {
-            Message = e.Message;
-        }
-
-    }
+    
 
     private void Proceed()
     {

@@ -85,12 +85,10 @@
     private MudTable<FileDisplayDto> mudTable;
     private string searchString1 = "";
     private FileDisplayDto selectedFile = null;
-    private HashSet<PrivateFileDisplayDto> selectedFiles = new HashSet<PrivateFileDisplayDto>();
     private string Message { get; set; } = "";
     private bool FilterFunc1(FileDisplayDto file) => FilterFunc(file, searchString1);
     private bool showPopUp;
-    private string GifPath { get; set; }
- 
+
     private bool FilterFunc(FileDisplayDto file, string searchString)
     {
         if (string.IsNullOrWhiteSpace(searchString))

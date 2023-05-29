@@ -579,6 +579,8 @@ public static partial class UserController
   [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
   static readonly grpc::Marshaller<global::UserLogInDto> __Marshaller_UserLogInDto = grpc::Marshallers.Create(__Helper_SerializeMessage, context => __Helper_DeserializeMessage(context, global::UserLogInDto.Parser));
   [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
+  static readonly grpc::Marshaller<global::UserTokenDto> __Marshaller_UserTokenDto = grpc::Marshallers.Create(__Helper_SerializeMessage, context => __Helper_DeserializeMessage(context, global::UserTokenDto.Parser));
+  [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
   static readonly grpc::Marshaller<global::UserUpdateDto> __Marshaller_UserUpdateDto = grpc::Marshallers.Create(__Helper_SerializeMessage, context => __Helper_DeserializeMessage(context, global::UserUpdateDto.Parser));
   [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
   static readonly grpc::Marshaller<global::UserDisplayDtoList> __Marshaller_UserDisplayDtoList = grpc::Marshallers.Create(__Helper_SerializeMessage, context => __Helper_DeserializeMessage(context, global::UserDisplayDtoList.Parser));
@@ -616,12 +618,12 @@ public static partial class UserController
       __Marshaller_User);
 
   [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
-  static readonly grpc::Method<global::UserLogInDto, global::User> __Method_logIn = new grpc::Method<global::UserLogInDto, global::User>(
+  static readonly grpc::Method<global::UserLogInDto, global::UserTokenDto> __Method_logIn = new grpc::Method<global::UserLogInDto, global::UserTokenDto>(
       grpc::MethodType.Unary,
       __ServiceName,
       "logIn",
       __Marshaller_UserLogInDto,
-      __Marshaller_User);
+      __Marshaller_UserTokenDto);
 
   [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
   static readonly grpc::Method<global::UserUpdateDto, global::User> __Method_update = new grpc::Method<global::UserUpdateDto, global::User>(
@@ -761,22 +763,22 @@ public static partial class UserController
       return CallInvoker.AsyncUnaryCall(__Method_create, null, options, request);
     }
     [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
-    public virtual global::User logIn(global::UserLogInDto request, grpc::Metadata headers = null, global::System.DateTime? deadline = null, global::System.Threading.CancellationToken cancellationToken = default(global::System.Threading.CancellationToken))
+    public virtual global::UserTokenDto logIn(global::UserLogInDto request, grpc::Metadata headers = null, global::System.DateTime? deadline = null, global::System.Threading.CancellationToken cancellationToken = default(global::System.Threading.CancellationToken))
     {
       return logIn(request, new grpc::CallOptions(headers, deadline, cancellationToken));
     }
     [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
-    public virtual global::User logIn(global::UserLogInDto request, grpc::CallOptions options)
+    public virtual global::UserTokenDto logIn(global::UserLogInDto request, grpc::CallOptions options)
     {
       return CallInvoker.BlockingUnaryCall(__Method_logIn, null, options, request);
     }
     [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
-    public virtual grpc::AsyncUnaryCall<global::User> logInAsync(global::UserLogInDto request, grpc::Metadata headers = null, global::System.DateTime? deadline = null, global::System.Threading.CancellationToken cancellationToken = default(global::System.Threading.CancellationToken))
+    public virtual grpc::AsyncUnaryCall<global::UserTokenDto> logInAsync(global::UserLogInDto request, grpc::Metadata headers = null, global::System.DateTime? deadline = null, global::System.Threading.CancellationToken cancellationToken = default(global::System.Threading.CancellationToken))
     {
       return logInAsync(request, new grpc::CallOptions(headers, deadline, cancellationToken));
     }
     [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
-    public virtual grpc::AsyncUnaryCall<global::User> logInAsync(global::UserLogInDto request, grpc::CallOptions options)
+    public virtual grpc::AsyncUnaryCall<global::UserTokenDto> logInAsync(global::UserLogInDto request, grpc::CallOptions options)
     {
       return CallInvoker.AsyncUnaryCall(__Method_logIn, null, options, request);
     }
@@ -898,6 +900,8 @@ public static partial class PrivateFileController
   static readonly grpc::Marshaller<global::User> __Marshaller_User = grpc::Marshallers.Create(__Helper_SerializeMessage, context => __Helper_DeserializeMessage(context, global::User.Parser));
   [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
   static readonly grpc::Marshaller<global::PrivateFileDisplayDtoList> __Marshaller_PrivateFileDisplayDtoList = grpc::Marshallers.Create(__Helper_SerializeMessage, context => __Helper_DeserializeMessage(context, global::PrivateFileDisplayDtoList.Parser));
+  [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
+  static readonly grpc::Marshaller<global::Empty> __Marshaller_Empty = grpc::Marshallers.Create(__Helper_SerializeMessage, context => __Helper_DeserializeMessage(context, global::Empty.Parser));
 
   [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
   static readonly grpc::Method<global::PrivateFileCreationDto, global::PrivateFile> __Method_upload = new grpc::Method<global::PrivateFileCreationDto, global::PrivateFile>(
@@ -922,6 +926,14 @@ public static partial class PrivateFileController
       "getSharedWith",
       __Marshaller_User,
       __Marshaller_PrivateFileDisplayDtoList);
+
+  [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
+  static readonly grpc::Method<global::Id, global::Empty> __Method_remove = new grpc::Method<global::Id, global::Empty>(
+      grpc::MethodType.Unary,
+      __ServiceName,
+      "remove",
+      __Marshaller_Id,
+      __Marshaller_Empty);
 
   /// <summary>Service descriptor</summary>
   public static global::Google.Protobuf.Reflection.ServiceDescriptor Descriptor
@@ -1015,6 +1027,26 @@ public static partial class PrivateFileController
     public virtual grpc::AsyncUnaryCall<global::PrivateFileDisplayDtoList> getSharedWithAsync(global::User request, grpc::CallOptions options)
     {
       return CallInvoker.AsyncUnaryCall(__Method_getSharedWith, null, options, request);
+    }
+    [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
+    public virtual global::Empty remove(global::Id request, grpc::Metadata headers = null, global::System.DateTime? deadline = null, global::System.Threading.CancellationToken cancellationToken = default(global::System.Threading.CancellationToken))
+    {
+      return remove(request, new grpc::CallOptions(headers, deadline, cancellationToken));
+    }
+    [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
+    public virtual global::Empty remove(global::Id request, grpc::CallOptions options)
+    {
+      return CallInvoker.BlockingUnaryCall(__Method_remove, null, options, request);
+    }
+    [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
+    public virtual grpc::AsyncUnaryCall<global::Empty> removeAsync(global::Id request, grpc::Metadata headers = null, global::System.DateTime? deadline = null, global::System.Threading.CancellationToken cancellationToken = default(global::System.Threading.CancellationToken))
+    {
+      return removeAsync(request, new grpc::CallOptions(headers, deadline, cancellationToken));
+    }
+    [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
+    public virtual grpc::AsyncUnaryCall<global::Empty> removeAsync(global::Id request, grpc::CallOptions options)
+    {
+      return CallInvoker.AsyncUnaryCall(__Method_remove, null, options, request);
     }
     /// <summary>Creates a new instance of client from given <c>ClientBaseConfiguration</c>.</summary>
     [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]

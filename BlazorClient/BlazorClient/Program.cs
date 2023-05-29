@@ -33,33 +33,8 @@ builder.Services.AddSingleton(services =>
     var backendUrl = "http://localhost:9090"; // Replace with your gRPC server URL
     return GrpcChannel.ForAddress(backendUrl);
 });
-    
-//     builder.Services.AddSingleton<UsergRpcClient>(services =>
-//     {
-//         var backendUrl = "http://localhost:9090";
-//         var channel = GrpcChannel.ForAddress(backendUrl);
-//         return new UsergRpcClient(channel);
-//     });
-//
-// builder.Services.AddSingleton<FilegRpcClient>(services =>
-// {
-//     var backendUrl = "http://localhost:9090";
-//     var channel = GrpcChannel.ForAddress(backendUrl);
-//     return new FilegRpcClient(channel);
-// });
 
 
-
-//
-
-
-// builder.Services.AddScoped(sp =>
-// {
-//     var channel = GrpcChannel.ForAddress("http://localhost:9090");
-//     
-//
-//     return new UsergRpcClient(channel);
-// });
 
 var app = builder.Build();
 
@@ -70,7 +45,6 @@ if (!app.Environment.IsDevelopment())
     // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
     app.UseHsts();
 }
-
 
 
 

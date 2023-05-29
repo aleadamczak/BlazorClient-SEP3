@@ -31,6 +31,20 @@ main[b-lor2elsqal] {
         text-overflow: ellipsis;
     }
 
+.login-button[b-lor2elsqal] {
+    display: flex;
+    align-items: center;
+}
+
+.icon-button[b-lor2elsqal] {
+    margin-right: 10px;
+}
+
+.login-text[b-lor2elsqal] {
+    margin: 0;
+}
+
+
 @media (max-width: 640.98px) {
     .top-row:not(.auth)[b-lor2elsqal] {
         display: none;

@@ -101,7 +101,6 @@
     private MudTable<FileDisplayDto> mudTable;
     private string searchString1 = "";
     private FileDisplayDto selectedFile = null;
-    private HashSet<FileDisplayDto> selectedFiles = new HashSet<FileDisplayDto>();
     private string Message { get; set; } = "";
     private bool FilterFunc1(FileDisplayDto file) => FilterFunc(file, searchString1);
     private bool showPopUp;

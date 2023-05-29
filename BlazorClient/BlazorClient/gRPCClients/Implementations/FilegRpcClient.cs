@@ -92,7 +92,7 @@ public class FilegRpcClient : IFileService {
         return dtoList;
     }
 
-    public  void Delete(int id)
+    public void Delete(int id)
     {
         Id number = new Id()
         {
