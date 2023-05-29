@@ -59,4 +59,13 @@ public class PrivateFilegRpcClient : IPrivateFileService
     {
         throw new NotImplementedException();
     }
+
+    public async void Delete(int id)
+    {
+        Id number = new Id()
+        {
+            Id_ = id
+        };
+        _client.remove(number);
+    }
 }

@@ -12,6 +12,8 @@ public interface IFileService
     
     Task<IEnumerable<FileDisplayDto>> GetAllDtosAsync();
 
+    Task<File> ChangeCategoryAsync(FileUpdateDto file);
+
     void Delete(int id);
     
 

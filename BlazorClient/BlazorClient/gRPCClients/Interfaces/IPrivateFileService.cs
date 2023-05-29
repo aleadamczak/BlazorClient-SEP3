@@ -9,4 +9,5 @@ public interface IPrivateFileService
     Task<PrivateFileDisplayDtoList> GetSharedWith(User user);
     
     Task<IEnumerable<FileDisplayDto>> GetAllDtosAsync();
+    void Delete(int id);
 }

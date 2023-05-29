@@ -35,6 +35,7 @@ service PrivateFileController {
   rpc upload(PrivateFileCreationDto) returns (PrivateFile);
   rpc download(Id) returns (FileDownloadDto);
   rpc getSharedWith(User) returns (PrivateFileDisplayDtoList);
+  rpc remove(Id) returns (Empty);
 }
 
 

@@ -92,13 +92,20 @@ public class FilegRpcClient : IFileService {
         return dtoList;
     }
 
-    public void Delete(int id)
+    public  void Delete(int id)
     {
         Id number = new Id()
         {
             Id_ = id
         };
-        _client.remove(number);
+       _client.remove(number);
+    }
+    
+    public async Task<File> ChangeCategoryAsync(FileUpdateDto file)
+
+    {
+        return await Task.FromResult(_client.update(file));
+
     }
 
 
