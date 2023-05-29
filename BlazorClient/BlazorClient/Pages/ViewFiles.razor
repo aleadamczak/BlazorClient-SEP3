@@ -25,69 +25,74 @@
 </style>
 <CascadingAuthenticationState>
 <h1>All Files</h1>
-<AuthorizeView Policy="MustBeAdmin">
+    <AuthorizeView Policy="MustBeAdmin">
     <Authorized>
-<MudButton Variant="Variant.Filled" EndIcon="@Icons.Material.Filled.ArrowRight" Style="background-color: #1E88E5; color: black; width: 200px; height: 60px;" @onclick="() => Delete(selectedFile.Id)">
-    Delete file
-</MudButton>
+        <MudButton Variant="Variant.Filled" EndIcon="@Icons.Material.Filled.ArrowRight" Style="background-color: #1E88E5; color: black; width: 200px; height: 60px;" @onclick="() => Delete(selectedFile.Id)">
+            Delete file
+        </MudButton>
     </Authorized>
-</AuthorizeView>
-@if (!string.IsNullOrEmpty(Message))
-{
-    <div>
-         <MudAlert Severity="Severity.Success">@Message</MudAlert>
-    </div>
-}
+        </AuthorizeView>
+   
+    
+        @if (!string.IsNullOrEmpty(Message))
+        {
+            <div>
+                <MudAlert Severity="Severity.Success">@Message</MudAlert>
+            </div>
+        }
    
 
 
 
-<MudTable Items="@files" Hover="true" Breakpoint="Breakpoint.Sm" @ref="mudTable" RowClassFunc="@SelectedRowClassFunc" Filter="new Func<FileDisplayDto,bool>(FilterFunc1)" @bind-SelectedItem="selectedFile">
-    <ToolBarContent>
-        @* <MudText Typo="Typo.h6">File List</MudText> *@
+        <MudTable Items="@files" Hover="true" Breakpoint="Breakpoint.Sm" @ref="mudTable" RowClassFunc="@SelectedRowClassFunc" Filter="new Func<FileDisplayDto,bool>(FilterFunc1)" @bind-SelectedItem="selectedFile">
+            <ToolBarContent>
+                @* <MudText Typo="Typo.h6">File List</MudText> *@
        
-        <MudSpacer />
-        <MudTextField @bind-Value="searchString1" Placeholder="Search" Adornment="Adornment.Start" AdornmentIcon="@Icons.Material.Filled.Search" IconSize="Size.Medium" Class="mt-0"></MudTextField>
-    </ToolBarContent>
-    <HeaderContent>
-        <MudTh>Title</MudTh>
-        <MudTh>Category</MudTh>
-        <MudTh>Description</MudTh>
-        <MudTh>Uploaded By</MudTh>
-        <MudTh>File Type</MudTh>
-        <MudTh>Download file</MudTh>
+                <MudSpacer />
+                <MudTextField @bind-Value="searchString1" Placeholder="Search" Adornment="Adornment.Start" AdornmentIcon="@Icons.Material.Filled.Search" IconSize="Size.Medium" Class="mt-0"></MudTextField>
+            </ToolBarContent>
+            <HeaderContent>
+                <MudTh>Title</MudTh>
+                <MudTh>Category</MudTh>
+                <MudTh>Description</MudTh>
+                <MudTh>Uploaded By</MudTh>
+                <MudTh>File Type</MudTh>
+                <MudTh>Download file</MudTh>
 
-    </HeaderContent>
-    <RowTemplate>
-        <MudTd DataLabel="Title">@context.Title</MudTd>
-        <MudTd DataLabel="Category">@context.Category.Name</MudTd>
-        <MudTd DataLabel="Description">@context.Description</MudTd>
-        <MudTd DataLabel="Uploaded By">@context.UploadedBy.Username</MudTd>
-        <MudTd DataLabel="File Type">@context.ContentType</MudTd>
-        <MudTd DataLabel="Download"><MudButton Variant="Variant.Filled" @onclick="() => DownloadFile(context.Id)">Download</MudButton></MudTd>
+            </HeaderContent>
+            <RowTemplate>
+                <MudTd DataLabel="Title">@context.Title</MudTd>
+                <MudTd DataLabel="Category">@context.Category.Name</MudTd>
+                <MudTd DataLabel="Description">@context.Description</MudTd>
+                <MudTd DataLabel="Uploaded By">@context.UploadedBy.Username</MudTd>
+                <MudTd DataLabel="File Type">@context.ContentType</MudTd>
+                <MudTd DataLabel="Download"><MudButton Variant="Variant.Filled" @onclick="() => DownloadFile(context.Id)">Download</MudButton></MudTd>
 
-    </RowTemplate>
-    <PagerContent>
-        <MudTablePager />
-    </PagerContent>
-</MudTable>
+            </RowTemplate>
+            <PagerContent>
+                <MudTablePager />
+            </PagerContent>
+        </MudTable>
 
-<PopUp ShowPopUp="showPopUp" >
-    <div>
-        <span>@Message</span>
-        <img src="@GifPath" alt="GIF image" style="width: 100%; height: auto"/>
-        <MudButton @onclick="Proceed"> OK</MudButton>
-    </div>
-</PopUp>
+        <PopUp ShowPopUp="showPopUp" >
+            <div>
+                <span>@Message</span>
+                <img src="@GifPath" alt="GIF image" style="width: 100%; height: auto"/>
+                <MudButton @onclick="Proceed"> OK</MudButton>
+            </div>
+        </PopUp>
 
 
 
  
-<div class="d-flex flex-wrap mt-4">
-     <div style="min-width:200px;">
-         <MudText Inline="true" Class="align-self-center">Selected: @selectedFile?.Title</MudText>
-     </div>
- </div>
+        <div class="d-flex flex-wrap mt-4">
+            <div style="min-width:200px;">
+                <MudText Inline="true" Class="align-self-center">Selected: @selectedFile?.Title</MudText>
+            </div>
+        </div>
+ 
+
+    
 </CascadingAuthenticationState>
 @code {
     
@@ -181,13 +186,14 @@
     }
 
 
-    private void Delete(int id)
+    private async void Delete(int id)
     {
         try
         {
             if (id != null)
             {
                 FilegRpcClient.Delete(id);
+                files = await FilegRpcClient.GetAllDtosAsync();
                 Message = "File Deleted";
             }
             StateHasChanged();
@@ -196,6 +202,7 @@
         {
             Message = e.Message;
         }
+        showPopUp = true;
 
     }
     

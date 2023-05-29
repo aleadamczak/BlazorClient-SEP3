@@ -1,49 +1,86 @@
 ﻿@page "/ViewUploadedByMe"
 @using BlazorClient.gRPCClients.Interfaces
-@using System.Security.Claims
+@using Microsoft.AspNetCore.Components
+
 @inject IAuthService AuthService
 
 @inject IFileService FilegRpcClient
-<CascadingAuthenticationState>
-<h3>Files Uploaded By Me</h3>
-<AuthorizeView Policy="LoggedUsersOnly">
-<Authorized>
-    <MudButton Variant="Variant.Filled" EndIcon="@Icons.Material.Filled.ArrowRight" Style="background-color: #1E88E5; color: black; width: 200px; height: 60px;" @onclick="() => Delete(selectedFile.Id)">
-        Delete file
-    </MudButton>
+@inject IPrivateFileService PrivateFilegRpcClient
 
-    <MudTable Items="@files" Hover="true" Breakpoint="Breakpoint.Sm" @ref="mudTable" RowClassFunc="@SelectedRowClassFunc" Filter="new Func<FileDisplayDto,bool>(FilterFunc1)" @bind-SelectedItem="selectedFile">
-        <ToolBarContent>
-            <MudSpacer />
-            <MudTextField @bind-Value="searchString1" Placeholder="Search" Adornment="Adornment.Start" AdornmentIcon="@Icons.Material.Filled.Search" IconSize="Size.Medium" Class="mt-0"></MudTextField>
-        </ToolBarContent>
-        <HeaderContent>
-            <MudTh>Title</MudTh>
-            <MudTh>File Type</MudTh>
-            <MudTh> File Description </MudTh>
-            <MudTh> File Category </MudTh>
-        </HeaderContent>
-        <RowTemplate Context ="content">
-            <MudTd DataLabel="Title">@content.Title</MudTd>
-            <MudTd DataLabel="File Type">@content.ContentType</MudTd>
-            <MudTd DataLabel="File Description">@content.Description</MudTd>
-            <MudTd DataLabel="File Category">@content.Description</MudTd>
-        </RowTemplate>
-        <PagerContent>
-            <MudTablePager />
-        </PagerContent>
-    </MudTable>
-</Authorized>
-    <NotAuthorized>
-        <h5>You must be logged in!</h5>
-    </NotAuthorized>
-</AuthorizeView>
+<style>
+    .selected {
+        background-color: #1E88E5 !important;
+    }
+
+        .selected > td {
+            color: black !important;
+        }
+
+            .selected > td .mud-input {
+                color: black !important;
+            }
+</style>
+
+<CascadingAuthenticationState>
+    <h3>Files Uploaded By Me</h3>
+  
+    <AuthorizeView Policy="LoggedUsersOnly">
+         
+        <Authorized>
+             @if (!string.IsNullOrEmpty(Message))
+                        {
+                            <div>
+                                 <MudAlert Severity="Severity.Success">@Message</MudAlert>
+                            </div>
+                        }
+            <MudButton Variant="Variant.Filled" EndIcon="@Icons.Material.Filled.ArrowRight" Style="background-color: #1E88E5; color: black; width: 200px; height: 60px;" @onclick="() => Delete(selectedFile.Id)">
+                Delete file
+            </MudButton>
+
+            <MudTable Items="@files" Hover="true" Breakpoint="Breakpoint.Sm" @ref="mudTable" RowClassFunc="@SelectedRowClassFunc" Filter="new Func<FileDisplayDto, bool>(FilterFunc1)" @bind-SelectedItem="selectedFile">
+                <ToolBarContent>
+                    <MudSpacer/>
+                    <MudTextField @bind-Value="searchString1" Placeholder="Search" Adornment="Adornment.Start" AdornmentIcon="@Icons.Material.Filled.Search" IconSize="Size.Medium" Class="mt-0"></MudTextField>
+                </ToolBarContent>
+                <HeaderContent>
+                    <MudTh>Title</MudTh>
+                    <MudTh>File Type</MudTh>
+                    <MudTh> File Description </MudTh>
+                    <MudTh> File Category </MudTh>
+                </HeaderContent>
+                <RowTemplate Context="content">
+                    <MudTd DataLabel="Title">@content.Title</MudTd>
+                    <MudTd DataLabel="File Type">@content.ContentType</MudTd>
+                    <MudTd DataLabel="File Description">@content.Description</MudTd>
+                    <MudTd DataLabel="File Category">@content.Description</MudTd>
+                </RowTemplate>
+                <PagerContent>
+                    <MudTablePager/>
+                </PagerContent>
+            </MudTable>
+
+            <div class="d-flex flex-wrap mt-4">
+                <div style="min-width:200px;">
+                    <MudText Inline="true" Class="align-self-center">Selected: @selectedFile?.Title</MudText>
+                </div>
+            </div>
+        </Authorized>
+        <NotAuthorized>
+            <h5>You must be logged in!</h5>
+        </NotAuthorized>
+
+
+
+    </AuthorizeView>
+    
+    
 
 </CascadingAuthenticationState>
 @code {
     
     
     private IEnumerable<FileDisplayDto> files { get; set; }
+    private IEnumerable<FileDisplayDto> allFiles { get; set; }
     private int selectedRowNumber = -1;
     private MudTable<FileDisplayDto> mudTable;
     private string searchString1 = "";
@@ -85,10 +122,10 @@
     {
         try
             {
-                var allFileDtos = await FilegRpcClient.GetAllDtosAsync();
+                allFiles = await FilegRpcClient.GetAllDtosAsync();
 
                 User user = await AuthService.getAuthenticatedUserObject();
-                files = allFileDtos.Where(f => f.UploadedBy.Equals(user));
+                files = allFiles.Where(f => f.UploadedBy.Equals(user));
 
             }
             catch (Exception)
@@ -98,21 +135,28 @@
     }
 
 
-    private void Delete(int id)
+    private async void Delete(int id)
     {
         try
         {
             if (id != null)
             {
                 FilegRpcClient.Delete(id);
+                allFiles = await FilegRpcClient.GetAllDtosAsync();
+
+                User user = await AuthService.getAuthenticatedUserObject();
+                files = allFiles.Where(f => f.UploadedBy.Equals(user));
                 Message = "File Deleted";
+                Console.WriteLine("works");
             }
             StateHasChanged();
+
         }
         catch (Exception e)
         {
             Message = e.Message;
         }
+        showPopUp = true;
 
     }
     
