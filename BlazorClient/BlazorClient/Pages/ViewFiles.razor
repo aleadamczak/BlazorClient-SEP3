@@ -23,14 +23,15 @@
                 color: black !important;
             }
 </style>
-
+<CascadingAuthenticationState>
 <h1>All Files</h1>
-
-@* to be disabled for regular users *@
+<AuthorizeView Policy="MustBeAdmin">
+    <Authorized>
 <MudButton Variant="Variant.Filled" EndIcon="@Icons.Material.Filled.ArrowRight" Style="background-color: #1E88E5; color: black; width: 200px; height: 60px;" @onclick="() => Delete(selectedFile.Id)">
     Delete file
 </MudButton>
-
+    </Authorized>
+</AuthorizeView>
 @if (!string.IsNullOrEmpty(Message))
 {
     <div>
@@ -87,7 +88,7 @@
          <MudText Inline="true" Class="align-self-center">Selected: @selectedFile?.Title</MudText>
      </div>
  </div>
-
+</CascadingAuthenticationState>
 @code {
     
     private IEnumerable<FileDisplayDto>? files { get; set; }
