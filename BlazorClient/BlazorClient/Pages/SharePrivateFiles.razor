@@ -5,7 +5,11 @@
 @using Microsoft.AspNetCore.Components
 @inject IUserService GRpcUserService
 @inject IPrivateFileService GRpcPrivateFileService
+@inject IAuthService AuthService
+<CascadingAuthenticationState>
 <h3>Share Files With Other Users Privately</h3>
+<AuthorizeView Policy="LoggedUsersOnly">
+    <Authorized>
 @if (!string.IsNullOrEmpty(Message))
 {
     <div>
@@ -15,7 +19,7 @@
 
 
 <MudTextField @bind-Value="Title" Label="Title" Variant="Variant.Text"></MudTextField>
-<MudTextField @bind-Value="Username" Label="Username" Variant="Variant.Text"></MudTextField>
+@* <MudTextField @bind-Value="Username" Label="Username" Variant="Variant.Text"></MudTextField> *@
 <MudTextField @bind-Value="selectedUsersString" Label="Share File With" Variant="Variant.Filled" Disabled="true" />
 <InputFile OnChange="@LoadFiles" />
 <MudButton OnClick="@CreateAsync" Variant="Variant.Filled" Color="Color.Primary"> Submit File </MudButton>
@@ -31,11 +35,11 @@
         <MudTh>Role</MudTh>
         <MudTh>Add User</MudTh>
     </HeaderContent>
-    <RowTemplate>
-        <MudTd DataLabel="Username">@context.Username</MudTd>
-        <MudTd DataLabel="Full Name">@context.Name</MudTd>
+    <RowTemplate Context="content">
+        <MudTd DataLabel="Username">@content.Username</MudTd>
+        <MudTd DataLabel="Name">@content.Name</MudTd>
         <MudTd DataLabel="Role">
-            @if (context.IsAdmin)
+            @if (content.IsAdmin)
             {
                 <text>Admin</text>
             }
@@ -45,9 +49,9 @@
             }
         </MudTd>
         <MudTd DataLabel="Button">
-            <MudButton @onclick="@(() => UpdateSelectedItems(context))">
+            <MudButton @onclick="@(() => UpdateSelectedItems(content))">
                 
-                @if (selectedUsers.Contains(context))
+                @if (selectedUsers.Contains(content))
                 {
                     <text>Remove</text>
                 }
@@ -70,9 +74,14 @@
         <MudButton @onclick="Proceed"> OK</MudButton>
     </div>
 </PopUp>
+</Authorized>
+<NotAuthorized>
+    <h5>You must be logged in!</h5>
+</NotAuthorized>
 
+</AuthorizeView>
 
-
+</CascadingAuthenticationState>
 @code {
     
     private IBrowserFile? file;
@@ -115,7 +124,7 @@
 
             try
             {
-
+                Username = await AuthService.getAuthenticatedUsername();
                 var newFile = new PrivateFileCreationDto()
                 {
                     Title = Title,

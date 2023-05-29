@@ -1,35 +1,45 @@
 ﻿@page "/ViewUploadedByMe"
 @using BlazorClient.gRPCClients.Interfaces
+@using System.Security.Claims
+@inject IAuthService AuthService
 
 @inject IFileService FilegRpcClient
+<CascadingAuthenticationState>
 <h3>Files Uploaded By Me</h3>
+<AuthorizeView Policy="LoggedUsersOnly">
+<Authorized>
+    <MudButton Variant="Variant.Filled" EndIcon="@Icons.Material.Filled.ArrowRight" Style="background-color: #1E88E5; color: black; width: 200px; height: 60px;" @onclick="() => Delete(selectedFile.Id)">
+        Delete file
+    </MudButton>
 
-<MudButton Variant="Variant.Filled" EndIcon="@Icons.Material.Filled.ArrowRight" Style="background-color: #1E88E5; color: black; width: 200px; height: 60px;" @onclick="() => Delete(selectedFile.Id)">
-    Delete file
-</MudButton>
+    <MudTable Items="@files" Hover="true" Breakpoint="Breakpoint.Sm" @ref="mudTable" RowClassFunc="@SelectedRowClassFunc" Filter="new Func<FileDisplayDto,bool>(FilterFunc1)" @bind-SelectedItem="selectedFile">
+        <ToolBarContent>
+            <MudSpacer />
+            <MudTextField @bind-Value="searchString1" Placeholder="Search" Adornment="Adornment.Start" AdornmentIcon="@Icons.Material.Filled.Search" IconSize="Size.Medium" Class="mt-0"></MudTextField>
+        </ToolBarContent>
+        <HeaderContent>
+            <MudTh>Title</MudTh>
+            <MudTh>File Type</MudTh>
+            <MudTh> File Description </MudTh>
+            <MudTh> File Category </MudTh>
+        </HeaderContent>
+        <RowTemplate Context ="content">
+            <MudTd DataLabel="Title">@content.Title</MudTd>
+            <MudTd DataLabel="File Type">@content.ContentType</MudTd>
+            <MudTd DataLabel="File Description">@content.Description</MudTd>
+            <MudTd DataLabel="File Category">@content.Description</MudTd>
+        </RowTemplate>
+        <PagerContent>
+            <MudTablePager />
+        </PagerContent>
+    </MudTable>
+</Authorized>
+    <NotAuthorized>
+        <h5>You must be logged in!</h5>
+    </NotAuthorized>
+</AuthorizeView>
 
-<MudTable Items="@files" Hover="true" Breakpoint="Breakpoint.Sm" @ref="mudTable" RowClassFunc="@SelectedRowClassFunc" Filter="new Func<FileDisplayDto,bool>(FilterFunc1)" @bind-SelectedItem="selectedFile">
-    <ToolBarContent>
-        <MudSpacer />
-        <MudTextField @bind-Value="searchString1" Placeholder="Search" Adornment="Adornment.Start" AdornmentIcon="@Icons.Material.Filled.Search" IconSize="Size.Medium" Class="mt-0"></MudTextField>
-    </ToolBarContent>
-    <HeaderContent>
-        <MudTh>Title</MudTh>
-        <MudTh>File Type</MudTh>
-        <MudTh> File Description </MudTh>
-        <MudTh> File Category </MudTh>
-    </HeaderContent>
-    <RowTemplate>
-        <MudTd DataLabel="Title">@context.Title</MudTd>
-        <MudTd DataLabel="File Type">@context.ContentType</MudTd>
-        <MudTd DataLabel="File Description">@context.Description</MudTd>
-        <MudTd DataLabel="File Category">@context.Description</MudTd>
-    </RowTemplate>
-    <PagerContent>
-        <MudTablePager />
-    </PagerContent>
-</MudTable>
-
+</CascadingAuthenticationState>
 @code {
     
     
@@ -73,21 +83,21 @@
 
     protected override async Task OnInitializedAsync()
     {
-
         try
-        {
-            var allFileDtos = await FilegRpcClient.GetAllDtosAsync();
-            files = allFileDtos.Where(f => f.UploadedBy.Equals(new User())); // to be changed so that it takes the logged in user 
+            {
+                var allFileDtos = await FilegRpcClient.GetAllDtosAsync();
 
-        }
-        catch (Exception)
-        {
-            Console.WriteLine("Exception occured when fetching file data");
-        }
+                User user = await AuthService.getAuthenticatedUserObject();
+                files = allFileDtos.Where(f => f.UploadedBy.Equals(user));
 
+            }
+            catch (Exception)
+            {
+                Console.WriteLine("Exception occured when fetching file data");
+            }
     }
-    
-    
+
+
     private void Delete(int id)
     {
         try

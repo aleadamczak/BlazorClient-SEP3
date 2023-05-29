@@ -1,7 +1,11 @@
+using System.Text;
+using BlazorClient.Auth;
 using BlazorClient.gRPCClients.Implementations;
 using BlazorClient.gRPCClients.Interfaces;
 using Grpc.Net.Client;
+using Microsoft.AspNetCore.Components.Authorization;
 using MudBlazor.Services;
+
 
 
 var builder = WebApplication.CreateBuilder(args);
@@ -16,16 +20,13 @@ builder.Services.AddScoped<IFileService, FilegRpcClient>();
 builder.Services.AddScoped<ICategoryService, CategorygRpcClient>();
 builder.Services.AddScoped<IPrivateFileService, PrivateFilegRpcClient>();
 
+builder.Services.AddScoped<AuthenticationStateProvider, CustomAuthProvider>();
+builder.Services.AddScoped<IAuthService, JwtAuthService>();
 
- 
 
-    // var httpClient = new HttpClient(new GrpcWebHandler(GrpcWebMode.GrpcWeb, new HttpClientHandler()));
-    // httpClient.BaseAddress = new Uri("http://localhost:9090"); // Update with your server's URL
-    //
-    // return GrpcChannel.ForAddress(httpClient.BaseAddress, new GrpcChannelOptions
-    // {
-    //     HttpClient = httpClient
-    // });
+
+AuthorizationPolicies.AddPolicies(builder.Services);
+builder.Services.AddAuthorizationCore();
 
 builder.Services.AddSingleton(services =>
 {
@@ -81,5 +82,6 @@ app.UseRouting();
 
 app.MapBlazorHub();
 app.MapFallbackToPage("/_Host");
+
 
 app.Run();

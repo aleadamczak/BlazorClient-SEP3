@@ -31,6 +31,20 @@ main {
         text-overflow: ellipsis;
     }
 
+.login-button {
+    display: flex;
+    align-items: center;
+}
+
+.icon-button {
+    margin-right: 10px;
+}
+
+.login-text {
+    margin: 0;
+}
+
+
 @media (max-width: 640.98px) {
     .top-row:not(.auth) {
         display: none;
